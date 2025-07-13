@@ -1,0 +1,101 @@
+{
+  "header": {
+    "searchPlaceholder": "Search..."
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "branches": "Branches",
+    "packages": "Packages",
+    "payments": "Payments",
+    "settings": "Settings",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "dashboard": {
+    "totalSales": "Total Sales",
+    "clients": "Clients",
+    "printedPhotos": "Printed Photos",
+    "activeBooths": "Active Booths",
+    "egp": "EGP",
+    "date": "Date",
+    "name": "Name",
+    "noCustomers": "NO. Customers",
+    "noPhotos": "NO. Photos",
+    "noEmployeesFound": "No employees found for the selected date",
+    "viewAllEmployees": "View all employees",
+    "previous": "Previous",
+    "next": "Next",
+    "areaChartTitle": "Area Chart - Gradient",
+    "areaChartDescription": "Showing total visitors for the last 6 months",
+    "soldPhotos": "Sold photos",
+    "sold": "Sold",
+    "captured": "Captured"
+  },
+  "branches": {
+    "status": "Status",
+    "name": "Name",
+    "noEmployees": "NO. Employees",
+    "noPhotographers": "NO. Photographers",
+    "location": "Location",
+    "noBranchesFound": "No branches found",
+    "addBranch": "Add Branch",
+    "save": "Add"
+  },
+  "employees": {
+    "employeesTab": "Employees",
+    "photographersTab": "Photographers",
+    "status": "Status",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "phoneNumber": "Phone Number",
+    "branch": "Branch",
+    "noEmployeesFound": "No employees found for the selected date",
+    "add": "Add",
+    "addEmployee": "Add Employee",
+    "save": "Add",
+    "cancel": "Cancel",
+    "selectBranch": "Select branch"
+  },
+  "packages": {
+    "status": "Status",
+    "name": "Name",
+    "noPhotos": "NO. Photos",
+    "price": "Price",
+    "branch": "Branch",
+    "description": "Description",
+    "noPackagesFound": "No packages found",
+    "addPackage": "Add Package",
+    "save": "Add",
+    "image": "Image"
+  },
+  "payments": {
+    "nasrCity": "Nasr City",
+    "zamalek": "Zamalek",
+    "mohandseen": "Mohandseen",
+    "dokki": "Dokki",
+    "agouza": "Agouza"
+  },
+  "logout": {
+    "logOut": "Log Out",
+    "confirmMessage": "Are you sure you want to log out?",
+    "cancel": "Cancel"
+  },
+  "clients": {
+    "code": "Code",
+    "mobileNumber": "Mobile Number",
+    "receipt": "Receipt",
+    "noClientsFound": "No clients found"
+  },
+  "photographers": {
+    "add": "Add",
+    "addPhotographer": "Add Photographer",
+    "save": "Add",
+    "cancel": "Cancel",
+    "selectBranch": "Select branch",
+    "name": "Name",
+    "branch": "Branch"
+  },
+  "branch-manager-created-successfully": "Branch manager created successfully"
+}

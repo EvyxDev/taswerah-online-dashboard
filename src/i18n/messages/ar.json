@@ -1,0 +1,102 @@
+{
+  "header": {
+    "searchPlaceholder": "البحث..."
+  },
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "employees": "الموظفين",
+    "branches": "الفروع",
+    "packages": "الحزم",
+    "payments": "المدفوعات",
+    "settings": "الإعدادات",
+    "next": "التالي",
+    "previous": "السابق"
+  },
+  "dashboard": {
+    "totalSales": "إجمالي المبيعات",
+    "clients": "العملاء",
+    "printedPhotos": "الصور المطبوعة",
+    "activeBooths": "الأكشاك النشطة",
+    "egp": "ج.م",
+    "date": "التاريخ",
+    "name": "الاسم",
+    "noCustomers": "عدد العملاء",
+    "noPhotos": "عدد الصور",
+    "noEmployeesFound": "لا يوجد موظفون في التاريخ المحدد",
+    "viewAllEmployees": "عرض جميع الموظفين",
+    "previous": "السابق",
+    "next": "التالي",
+    "areaChartTitle": "مخطط المساحة - تدرج لوني",
+    "areaChartDescription": "عرض إجمالي الزوار لآخر 6 أشهر",
+    "soldPhotos": "الصور المباعة",
+    "sold": "مباع",
+    "captured": "تم التقاطها"
+  },
+  "employees": {
+    "employeesTab": "الموظفين",
+    "photographersTab": "المصورين",
+    "status": "الحالة",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "phoneNumber": "رقم الهاتف",
+    "branch": "الفرع",
+    "noEmployeesFound": "لا يوجد موظفون في التاريخ المحدد",
+    "add": "إضافة",
+    "addEmployee": "إضافة موظف",
+    "save": "إضافة",
+    "cancel": "إلغاء",
+    "selectBranch": "اختر الفرع"
+  },
+  "photographers": {
+    "add": "إضافة",
+    "addPhotographer": "إضافة مصور",
+    "save": "إضافة",
+    "cancel": "إلغاء",
+    "selectBranch": "اختر الفرع",
+    "name": "الاسم",
+    "branch": "الفرع"
+  },
+  "branches": {
+    "status": "الحالة",
+    "name": "الاسم",
+    "noEmployees": "عدد الموظفين",
+    "noPhotographers": "عدد المصورين",
+    "location": "الموقع",
+    "noBranchesFound": "لا توجد فروع",
+    "addBranch": "إضافة فرع",
+    "save": "إضافة"
+  },
+  "packages": {
+    "status": "الحالة",
+    "name": "الاسم",
+    "noPhotos": "عدد الصور",
+    "price": "السعر",
+    "branch": "الفرع",
+    "description": "الوصف",
+    "noPackagesFound": "لا توجد باقات",
+    "addPackage": "إضافة حزمة",
+    "save": "إضافة",
+    "image": "الصورة"
+  },
+  "payments": {
+    "nasrCity": "مدينة نصر",
+    "zamalek": "الزمالك",
+    "mohandseen": "المهندسين",
+    "dokki": "الدقي",
+    "agouza": "العجوزة"
+  },
+  "logout": {
+    "logOut": "تسجيل الخروج",
+    "confirmMessage": "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
+    "cancel": "إلغاء"
+  },
+  "clients": {
+    "clients": "العملاء",
+    "code": "الكود",
+    "mobileNumber": "رقم الجوال",
+    "receipt": "الإيصال",
+    "noClientsFound": "لا يوجد عملاء"
+  },
+  "branch-manager-created-successfully": "تم إنشاء مدير الفرع بنجاح"
+}
