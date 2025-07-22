@@ -9,15 +9,16 @@ declare module "next-auth" {
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
-    staff: {
+    admin: {
       id: number;
       name: string;
       email: string;
-      branch_id: string;
+      phone: string;
+      is_super_admin: boolean;
       role: string;
-      stats: {
-        total_photos: number;
-        total_customers: number;
+      permissions: {
+        view_dashboard: boolean;
+        manage_branches: boolean;
       };
     } & DatabaseProperies;
     token: string;
@@ -27,7 +28,7 @@ declare module "next-auth" {
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
-    user: User["staff"];
+    user: User["admin"];
   }
 }
 declare module "next-auth/jwt" {

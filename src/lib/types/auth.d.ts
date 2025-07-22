@@ -5,16 +5,17 @@ export type LoginResponse = Pick<User, "token" | "user">;
 
 export type RegisterResponse = Pick<User, "token" | "user">;
 
-export interface customStuff extends User {
-  staff: {
+export interface customAdmin extends User {
+  admin: {
     id: number;
     name: string;
     email: string;
-    branch_id: string;
+    phone: string;
+    is_super_admin: boolean;
     role: string;
-    stats: {
-      total_photos: number;
-      total_customers: number;
+    permissions: {
+      view_dashboard: boolean;
+      manage_branches: boolean;
     };
   } & DatabaseProperies;
   token: string;

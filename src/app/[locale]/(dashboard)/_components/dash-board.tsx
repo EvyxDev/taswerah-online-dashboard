@@ -10,7 +10,8 @@ import { IoMdHome } from "react-icons/io";
 import DashTable from "./dash-table";
 import { useTranslations } from "next-intl";
 
-export default function DashBoard() {
+export default function DashBoard({ homeStates }: { homeStates: homeStates }) {
+  const { photo_stats, sales_chart, staff_performance, summary } = homeStates;
   const t = useTranslations();
   return (
     <div className=" space-y-8 px-6 xl:px-10 py-5">
@@ -25,9 +26,9 @@ export default function DashBoard() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="py-10 space-y-8">
-        <CardSection />
-        <ChartsSectoin />
-        <DashTable />
+        <CardSection summary={summary} />
+        <ChartsSectoin photoStats={photo_stats} SalesChart={sales_chart} />
+        <DashTable StaffPerformanceEntry={staff_performance} />
       </div>
     </div>
   );

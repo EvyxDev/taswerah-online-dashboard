@@ -20,15 +20,10 @@ import { useTranslations } from "next-intl";
 
 export const description = "An area chart with gradient fill";
 
-const chartData = [
-  { month: "July", desktop: 0 },
-  { month: "August", desktop: 320 },
-  { month: "September", desktop: 220 },
-  { month: "October", desktop: 450 },
-  { month: "November", desktop: 750 },
-  { month: "December", desktop: 200 },
-  { month: "January", desktop: 650 },
-];
+type SalesChart = {
+  labels: string[];
+  data: number[];
+};
 
 const chartConfig = {
   desktop: {
@@ -37,11 +32,17 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartAreaGradient() {
+export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
   const t = useTranslations();
+
+  const chartData = SalesChart.labels.map((label, index) => ({
+    month: label,
+    desktop: SalesChart.data[index] ?? 0,
+  }));
+
   return (
-    <Card className="pt-10 pb-5  pl-0 rounded-3xl">
-      <CardHeader className="sr-only ">
+    <Card className="pt-10 pb-5 pl-0 rounded-3xl">
+      <CardHeader className="sr-only">
         <CardTitle>{t("dashboard.areaChartTitle")}</CardTitle>
         <CardDescription>{t("dashboard.areaChartDescription")}</CardDescription>
       </CardHeader>
@@ -51,7 +52,6 @@ export function ChartAreaGradient() {
             accessibilityLayer
             data={chartData}
             margin={{ left: 12, right: 12 }}
-            className=""
             height={100}
           >
             <CartesianGrid vertical={false} />
@@ -66,7 +66,7 @@ export function ChartAreaGradient() {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              domain={[0, 800]}
+              domain={[0, Math.max(...SalesChart.data, 800)]}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>
