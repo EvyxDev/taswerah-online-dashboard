@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -26,7 +27,9 @@ import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteEmployeer from "../_hooks/use-delete-employeer";
 const ITEMS_PER_PAGE = 7;
 
-export default function EmployeesTable() {
+type Props = { employees: Staff[] };
+
+export default function EmployeesTable({ employees }: Props) {
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +38,7 @@ export default function EmployeesTable() {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const currentEmployees = employeesData.slice(startIndex, endIndex);
-
+  console.log("table", employees);
   const goToPage = (page: number) => {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   };
