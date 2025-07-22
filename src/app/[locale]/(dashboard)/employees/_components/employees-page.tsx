@@ -7,33 +7,15 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EmployeesTable from "./employees-table";
 import PhotographersTable from "./photographers-table";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function EmployeesPage() {
   const t = useTranslations("employees");
   const [activeTab, setActiveTab] = useState("employees");
-  const locale =
-    typeof window !== "undefined"
-      ? window.location.pathname.split("/")[1]
-      : "en";
-
-  const tabs = [
-    { value: "employees", label: t("employeesTab") },
-    { value: "photographers", label: t("photographersTab") },
-  ];
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case "employees":
-        return <EmployeesTable />;
-      case "photographers":
-        return <PhotographersTable />;
-      default:
-        return <EmployeesTable />;
-    }
-  };
+  const locale = useLocale();
 
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
@@ -50,30 +32,40 @@ export default function EmployeesPage() {
       </Breadcrumb>
 
       <div className="py-10">
-        <div className="w-full">
-          {/* Custom Tab Navigation */}
-          <div className="bg-transparent gap-5 flex">
-            {tabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => setActiveTab(tab.value)}
-                className={`text-3xl font-homenaje py-4 px-8 rounded-2xl transition-colors ${
-                  activeTab === tab.value
-                    ? "bg-black text-white"
-                    : "bg-[#FAFAFA] text-black hover:bg-gray-200"
-                }`}
-                style={{
-                  direction: locale === "ar" ? "rtl" : "ltr",
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        <Tabs
+          dir={locale === "ar" ? "rtl" : "ltr"}
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="w-full"
+        >
+          <TabsList
+            className="bg-transparent gap-5 h-auto p-0 justify-start"
+            style={{
+              direction: locale === "ar" ? "rtl" : "ltr",
+            }}
+          >
+            <TabsTrigger
+              value="employees"
+              className="text-3xl font-homenaje py-4 px-8 rounded-2xl transition-colors data-[state=active]:bg-black data-[state=active]:text-white bg-[#FAFAFA] text-black hover:bg-gray-200 data-[state=active]:shadow-none"
+            >
+              {t("employeesTab")}
+            </TabsTrigger>
+            <TabsTrigger
+              value="photographers"
+              className="text-3xl font-homenaje py-4 px-8 rounded-2xl transition-colors data-[state=active]:bg-black data-[state=active]:text-white bg-[#FAFAFA] text-black hover:bg-gray-200 data-[state=active]:shadow-none"
+            >
+              {t("photographersTab")}
+            </TabsTrigger>
+          </TabsList>
 
-          {/* Content */}
-          <div className="mt-10">{renderContent()}</div>
-        </div>
+          <TabsContent value="employees" className="mt-10">
+            <EmployeesTable />
+          </TabsContent>
+
+          <TabsContent value="photographers" className="mt-10">
+            <PhotographersTable />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
