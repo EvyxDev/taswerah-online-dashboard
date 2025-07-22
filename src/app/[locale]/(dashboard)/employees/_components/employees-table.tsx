@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import { employeesData } from "@/lib/constants/data.constant";
+// import { employeesData } from "@/lib/constants/data.constant";
 import { useTranslations } from "next-intl";
 import { Switch } from "@/components/ui/switch";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
@@ -27,31 +27,44 @@ import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteEmployeer from "../_hooks/use-delete-employeer";
 const ITEMS_PER_PAGE = 7;
 
-type Props = { employees: Staff[] };
+interface Props {
+  employees: PaginatedEmployees;
+  onPageChange: (page: number) => void;
+  currentPage: number;
+}
 
-export default function EmployeesTable({ employees }: Props) {
+export default function EmployeesTable({ employees, onPageChange, currentPage }: Props) {
+  // Translation
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
-  const [currentPage, setCurrentPage] = useState(1);
+
+  // States
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  // Hooks
   const { DeleteEmployeer } = useDeleteEmployeer();
+
+  // Variables
+  const employeesData = employees.data;
   const totalPages = Math.ceil(employeesData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const currentEmployees = employeesData.slice(startIndex, endIndex);
-  console.log("table", employees);
+
+  // Functions
   const goToPage = (page: number) => {
-    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+    onPageChange(page);
   };
 
   const goToPrevious = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      onPageChange(currentPage - 1);
     }
   };
 
   const goToNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      onPageChange(currentPage + 1);
     }
   };
 
@@ -104,7 +117,7 @@ export default function EmployeesTable({ employees }: Props) {
               variant="secondary"
               className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
             >
-              {employeesData.length}
+              {employeesData?.length || 0}
             </Badge>
           </div>
           <AddOrEditEmployeeDialog />
@@ -124,9 +137,9 @@ export default function EmployeesTable({ employees }: Props) {
                 <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("email")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
+                {/* <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("password")}
-                </TableHead>
+                </TableHead> */}
                 <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[200px]">
                   {t("phoneNumber")}
                 </TableHead>
@@ -148,7 +161,7 @@ export default function EmployeesTable({ employees }: Props) {
                     }`}
                   >
                     <TableCell>
-                      <Switch checked={employee.status} />
+                      <Switch checked={employee.status === "active"} />
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3 ">
@@ -171,20 +184,20 @@ export default function EmployeesTable({ employees }: Props) {
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
                       {employee.email}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                    {/* <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12"> */}
                       {/* Password cell with eye icon */}
-                      <PasswordCell password={employee.password} />
+                      {/* <PasswordCell password={employee?.password || t("Unknown")} />
+                    </TableCell> */}
+                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                      {employee.phone}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {employee.phoneNumber}
-                    </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {employee.branch}
+                      {employee?.branch?.name || t("unknown")}
                     </TableCell>
                     <TableCell className="text-center">
                       <div className="flex justify-center gap-7">
                         <DeleteDialog
-                          action={() => DeleteEmployeer({ id: "24" })}
+                          action={() => DeleteEmployeer({ id: String(employee.id) })}
                           description="Are you sure you want to delete this employee? This action cannot be undone."
                           title="Delete Employee"
                         >
