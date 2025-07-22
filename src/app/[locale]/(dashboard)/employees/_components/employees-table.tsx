@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -24,7 +25,9 @@ import { Switch } from "@/components/ui/switch";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 const ITEMS_PER_PAGE = 7;
 
-export default function EmployeesTable() {
+type Props = {employees: EmployeesResponse, PhotoGraphers: PhGrapherResponse}
+
+export default function EmployeesTable({employees, PhotoGraphers}: Props) {
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
   const [currentPage, setCurrentPage] = useState(1);
