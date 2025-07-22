@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { JSON_HEADER } from "./lib/constants/api.constant";
-import { customStuff } from "./lib/types/auth";
+import { customAdmin } from "./lib/types/auth";
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -15,30 +15,33 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        const response = await fetch(`${process.env.API}/staff/login`, {
-          method: "POST",
-          body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
-            role: "admin",
-          }),
-          headers: {
-            ...JSON_HEADER,
-          },
-        });
-
-        const payload: APIResponse<customStuff> = await response.json();
+        const response = await fetch(
+          `${process.env.API}/onlinedashboard/admin/login`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+              role: "admin",
+            }),
+            headers: {
+              ...JSON_HEADER,
+            },
+          }
+        );
+        console.log(response);
+        const payload: APIResponse<customAdmin> = await response.json();
         // Throw an auth error if the login has failed
         if (!payload.success) {
           throw new Error(payload.message);
         }
 
-        const successPayload = payload as SuccessfulResponse<customStuff>;
+        const successPayload = payload as SuccessfulResponse<customAdmin>;
 
         // Return the user object that matches the User interface
         return {
-          id: successPayload.data.staff._id,
-          staff: successPayload.data.staff,
+          id: successPayload.data.admin._id,
+          admin: successPayload.data.admin,
           token: successPayload.data.token,
         };
       },
@@ -48,7 +51,7 @@ export const authOptions: NextAuthOptions = {
     jwt: ({ token, user }) => {
       // If the user exists it was a successful login attempt, so save the new user data in the cookies
       if (user) {
-        token.staff = user.staff;
+        token.admin = user.admin;
         token.token = user.token;
       }
 
@@ -56,7 +59,7 @@ export const authOptions: NextAuthOptions = {
     },
     session: ({ session, token }) => {
       // Decode the user data from the token cookie and store it in the session object
-      session.user = token.staff;
+      session.user = token.admin;
 
       return session;
     },

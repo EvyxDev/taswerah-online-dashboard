@@ -32,28 +32,28 @@ const Card = ({ title, value, unit, iconSrc }: CardProps) => {
   );
 };
 
-export default function CardSection() {
+export default function CardSection({ summary }: { summary: Summary }) {
   const t = useTranslations();
   const cardData = [
     {
       title: t("dashboard.totalSales"),
-      value: "4500",
+      value: parseFloat(summary.total_sales).toFixed(0),
       unit: t("dashboard.egp"),
       iconSrc: "/assets/dash-board-1.svg",
     },
     {
       title: t("dashboard.clients"),
-      value: "1500",
+      value: summary.total_clients,
       iconSrc: "/assets/dash-board-2.svg",
     },
     {
       title: t("dashboard.printedPhotos"),
-      value: "1500",
+      value: summary.printed_photos,
       iconSrc: "/assets/dash-board-3.svg",
     },
     {
       title: t("dashboard.activeBooths"),
-      value: "5",
+      value: summary.active_booths,
       iconSrc: "/assets/dash-board-4.svg",
     },
   ];
