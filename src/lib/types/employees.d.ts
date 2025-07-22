@@ -15,6 +15,8 @@ declare type CreateBranchManagerBody = {
   phone: string;
   password: string;
   branch_id: string;
+  role?: string;
+  status?: string;
 };
 
 type Branch = {

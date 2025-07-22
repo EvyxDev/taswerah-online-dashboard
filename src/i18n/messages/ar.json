@@ -61,7 +61,12 @@
     "cancel": "إلغاء",
     "selectBranch": "اختر الفرع",
     "name": "الاسم",
-    "branch": "الفرع"
+    "branch": "الفرع",
+    "errorEditingPhotographer": "يجب أن يكون الاسم فريدًا",
+    "updating": "جاري التحديث",
+    "adding": "جاري الاضافة",
+    "update": "تحديث",
+    "editPhotographer": " تحديث مصور"
   },
   "branches": {
     "status": "الحالة",

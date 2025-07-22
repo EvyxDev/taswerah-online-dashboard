@@ -8,6 +8,7 @@ export default async function editPhotographer(
   id: string
 ) {
   const token = await getAuthToken();
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/photographer/${id}`,
     {
@@ -19,7 +20,6 @@ export default async function editPhotographer(
       },
     }
   );
-  console.log(data);
   if (!response.ok) {
     throw new Error("Failed to Update photographer");
   }

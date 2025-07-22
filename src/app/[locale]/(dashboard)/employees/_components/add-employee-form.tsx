@@ -50,11 +50,10 @@ export default function AddoREditEmployeeForm({
   const { AddEmployeer, AddPending, AddError } = useCreateEmployeer();
   const { EditEmployeer, EditPending, EditError } = useEditEmployeer();
   const registerSchema = useAddEmployeeSchema();
-  const { data: branches, isLoading } = useBranches(data?.user?.token || "");
+  const { data: branches, isLoading } = useBranches(data?.token || "");
   // Determine which mutation to use
   const isPending = edit ? EditPending : AddPending;
   const error = edit ? EditError : AddError;
-  console.log(data);
   // Form
   const form = useForm<AddEmployeesFields>({
     resolver: zodResolver(registerSchema),
@@ -62,7 +61,7 @@ export default function AddoREditEmployeeForm({
       name: "",
       email: "",
       password: "",
-      branch: "1",
+      branch: "",
       phone: "",
     },
   });
@@ -74,11 +73,11 @@ export default function AddoREditEmployeeForm({
       email: values.email,
       password: values.password,
       phone: values.phone,
-      branch_id: 1,
+      branch_id: values.branch,
       role: "staff",
       status: "active",
     };
-
+    console.log(sendData);
     if (edit) {
       EditEmployeer(
         { data: sendData, id: "24" },

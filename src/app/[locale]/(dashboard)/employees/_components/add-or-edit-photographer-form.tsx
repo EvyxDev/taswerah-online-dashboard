@@ -24,11 +24,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { currentBranches } from "@/lib/constants/data.constant";
 
 // Local Components
 import useCreatePhotographer from "../_hooks/use-create-photographer";
 import useEditPhotographer from "../_hooks/use-edit-photographer";
+import { useSession } from "next-auth/react";
+import { useBranches } from "../../_hooks/use-branshes";
 
 const photographerSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -46,8 +47,10 @@ export default function AddOrEditPhotographerForm({
 }) {
   // Hooks
   const t = useTranslations("photographers");
+  const { data } = useSession();
   const { AddPhotographer, AddPending, AddError } = useCreatePhotographer();
   const { EditPhotographer, EditPending, EditError } = useEditPhotographer();
+  const { data: branches, isLoading } = useBranches(data?.token || "");
 
   // Determine which mutation to use
   const isPending = edit ? EditPending : AddPending;
@@ -65,12 +68,12 @@ export default function AddOrEditPhotographerForm({
   async function onSubmit(values: PhotographerFields) {
     const sendData: CreatePhotographerBody = {
       name: values.name,
-      branch_id: 1,
+      branch_id: Number(values.branch),
     };
 
     if (edit) {
       EditPhotographer(
-        { data: sendData, id: "2" },
+        { data: sendData, id: "36" },
         {
           onSuccess: (data) => {
             console.log("Photographer updated:", data);
@@ -143,14 +146,14 @@ export default function AddOrEditPhotographerForm({
                     <Select
                       onValueChange={field.onChange}
                       value={field.value}
-                      disabled={isPending}
+                      disabled={isPending || isLoading}
                     >
                       <SelectTrigger id="branch">
                         <SelectValue placeholder={t("selectBranch")} />
                       </SelectTrigger>
                       <SelectContent>
-                        {currentBranches.map((branch) => (
-                          <SelectItem key={branch.name} value={branch.name}>
+                        {branches?.map((branch) => (
+                          <SelectItem key={branch.id} value={String(branch.id)}>
                             {branch.name}
                           </SelectItem>
                         ))}

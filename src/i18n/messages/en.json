@@ -101,7 +101,13 @@
     "cancel": "Cancel",
     "selectBranch": "Select branch",
     "name": "Name",
-    "branch": "Branch"
+    "branch": "Branch",
+    "errorEditingPhotographer": "Name must be unique.",
+    "errorAddingPhotographer": "Name must be unique",
+    "updating": "Updating",
+    "adding": "Adding",
+    "update": "Update",
+    "editPhotographer": "Update Photographer"
   },
   "branch-manager-created-successfully": "Branch manager created successfully",
   "application-title": "Taswera Dashboard"
