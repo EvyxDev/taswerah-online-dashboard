@@ -8,9 +8,12 @@ export default async function Page() {
   const photographersData = await GetAllPhotographers();
   const photographers = photographersData.data;
 
+  console.log("ُEmployees Data: ", employees.data);
+  console.log("Photographers Data: ", photographers);
+
   return (
     <>
-      <EmployeesPage employees={employees} PhotoGraphers={photographers} />
+      <EmployeesPage employees={employees.data} PhotoGraphers={photographers.data} />
     </>
   );
 }

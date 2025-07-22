@@ -12,10 +12,17 @@ import EmployeesTable from "./employees-table";
 import PhotographersTable from "./photographers-table";
 import { useLocale, useTranslations } from "next-intl";
 
-export default function EmployeesPage() {
+export default function EmployeesPage(employees: Staff[], PhotoGraphers: PhGrapher[]) {
+
+  // Translation
   const t = useTranslations("employees");
-  const [activeTab, setActiveTab] = useState("employees");
   const locale = useLocale();
+
+  // States
+  const [activeTab, setActiveTab] = useState("employees");
+
+  console.log("employees from client: ", employees);
+  console.log("PhotoGraphers from client: ", PhotoGraphers);
 
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
@@ -59,7 +66,10 @@ export default function EmployeesPage() {
           </TabsList>
 
           <TabsContent value="employees" className="mt-10">
-            <EmployeesTable />
+            <EmployeesTable employees={employees} />
+            <div className="mt-10 text-lg text-gray-500 p-8">
+              {JSON.stringify(employees)}
+            </div>
           </TabsContent>
 
           <TabsContent value="photographers" className="mt-10">

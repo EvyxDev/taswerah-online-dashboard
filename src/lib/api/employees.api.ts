@@ -22,7 +22,7 @@ export async function GetAllEmployees() {
 
     const payload: APIResponse<EmployeesResponse> = await response.json();
 
-    console.log("Employees: ", payload);
+    // console.log("Employees: ", payload);
 
     if (!("data" in payload)) {
       throw new Error(payload.message);
@@ -58,7 +58,7 @@ export async function GetAllPhotographers() {
 
     const payload: APIResponse<PhGrapherResponse> = await response.json();
 
-    console.log("Employees: ", payload);
+    console.log("Photoooooooo: ", payload);
 
     if (!("data" in payload)) {
       throw new Error(payload.message);

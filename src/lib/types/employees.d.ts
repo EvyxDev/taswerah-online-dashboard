@@ -43,6 +43,7 @@ declare type Staff = {
   deleted_at: string | null;
 };
 
+
 type UserRole = "staff" | "photographer" | "admin" | string;
 type UserStatus = "active" | "inactive" | string;
 
@@ -62,7 +63,6 @@ declare type PhGrapher = {
 
 declare type EmployeesResponse = {
   data: Staff[];
-  message: string;
 };
 
 declare type PhGrapherResponse = {

@@ -97,5 +97,6 @@
     "name": "Name",
     "branch": "Branch"
   },
-  "branch-manager-created-successfully": "Branch manager created successfully"
+  "branch-manager-created-successfully": "Branch manager created successfully",
+  "application-title": "Taswera Dashboard"
 }

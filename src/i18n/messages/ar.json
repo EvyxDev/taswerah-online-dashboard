@@ -98,5 +98,6 @@
     "receipt": "الإيصال",
     "noClientsFound": "لا يوجد عملاء"
   },
-  "branch-manager-created-successfully": "تم إنشاء مدير الفرع بنجاح"
+  "branch-manager-created-successfully": "تم إنشاء مدير الفرع بنجاح",
+  "application-title": "لوحة تحكم تصويره"
 }
