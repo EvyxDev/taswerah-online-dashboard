@@ -10,7 +10,8 @@
     "payments": "المدفوعات",
     "settings": "الإعدادات",
     "next": "التالي",
-    "previous": "السابق"
+    "previous": "السابق",
+    "Unknown": "غير معروف"
   },
   "dashboard": {
     "totalSales": "إجمالي المبيعات",
@@ -52,7 +53,8 @@
     "errorEditingEmployee": "خطأ أثناء تعديل الموظف",
     "update": "تعديل",
     "updating": "جاري التعديل",
-    "adding": "جاري الاضافة"
+    "adding": "جاري الاضافة",
+    "unknown": "غير معروف"
   },
   "photographers": {
     "add": "إضافة",
@@ -110,5 +112,6 @@
     "noClientsFound": "لا يوجد عملاء"
   },
   "branch-manager-created-successfully": "تم إنشاء مدير الفرع بنجاح",
-  "application-title": "لوحة تحكم تصويره"
+  "application-title": "لوحة تحكم تصويره",
+  "unknown": "غير معروف"
 }

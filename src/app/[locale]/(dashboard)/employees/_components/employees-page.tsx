@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,18 +17,26 @@ export default function EmployeesPage({
   employees,
   PhotoGraphers,
 }: {
-  employees: Staff[];
-  PhotoGraphers: PhGrapher[];
+  employees: PaginatedEmployees;
+  PhotoGraphers: PaginatedPhGraphers;
 }) {
   // Translation
   const t = useTranslations("employees");
   const locale = useLocale();
 
+  // Router
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   // States
   const [activeTab, setActiveTab] = useState("employees");
-
-  console.log("employees from client: ", employees);
-  console.log("PhotoGraphers from client: ", PhotoGraphers);
+  
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    router.push(`?${params.toString()}`);
+  };
 
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
@@ -71,14 +80,19 @@ export default function EmployeesPage({
           </TabsList>
 
           <TabsContent value="employees" className="mt-10">
-            <EmployeesTable employees={employees} />
-            <div className="mt-10 text-lg text-gray-500 p-8">
-              {JSON.stringify(employees)}
-            </div>
+            <EmployeesTable 
+              employees={employees} 
+              onPageChange={handlePageChange}
+              currentPage={Number(searchParams.get("page")) || 1}
+            />
           </TabsContent>
 
           <TabsContent value="photographers" className="mt-10">
-            <PhotographersTable />
+            <PhotographersTable 
+              PhotoGraphers={PhotoGraphers} 
+              onPageChange={handlePageChange}
+              currentPage={Number(searchParams.get("page")) || 1}
+            />
           </TabsContent>
         </Tabs>
       </div>

@@ -2,11 +2,11 @@
 import { getAuthToken } from "../utils/auth.token";
 
 // Get all employees
-export async function GetAllEmployees() {
+export async function GetAllEmployees(page = 1, limit = 10) {
   const token = await getAuthToken();
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/?page=1&limit=10`,
+      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/?page=${page}&limit=${limit}`,
       {
         method: "GET",
         headers: {
@@ -20,9 +20,7 @@ export async function GetAllEmployees() {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
 
-    const payload: APIResponse<EmployeesResponse> = await response.json();
-
-    // console.log("Employees: ", payload);
+    const payload: APIResponse<PaginatedEmployees> = await response.json();
 
     if (!("data" in payload)) {
       throw new Error(payload.message);
@@ -30,19 +28,18 @@ export async function GetAllEmployees() {
 
     return payload;
   } catch (error: any) {
-    console.error("GethomeStates error:", error);
     throw new Error(
-      error?.message || "Unexpected error occurred while fetching Home States"
+      error?.message || "Unexpected error occurred while fetching Employees"
     );
   }
 }
 
 // Get all Photographers
-export async function GetAllPhotographers() {
+export async function GetAllPhotographers(page = 1, limit = 10) {
   const token = await getAuthToken();
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/photographers?page=1&limit=10`,
+      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/photographers?page=${page}&limit=${limit}`,
       {
         method: "GET",
         headers: {
@@ -56,9 +53,7 @@ export async function GetAllPhotographers() {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
 
-    const payload: APIResponse<PhGrapherResponse> = await response.json();
-
-    console.log("Photoooooooo: ", payload);
+    const payload: APIResponse<PaginatedPhGraphers> = await response.json();
 
     if (!("data" in payload)) {
       throw new Error(payload.message);
@@ -66,9 +61,8 @@ export async function GetAllPhotographers() {
 
     return payload;
   } catch (error: any) {
-    console.error("GethomeStates error:", error);
     throw new Error(
-      error?.message || "Unexpected error occurred while fetching Home States"
+      error?.message || "Unexpected error occurred while fetching Photographers"
     );
   }
 }

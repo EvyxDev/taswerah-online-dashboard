@@ -10,7 +10,8 @@
     "payments": "Payments",
     "settings": "Settings",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "Unknown": "Unknown"
   },
   "dashboard": {
     "totalSales": "Total Sales",
@@ -62,7 +63,8 @@
     "errorEditingEmployee": "Error while editing employee",
     "update": "Update",
     "updating": "Updating",
-    "adding": "adding"
+    "adding": "adding",
+    "unknown": "Unknown"
   },
   "packages": {
     "status": "Status",
@@ -110,5 +112,6 @@
     "editPhotographer": "Update Photographer"
   },
   "branch-manager-created-successfully": "Branch manager created successfully",
-  "application-title": "Taswera Dashboard"
+  "application-title": "Taswera Dashboard",
+  "unknown": "Unknown"
 }

@@ -31,7 +31,7 @@ type Branch = {
   updated_at: string;
 };
 
-declare type Staff = {
+declare type Employee = {
   id: number;
   name: string;
   email: string;
@@ -62,16 +62,45 @@ declare type PhGrapher = {
   deleted_at?: string | null;
 };
 
-declare type EmployeesResponse = {
-  data: Staff[];
-};
-
-declare type PhGrapherResponse = {
-  data: PhGrapher[];
-  message: string;
-};
-
 declare type CreatePhotographerBody = {
   name: string;
   branch_id: number;
+};
+
+declare type PaginationLink = {
+  url: string | null;
+  label: string;
+  active: boolean;
+};
+
+declare type PaginationMeta = {
+  current_page: number;
+  from: number;
+  last_page: number;
+  links: PaginationLink[];
+  path: string;
+  per_page: number;
+  to: number;
+  total: number;
+};
+
+declare type PaginationLinks = {
+  first: string;
+  last: string;
+  prev: string | null;
+  next: string | null;
+};
+
+declare type PaginatedEmployees = {
+  data: PhGrapher[];
+  links: PaginationLinks;
+  meta: PaginationMeta;
+  photographer_count: number;
+};
+
+declare type PaginatedPhGraphers = {
+  data: PhGrapher[];
+  links: PaginationLinks;
+  meta: PaginationMeta;
+  photographer_count: number;
 };

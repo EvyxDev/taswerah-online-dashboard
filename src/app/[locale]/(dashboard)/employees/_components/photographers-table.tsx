@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import { Calendar, ArrowRight, ArrowLeft } from "lucide-react";
 import { FaPen } from "react-icons/fa";
 import { HiMiniTrash } from "react-icons/hi2";
@@ -17,7 +17,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import { Photographersata } from "@/lib/constants/data.constant";
 import { useTranslations } from "next-intl";
 import AddOrEditPhotographerDialog from "./add-photographer-dialog";
 import { Switch } from "@/components/ui/switch";
@@ -25,30 +24,43 @@ import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteEmployeer from "../_hooks/use-delete-employeer";
 const ITEMS_PER_PAGE = 7;
 
-export default function PhotographersTable() {
+interface Props {
+  PhotoGraphers: PaginatedPhGraphers;
+  onPageChange: (page: number) => void;
+  currentPage: number;
+}
+
+export default function PhotographersTable({ PhotoGraphers, onPageChange, currentPage }: Props) {
+  // Translation
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
-  const [currentPage, setCurrentPage] = useState(1);
+
+  // Hooks
   const { DeleteEmployeer } = useDeleteEmployeer();
 
-  const totalPages = Math.ceil(Photographersata.length / ITEMS_PER_PAGE);
+  // Variables
+  const photoGraphersData = PhotoGraphers?.data;
+  const totalPages = Math.ceil(photoGraphersData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentEmployees = Photographersata.slice(startIndex, endIndex);
+  const currentPhGraphers = photoGraphersData.slice(startIndex, endIndex);
 
+  // Update the goToPage function
   const goToPage = (page: number) => {
-    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+    onPageChange(page);
   };
 
+  // Update the goToPrevious function
   const goToPrevious = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      onPageChange(currentPage - 1);
     }
   };
 
+  // Update the goToNext function
   const goToNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      onPageChange(currentPage + 1);
     }
   };
 
@@ -101,7 +113,7 @@ export default function PhotographersTable() {
               variant="secondary"
               className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
             >
-              {Photographersata.length}
+              {photoGraphersData?.length || 0}
             </Badge>
           </div>
           <AddOrEditPhotographerDialog />
@@ -112,56 +124,56 @@ export default function PhotographersTable() {
           <Table className="px-5">
             <TableHeader>
               <TableRow className=" px-7">
-                <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-start  w-[100px]">
+                <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-start  w-[150px]">
                   {t("status")}
                 </TableHead>
                 <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-start  ">
                   {t("name")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-center w-[100px] ">
+                <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-center w-[250px] ">
                   {t("branch")}
                 </TableHead>
                 <TableHead className="font-medium font-homenaje text-black text-lg text-muted-foreground text-center w-[100px] "></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className="">
-              {currentEmployees.length > 0 ? (
-                currentEmployees.map((employee, index) => (
+              {currentPhGraphers?.length > 0 ? (
+                currentPhGraphers?.map((photoGrapher, index) => (
                   <TableRow
-                    key={employee.name}
+                    key={index}
                     className={`px-7 h-[70px] ${
                       index % 2 === 0 ? "bg-[#E9EAEB]" : "bg-white"
                     }`}
                   >
                     <TableCell>
-                      <Switch checked={employee.status} />
+                      <Switch checked={photoGrapher.status === "active"} />
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3 ">
                         <Avatar className="h-10 w-10">
                           <AvatarImage
-                            src={employee.name.charAt(2) || "/placeholder.svg"}
-                            alt={employee.name}
+                            src={photoGrapher.name.charAt(2) || "/placeholder.svg"}
+                            alt={photoGrapher.name}
                           />
                           <AvatarFallback className="text-sm font-medium uppercase ">
-                            {employee.name.charAt(0) + employee.name.charAt(1)}
+                            {photoGrapher.name.charAt(0) + photoGrapher.name.charAt(1)}
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
                           <span className="font-medium font-homenaje text-lg">
-                            {employee.name}
+                            {photoGrapher.name}
                           </span>
                         </div>
                       </div>
                     </TableCell>
 
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {employee.branch}
+                      {photoGrapher?.branch?.name || t("unknown")}
                     </TableCell>
                     <TableCell className="text-center">
                       <div className="flex justify-center gap-7">
                         <DeleteDialog
-                          action={() => DeleteEmployeer({ id: "24" })}
+                          action={() => DeleteEmployeer({ id: String(photoGrapher.id) })}
                           description="Are you sure you want to delete this Photographers? This action cannot be undone."
                           title="Delete Photographers"
                         >
@@ -196,7 +208,7 @@ export default function PhotographersTable() {
         </div>
 
         {/* Pagination - Only show if there are results */}
-        {Photographersata.length > 0 && (
+        {photoGraphersData?.length > 0 && (
           <>
             <div className="flex items-center justify-between mt-6  px-7">
               <Button
