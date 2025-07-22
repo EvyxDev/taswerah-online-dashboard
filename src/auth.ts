@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
     },
     session: ({ session, token }) => {
       // Decode the user data from the token cookie and store it in the session object
-      session.user = token.admin;
+      session.user.token = token.admin;
 
       return session;
     },

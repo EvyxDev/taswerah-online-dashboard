@@ -9,19 +9,23 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { ReactNode } from "react";
 
 interface DeleteDialog {
   title: string;
   description: string;
   action: () => void;
+  children: ReactNode;
 }
-export function DeleteDialog({ description, title, action }: DeleteDialog) {
+export function DeleteDialog({
+  description,
+  title,
+  action,
+  children,
+}: DeleteDialog) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline"></Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>

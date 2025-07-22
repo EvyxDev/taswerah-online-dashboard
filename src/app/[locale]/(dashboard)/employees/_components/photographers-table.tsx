@@ -19,14 +19,17 @@ import {
 import { Card } from "@/components/ui/card";
 import { Photographersata } from "@/lib/constants/data.constant";
 import { useTranslations } from "next-intl";
-import AddPhotographerDialog from "./add-photographer-dialog";
+import AddOrEditPhotographerDialog from "./add-photographer-dialog";
 import { Switch } from "@/components/ui/switch";
+import { DeleteDialog } from "@/components/common/delete -dialog";
+import useDeleteEmployeer from "../_hooks/use-delete-employeer";
 const ITEMS_PER_PAGE = 7;
 
 export default function PhotographersTable() {
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
   const [currentPage, setCurrentPage] = useState(1);
+  const { DeleteEmployeer } = useDeleteEmployeer();
 
   const totalPages = Math.ceil(Photographersata.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -101,7 +104,7 @@ export default function PhotographersTable() {
               {Photographersata.length}
             </Badge>
           </div>
-          <AddPhotographerDialog />
+          <AddOrEditPhotographerDialog />
         </div>
 
         {/* Table */}
@@ -155,18 +158,26 @@ export default function PhotographersTable() {
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
                       {employee.branch}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {" "}
-                      <TableCell className="text-center">
-                        <div className="flex justify-center gap-7">
+                    <TableCell className="text-center">
+                      <div className="flex justify-center gap-7">
+                        <DeleteDialog
+                          action={() => DeleteEmployeer({ id: "24" })}
+                          description="Are you sure you want to delete this Photographers? This action cannot be undone."
+                          title="Delete Photographers"
+                        >
                           <button className="">
                             <HiMiniTrash className="text-black text-2xl" />
                           </button>
-                          <button className=" text-black">
-                            <FaPen />
-                          </button>
-                        </div>
-                      </TableCell>
+                        </DeleteDialog>
+                        <AddOrEditPhotographerDialog
+                          edit={true}
+                          trigger={
+                            <button className=" text-black">
+                              <FaPen />
+                            </button>
+                          }
+                        />
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))

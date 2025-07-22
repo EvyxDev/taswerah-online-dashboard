@@ -1,7 +1,5 @@
 "use client";
 
-// React & Next.js
-
 // Libraries
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,18 +29,32 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { currentBranches } from "@/lib/constants/data.constant";
 
 // Local Components
 import { PasswordInput } from "@/components/common/password-input";
 import useCreateEmployeer from "../_hooks/use-create-employeer";
+import useEditEmployeer from "../_hooks/use-edit-employeer";
+import { useSession } from "next-auth/react";
+import { useBranches } from "../../_hooks/use-branshes";
 
-export default function AddEmployeeForm() {
+export default function AddoREditEmployeeForm({
+  onSuccess,
+  edit = false,
+}: {
+  onSuccess?: () => void;
+  edit?: boolean;
+}) {
   // Hooks
   const t = useTranslations("employees");
-  const { AddEmployeer, isPending, error } = useCreateEmployeer();
+  const { data } = useSession();
+  const { AddEmployeer, AddPending, AddError } = useCreateEmployeer();
+  const { EditEmployeer, EditPending, EditError } = useEditEmployeer();
   const registerSchema = useAddEmployeeSchema();
-
+  const { data: branches, isLoading } = useBranches(data?.user?.token || "");
+  // Determine which mutation to use
+  const isPending = edit ? EditPending : AddPending;
+  const error = edit ? EditError : AddError;
+  console.log(data);
   // Form
   const form = useForm<AddEmployeesFields>({
     resolver: zodResolver(registerSchema),
@@ -62,16 +74,35 @@ export default function AddEmployeeForm() {
       email: values.email,
       password: values.password,
       phone: values.phone,
-      branch_id: "1",
+      branch_id: 1,
+      role: "staff",
+      status: "active",
     };
-    AddEmployeer(sendData, {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      onError: (err) => {
-        console.log("Error payload:", err);
-      },
-    });
+
+    if (edit) {
+      EditEmployeer(
+        { data: sendData, id: "24" },
+        {
+          onSuccess: (data) => {
+            console.log("Employee updated:", data);
+            if (onSuccess) onSuccess();
+          },
+          onError: (err) => {
+            console.log("Error updating employee:", err);
+          },
+        }
+      );
+    } else {
+      AddEmployeer(sendData, {
+        onSuccess: (data) => {
+          console.log("Employee created:", data);
+          if (onSuccess) onSuccess();
+        },
+        onError: (err) => {
+          console.log("Error creating employee:", err);
+        },
+      });
+    }
   }
 
   return (
@@ -84,7 +115,7 @@ export default function AddEmployeeForm() {
         {error && (
           <Alert variant="destructive" className="mb-4">
             <AlertDescription>
-              {error.message || t("errorAddingEmployee")}
+              {edit ? t("errorEditingEmployee") : t("errorAddingEmployee")}
             </AlertDescription>
           </Alert>
         )}
@@ -145,7 +176,7 @@ export default function AddEmployeeForm() {
                       {...field}
                       id="password"
                       placeholder={t("password")}
-                      required
+                      required={!edit}
                       disabled={isPending}
                     />
                   </FormControl>
@@ -185,15 +216,15 @@ export default function AddEmployeeForm() {
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={isPending}
+                    value={field.value}
+                    disabled={isPending || isLoading}
                   >
                     <SelectTrigger id="branch">
                       <SelectValue placeholder={t("selectBranch")} />
                     </SelectTrigger>
                     <SelectContent>
-                      {currentBranches.map((branch) => (
-                        <SelectItem key={branch.name} value={branch.name}>
+                      {branches?.map((branch) => (
+                        <SelectItem key={branch.id} value={String(branch.id)}>
                           {branch.name}
                         </SelectItem>
                       ))}
@@ -205,6 +236,7 @@ export default function AddEmployeeForm() {
             )}
           />
         </div>
+
         <div className="flex justify-center w-full mt-5 items-center">
           <Button
             className="main-button !py-7"
@@ -212,7 +244,13 @@ export default function AddEmployeeForm() {
             variant="default"
             disabled={isPending}
           >
-            {isPending ? "adding" : t("save")}
+            {isPending
+              ? edit
+                ? t("updating")
+                : t("adding")
+              : edit
+              ? t("update")
+              : t("save")}
           </Button>
         </div>
       </form>

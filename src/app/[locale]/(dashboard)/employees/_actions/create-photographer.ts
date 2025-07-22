@@ -3,10 +3,10 @@
 
 import { getAuthToken } from "@/lib/utils/auth.token";
 
-export default async function createEmployeer(data: CreateBranchManagerBody) {
+export default async function createPhotographer(data: CreatePhotographerBody) {
   const token = await getAuthToken();
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees`,
+    `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/photographer`,
     {
       method: "POST",
       body: JSON.stringify(data),
@@ -16,10 +16,9 @@ export default async function createEmployeer(data: CreateBranchManagerBody) {
       },
     }
   );
-  console.log(data);
-  console.log(response);
+
   if (!response.ok) {
-    throw new Error("Failed to create employee");
+    throw new Error("Failed to create photographer");
   }
   const payload: APIResponse<CreateBranchManagerResponse> =
     await response.json();

@@ -56,7 +56,13 @@
     "addEmployee": "Add Employee",
     "save": "Add",
     "cancel": "Cancel",
-    "selectBranch": "Select branch"
+    "selectBranch": "Select branch",
+    "errorAddingEmployee": "Email or phone number already exists",
+    "editEmployee": "Edit Employee",
+    "errorEditingEmployee": "Error while editing employee",
+    "update": "Update",
+    "updating": "Updating",
+    "adding": "adding"
   },
   "packages": {
     "status": "Status",

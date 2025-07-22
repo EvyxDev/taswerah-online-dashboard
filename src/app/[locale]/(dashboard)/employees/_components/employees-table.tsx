@@ -19,16 +19,18 @@ import {
 import { Card } from "@/components/ui/card";
 import { employeesData } from "@/lib/constants/data.constant";
 import { useTranslations } from "next-intl";
-import AddEmployeeDialog from "./add-employee-dialog";
 import { Switch } from "@/components/ui/switch";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import AddOrEditEmployeeDialog from "./add-employee-dialog";
+import { DeleteDialog } from "@/components/common/delete -dialog";
+import useDeleteEmployeer from "../_hooks/use-delete-employeer";
 const ITEMS_PER_PAGE = 7;
 
 export default function EmployeesTable() {
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
   const [currentPage, setCurrentPage] = useState(1);
-
+  const { DeleteEmployeer } = useDeleteEmployeer();
   const totalPages = Math.ceil(employeesData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -102,7 +104,7 @@ export default function EmployeesTable() {
               {employeesData.length}
             </Badge>
           </div>
-          <AddEmployeeDialog />
+          <AddOrEditEmployeeDialog />
         </div>
 
         {/* Table */}
@@ -178,12 +180,23 @@ export default function EmployeesTable() {
                     </TableCell>
                     <TableCell className="text-center">
                       <div className="flex justify-center gap-7">
-                        <button className="">
-                          <HiMiniTrash className="text-black text-2xl" />
-                        </button>
-                        <button className=" text-black">
-                          <FaPen />
-                        </button>
+                        <DeleteDialog
+                          action={() => DeleteEmployeer({ id: "24" })}
+                          description="Are you sure you want to delete this employee? This action cannot be undone."
+                          title="Delete Employee"
+                        >
+                          <button className="">
+                            <HiMiniTrash className="text-black text-2xl" />
+                          </button>
+                        </DeleteDialog>
+                        <AddOrEditEmployeeDialog
+                          edit={true}
+                          trigger={
+                            <button className=" text-black">
+                              <FaPen />
+                            </button>
+                          }
+                        />
                       </div>
                     </TableCell>
                   </TableRow>

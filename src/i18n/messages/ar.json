@@ -46,7 +46,13 @@
     "addEmployee": "إضافة موظف",
     "save": "إضافة",
     "cancel": "إلغاء",
-    "selectBranch": "اختر الفرع"
+    "selectBranch": "اختر الفرع",
+    "errorAddingEmployee": "البريد الإلكتروني أو رقم الهاتف موجود بالفعل",
+    "editEmployee": "تعديل موظف",
+    "errorEditingEmployee": "خطأ أثناء تعديل الموظف",
+    "update": "تعديل",
+    "updating": "جاري التعديل",
+    "adding": "جاري الاضافة"
   },
   "photographers": {
     "add": "إضافة",
