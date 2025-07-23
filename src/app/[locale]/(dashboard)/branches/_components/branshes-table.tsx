@@ -18,10 +18,26 @@ import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
 import AddOrEditBranchDialog from "./add-branch-dialog";
+import { PaginationComponent } from "@/components/common/pagination-comp";
+import { DeleteDialog } from "@/components/common/delete -dialog";
+import useDeleteBransh from "../_hooks/use-delete-bransh";
+interface Props {
+  branshes: Branch[];
+  onPageChange: (page: number) => void;
+  currentPage: number;
+  totalPages: number;
+}
 
-export default function BranshesTable() {
+export default function BranshesTable({
+  branshes,
+  currentPage,
+  onPageChange,
+  totalPages,
+}: Props) {
   const t = useTranslations();
 
+  // Hooks
+  const { DeleteBransh } = useDeleteBransh();
   return (
     <Card className="bg-background max-w-screen-2xl mx-auto rounded-2xl pt-6 pb-20 h-full ">
       <div className="w-full  h-fit">
@@ -65,8 +81,8 @@ export default function BranshesTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {currentBranches.length > 0 ? (
-                currentBranches.map((branch, index) => (
+              {branshes.length > 0 ? (
+                branshes.map((branch, index) => (
                   <TableRow
                     key={branch.name}
                     className={`px-7 h-[70px] ${
@@ -74,7 +90,7 @@ export default function BranshesTable() {
                     }`}
                   >
                     <TableCell>
-                      <Switch checked={branch.status} />
+                      <Switch checked={branch.is_active} />
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3">
@@ -90,10 +106,10 @@ export default function BranshesTable() {
                       </div>
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
-                      {branch.employees}
+                      {branch["No.of_Employees"]}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
-                      {branch.photographers}
+                      10
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground truncate max-w-[150px]">
                       <a
@@ -106,16 +122,27 @@ export default function BranshesTable() {
                       </a>
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {" "}
-                      <div className="text-center">
-                        <div className="flex justify-center gap-7">
+                      <div className="flex justify-center gap-7">
+                        <DeleteDialog
+                          action={() =>
+                            DeleteBransh({ id: branch.id.toString() })
+                          }
+                          description="Are you sure you want to delete this bransh? This action cannot be undone."
+                          title="Delete Bransh"
+                        >
                           <button className="">
                             <HiMiniTrash className="text-black text-2xl" />
                           </button>
-                          <button className=" text-black">
-                            <FaPen />
-                          </button>
-                        </div>
+                        </DeleteDialog>
+                        <AddOrEditBranchDialog
+                          edit={true}
+                          bransh={branch}
+                          trigger={
+                            <button className=" text-black">
+                              <FaPen />
+                            </button>
+                          }
+                        />
                       </div>
                     </TableCell>
                   </TableRow>
@@ -133,6 +160,18 @@ export default function BranshesTable() {
             </TableBody>
           </Table>
         </div>
+        {branshes.length > 0 && (
+          <>
+            <div className="mt-6">
+              <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={onPageChange}
+                maxVisiblePages={5}
+              />
+            </div>
+          </>
+        )}
       </div>
     </Card>
   );

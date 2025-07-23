@@ -22,37 +22,28 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import {
-  MultiSelector,
-  MultiSelectorContent,
-  MultiSelectorInput,
-  MultiSelectorItem,
-  MultiSelectorList,
-  MultiSelectorTrigger,
-} from "@/components/ui/multi-select";
-
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Local Components
 import useCreateBransh from "../_hooks/use-create-bransh";
 import useEditBransh from "../_hooks/use-edit-bransh";
 import { toast } from "sonner";
-import { useEmployees } from "../../_hooks/use-employees";
-import { usePhotographers } from "../../_hooks/use-photographers";
 
 export default function AddorEditBranshForm({
   onSuccess,
   edit = false,
+  bransh,
 }: {
   onSuccess?: () => void;
   edit?: boolean;
+  bransh?: Branch;
 }) {
   // Hooks
   const t = useTranslations("branches");
   const { AddBransh, AddPending, AddError } = useCreateBransh();
   const { EditBransh, EditPending, EditError } = useEditBransh();
-  const { data: allEmployees } = useEmployees();
-  const { data: allPhotographers } = usePhotographers();
+  // const { data: allEmployees } = useEmployees();
+  // const { data: allPhotographers } = usePhotographers();
   const branchSchema = useAddBranchSchema();
   // Determine which mutation to use
   const isPending = edit ? EditPending : AddPending;
@@ -62,29 +53,25 @@ export default function AddorEditBranshForm({
   const form = useForm<AddBranchFields>({
     resolver: zodResolver(branchSchema),
     defaultValues: {
-      name: "",
-      employees: [],
-      photographers: [],
-      location: "",
+      name: bransh ? bransh.name : "",
+      location: bransh ? bransh.location : "",
     },
   });
 
   // Handles form submission
   async function onSubmit(values: AddBranchFields) {
-    const photographerIds = allPhotographers?.data
-      ?.filter((photographer) =>
-        values.photographers.includes(photographer.name)
-      )
-      .map((photographer) => photographer.id);
-    const employeeIds =
-      allEmployees?.data?.data
-        ?.filter((employee) => values.employees.includes(employee.name))
-        .map((employee) => employee.id) || [];
+    // const photographerIds = allPhotographers?.data
+    //   ?.filter((photographer) =>
+    //     values.photographers.includes(photographer.name)
+    //   )
+    //   .map((photographer) => photographer.id);
+    // const employeeIds =
+    //   allEmployees?.data?.data
+    //     ?.filter((employee) => values.employees.includes(employee.name))
+    //     .map((employee) => employee.id) || [];
 
     const sendData: CreateBranchBody = {
       name: values.name,
-      employee_ids: employeeIds || [],
-      photographer_ids: photographerIds || [],
       location: values.location,
     };
     if (edit) {
@@ -179,9 +166,9 @@ export default function AddorEditBranshForm({
           </div>
         </div>
 
-        <div className="flex flex-row gap-4">
-          {/* Photographers */}
-          <div className="flex-1">
+        {/* <div className="flex flex-row gap-4"> */}
+        {/* Photographers */}
+        {/* <div className="flex-1">
             <FormField
               control={form.control}
               name="photographers"
@@ -215,10 +202,10 @@ export default function AddorEditBranshForm({
                 </FormItem>
               )}
             />
-          </div>
+          </div> */}
 
-          {/* Employees */}
-          <div className="flex-1">
+        {/* Employees */}
+        {/* <div className="flex-1">
             <FormField
               control={form.control}
               name="employees"
@@ -252,8 +239,8 @@ export default function AddorEditBranshForm({
                 </FormItem>
               )}
             />
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
 
         <div className="flex justify-center w-full mt-5 items-center">
           <Button

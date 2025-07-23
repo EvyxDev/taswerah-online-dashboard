@@ -41,7 +41,17 @@
     "location": "Location",
     "noBranchesFound": "No branches found",
     "addBranch": "Add Branch",
-    "save": "Add"
+    "editBranch": "Edit Branch",
+    "save": "Add",
+    "branch_updated_successfully": "Branch updated successfully",
+    "branch_created_successfully": "Branch created successfully",
+    "error_updating_branch": "Failed to update branch. Please try again",
+    "error_creating_branch": "Failed to create branch. Please try again",
+    "errorEditingBranch": "An error occurred while editing the branch",
+    "errorAddingBranch": "An error occurred while adding the branch",
+    "updating": "Updating",
+    "adding": "Adding",
+    "update": "Update"
   },
   "employees": {
     "employeesTab": "Employees",

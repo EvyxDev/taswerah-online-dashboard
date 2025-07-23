@@ -16,9 +16,11 @@ import AddorEditBranshForm from "./add-bransh-form";
 export default function AddOrEditBranchDialog({
   edit = false,
   trigger,
+  bransh,
 }: {
   edit?: boolean;
   trigger?: React.ReactNode;
+  bransh?: Branch;
 }) {
   const t = useTranslations("branches");
   const [open, setOpen] = useState(false);
@@ -41,7 +43,11 @@ export default function AddOrEditBranchDialog({
             {edit ? t("editBranch") : t("addBranch")}
           </DialogTitle>
         </DialogHeader>
-        <AddorEditBranshForm edit={edit} onSuccess={() => setOpen(false)} />
+        <AddorEditBranshForm
+          bransh={bransh}
+          edit={edit}
+          onSuccess={() => setOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );

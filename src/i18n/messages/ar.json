@@ -83,7 +83,17 @@
     "location": "الموقع",
     "noBranchesFound": "لا توجد فروع",
     "addBranch": "إضافة فرع",
-    "save": "إضافة"
+    "editBranch": " تعديل فرع",
+    "save": "إضافة",
+    "branch_updated_successfully": "تم تحديث بيانات الفرع بنجاح",
+    "branch_created_successfully": "تم إنشاء الفرع بنجاح",
+    "error_updating_branch": "فشل في تحديث بيانات الفرع. حاول مرة أخرى",
+    "error_creating_branch": "فشل في إنشاء الفرع. حاول مرة أخرى",
+    "errorEditingBranch": "حدث خطأ أثناء تعديل الفرع",
+    "errorAddingBranch": "حدث خطأ أثناء إضافة الفرع",
+    "updating": "تحديث",
+    "adding": "اضافة",
+    "update": "تحديث"
   },
   "packages": {
     "status": "الحالة",

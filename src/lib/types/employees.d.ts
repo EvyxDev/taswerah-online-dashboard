@@ -21,8 +21,6 @@ declare type CreateBranchManagerBody = {
 declare type CreateBranchBody = {
   name: string;
   location: string;
-  employee_ids: number[];
-  photographer_ids: number[];
 };
 
 type Branch = {

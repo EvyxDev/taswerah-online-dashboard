@@ -17,6 +17,7 @@ export default async function editBransh(data: CreateBranchBody, id: string) {
       },
     }
   );
+
   if (!response.ok) {
     throw new Error("Failed to create employee");
   }

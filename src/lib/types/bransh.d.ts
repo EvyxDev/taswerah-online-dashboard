@@ -8,4 +8,5 @@ declare type Branch = {
   location: string;
   created_at: string;
   updated_at: string;
+  "No.of_Employees": number;
 };
