@@ -1,10 +1,8 @@
 "use client";
 
-import { Calendar, ArrowRight, ArrowLeft } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { FaPen } from "react-icons/fa";
 import { HiMiniTrash } from "react-icons/hi2";
-
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -21,87 +19,31 @@ import AddOrEditPhotographerDialog from "./add-photographer-dialog";
 import { Switch } from "@/components/ui/switch";
 import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteEmployeer from "../_hooks/use-delete-employeer";
-const ITEMS_PER_PAGE = 7;
+import { PaginationComponent } from "@/components/common/pagination-comp";
 
 interface Props {
   PhotoGraphers: PaginatedPhGraphers;
   onPageChange: (page: number) => void;
   currentPage: number;
+  totalPages: number; 
 }
 
 export default function PhotographersTable({
   PhotoGraphers,
   onPageChange,
   currentPage,
+  totalPages,
 }: Props) {
   // Translation
   const t = useTranslations("employees");
-  const tNav = useTranslations("navigation");
 
   // Hooks
   const { DeleteEmployeer } = useDeleteEmployeer();
 
   // Variables
   const photoGraphersData = PhotoGraphers?.data;
-  const totalPages = Math.ceil(photoGraphersData.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentPhGraphers = photoGraphersData.slice(startIndex, endIndex);
 
-  // Update the goToPage function
-  const goToPage = (page: number) => {
-    onPageChange(page);
-  };
 
-  // Update the goToPrevious function
-  const goToPrevious = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    }
-  };
-
-  // Update the goToNext function
-  const goToNext = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    }
-  };
-
-  // Generate page numbers to show
-  const getPageNumbers = () => {
-    const pages = [];
-    const maxVisiblePages = 5;
-
-    if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 4; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      } else if (currentPage >= totalPages - 2) {
-        pages.push(1);
-        pages.push("...");
-        for (let i = totalPages - 3; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        pages.push(1);
-        pages.push("...");
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      }
-    }
-
-    return pages;
-  };
 
   return (
     <Card className="bg-background max-w-screen-2xl mx-auto rounded-2xl py-6 h-full ">
@@ -140,8 +82,8 @@ export default function PhotographersTable({
               </TableRow>
             </TableHeader>
             <TableBody className="">
-              {currentPhGraphers?.length > 0 ? (
-                currentPhGraphers?.map((photoGrapher, index) => (
+              {photoGraphersData?.length > 0 ? (
+                photoGraphersData?.map((photoGrapher, index) => (
                   <TableRow
                     key={index}
                     className={`px-7 h-[70px] ${
@@ -219,49 +161,8 @@ export default function PhotographersTable({
         {/* Pagination - Only show if there are results */}
         {photoGraphersData?.length > 0 && (
           <>
-            <div className="flex items-center justify-between mt-6  px-7">
-              <Button
-                variant="ghost"
-                className="flex items-center gap-2 font-homenaje text-xl shadow-sm border disabled:bg-[#FAFAFA]"
-                onClick={goToPrevious}
-                disabled={currentPage === 1}
-              >
-                <ArrowLeft className="h-8 w-8" />
-                {tNav("previous")}
-              </Button>
-
-              <div className="flex items-center gap-2">
-                {getPageNumbers().map((page, index) => (
-                  <div key={index}>
-                    {page === "..." ? (
-                      <span className="px-2 text-muted-foreground">...</span>
-                    ) : (
-                      <Button
-                        variant={currentPage === page ? "default" : "ghost"}
-                        size="sm"
-                        className={`w-8 h-8 p-0 ${
-                          currentPage === page
-                            ? "bg-slate-200 text-black hover:bg-slate-200"
-                            : "text-muted-foreground"
-                        }`}
-                        onClick={() => goToPage(page as number)}
-                      >
-                        {page}
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <Button
-                variant="ghost"
-                className="flex items-center gap-2 font-homenaje text-xl shadow-sm border"
-                onClick={goToNext}
-                disabled={currentPage === totalPages}
-              >
-                {tNav("next")}
-                <ArrowRight className="h-8 w-8" />
-              </Button>
+            <div className="mt-6">
+              <PaginationComponent currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} maxVisiblePages={5} />
             </div>
           </>
         )}

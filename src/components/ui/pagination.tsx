@@ -2,7 +2,7 @@ import * as React from "react"
 import { ArrowLeft, ArrowRight, MoreHorizontal } from "lucide-react"
 
 import { cn } from "@/lib/utils/tailwind-merge"
-import { ButtonProps, buttonVariants } from "@/components/ui/button"
+import { Button, ButtonProps, buttonVariants } from "@/components/ui/button"
 import { Link } from "@/i18n/routing"
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
@@ -64,32 +64,34 @@ PaginationLink.displayName = "PaginationLink"
 const PaginationPrevious = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
+}: React.ComponentProps<"button">) => (
+  <Button
+    type="button"
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-2 font-homenaje text-xl shadow-sm border disabled:bg-[#FAFAFA]", className)}
+    className={cn("gap-2 font-homenaje text-xl shadow-sm border disabled:bg-[#FAFAFA] bg-background hover:bg-slate-200", className)}
     {...props}
   >
     <ArrowLeft className="h-8 w-8" />
     <span>Previous</span>
-  </PaginationLink>
+  </Button>
 )
 PaginationPrevious.displayName = "PaginationPrevious"
 
 const PaginationNext = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
+}: React.ComponentProps<"button">) => (
+  <Button
+    type="button"
     aria-label="Go to next page"
-    size="default"
-    className={cn("gap-2 font-homenaje text-xl shadow-sm border disabled:bg-[#FAFAFA]", className)}
+    size="default"  
+    className={cn("gap-2 font-homenaje text-xl shadow-sm border bg-background hover:bg-slate-200 disabled:bg-[#FAFAFA]", className)}
     {...props}
   >
     <span>Next</span>
     <ArrowRight className="h-8 w-8" />
-  </PaginationLink>
+  </Button>
 )
 PaginationNext.displayName = "PaginationNext"
 
