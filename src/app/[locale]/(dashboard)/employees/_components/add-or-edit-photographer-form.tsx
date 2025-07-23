@@ -30,6 +30,7 @@ import useCreatePhotographer from "../_hooks/use-create-photographer";
 import useEditPhotographer from "../_hooks/use-edit-photographer";
 import { useSession } from "next-auth/react";
 import { useBranches } from "../../_hooks/use-branshes";
+import { toast } from "sonner";
 
 const photographerSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -79,10 +80,13 @@ export default function AddOrEditPhotographerForm({
         {
           onSuccess: (data) => {
             console.log("Photographer updated:", data);
+            toast.success(t("photographer_updated_successfully"));
+            form.reset();
             if (onSuccess) onSuccess();
           },
           onError: (err) => {
             console.log("Error updating photographer:", err);
+            toast.error(t("error_updating_photographer"));
           },
         }
       );
@@ -90,10 +94,13 @@ export default function AddOrEditPhotographerForm({
       AddPhotographer(sendData, {
         onSuccess: (data) => {
           console.log("Photographer created:", data);
+          toast.success(t("photographer_created_successfully"));
+          form.reset();
           if (onSuccess) onSuccess();
         },
         onError: (err) => {
           console.log("Error creating photographer:", err);
+          toast.error(t("error_creating_photographer"));
         },
       });
     }

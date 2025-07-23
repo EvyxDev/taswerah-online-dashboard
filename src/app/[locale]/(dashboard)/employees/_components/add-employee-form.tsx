@@ -36,6 +36,7 @@ import useCreateEmployeer from "../_hooks/use-create-employeer";
 import useEditEmployeer from "../_hooks/use-edit-employeer";
 import { useSession } from "next-auth/react";
 import { useBranches } from "../../_hooks/use-branshes";
+import { toast } from "sonner";
 
 export default function AddoREditEmployeeForm({
   onSuccess,
@@ -53,9 +54,11 @@ export default function AddoREditEmployeeForm({
   const { EditEmployeer, EditPending, EditError } = useEditEmployeer();
   const registerSchema = useAddEmployeeSchema();
   const { data: branches, isLoading } = useBranches(data?.token || "");
+
   // Determine which mutation to use
   const isPending = edit ? EditPending : AddPending;
   const error = edit ? EditError : AddError;
+
   // Form
   const form = useForm<AddEmployeesFields>({
     resolver: zodResolver(registerSchema),
@@ -79,17 +82,22 @@ export default function AddoREditEmployeeForm({
       role: "staff",
       status: "active",
     };
+
     console.log(employee);
+
     if (edit) {
       EditEmployeer(
         { data: sendData, id: employee?.id.toString() || "" },
         {
           onSuccess: (data) => {
             console.log("Employee updated:", data);
+            toast.success(t("employee_updated_successfully"));
+            form.reset();
             if (onSuccess) onSuccess();
           },
           onError: (err) => {
             console.log("Error updating employee:", err);
+            toast.error(t("error_updating_employee"));
           },
         }
       );
@@ -97,15 +105,17 @@ export default function AddoREditEmployeeForm({
       AddEmployeer(sendData, {
         onSuccess: (data) => {
           console.log("Employee created:", data);
+          toast.success(t("employee_created_successfully"));
+          form.reset();
           if (onSuccess) onSuccess();
         },
         onError: (err) => {
           console.log("Error creating employee:", err);
+          toast.error(t("error_creating_employee"));
         },
       });
     }
   }
-
   return (
     <Form {...form}>
       <form
