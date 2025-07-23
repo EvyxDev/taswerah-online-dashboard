@@ -16,8 +16,10 @@ import AddOrEditPhotographerForm from "./add-or-edit-photographer-form";
 export default function AddOrEditPhotographerDialog({
   edit = false,
   trigger,
+  photoGrapher,
 }: {
   edit?: boolean;
+  photoGrapher?: PhGrapher;
   trigger?: React.ReactNode;
 }) {
   const t = useTranslations("photographers");
@@ -44,6 +46,7 @@ export default function AddOrEditPhotographerDialog({
         <AddOrEditPhotographerForm
           edit={edit}
           onSuccess={() => setOpen(false)}
+          photoGrapher={photoGrapher}
         />
       </DialogContent>
     </Dialog>

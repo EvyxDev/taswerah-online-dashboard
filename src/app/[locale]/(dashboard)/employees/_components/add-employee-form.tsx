@@ -40,9 +40,11 @@ import { useBranches } from "../../_hooks/use-branshes";
 export default function AddoREditEmployeeForm({
   onSuccess,
   edit = false,
+  employee,
 }: {
   onSuccess?: () => void;
   edit?: boolean;
+  employee?: Employee;
 }) {
   // Hooks
   const t = useTranslations("employees");
@@ -58,11 +60,11 @@ export default function AddoREditEmployeeForm({
   const form = useForm<AddEmployeesFields>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
-      email: "",
+      name: employee?.name ? employee.name : "",
+      email: employee?.email ? employee.email : "",
       password: "",
-      branch: "",
-      phone: "",
+      branch: employee?.branch_id ? employee.branch_id.toString() : "",
+      phone: employee?.phone ? employee.phone : "",
     },
   });
 
@@ -77,10 +79,10 @@ export default function AddoREditEmployeeForm({
       role: "staff",
       status: "active",
     };
-    console.log(sendData);
+    console.log(employee);
     if (edit) {
       EditEmployeer(
-        { data: sendData, id: "24" },
+        { data: sendData, id: employee?.id.toString() || "" },
         {
           onSuccess: (data) => {
             console.log("Employee updated:", data);

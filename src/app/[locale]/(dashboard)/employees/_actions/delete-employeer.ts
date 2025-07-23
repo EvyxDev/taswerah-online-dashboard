@@ -2,6 +2,7 @@
 "use server";
 
 import { getAuthToken } from "@/lib/utils/auth.token";
+import { revalidatePath } from "next/cache";
 
 export default async function deleteEmployeer(id: string) {
   const token = await getAuthToken();
@@ -20,5 +21,7 @@ export default async function deleteEmployeer(id: string) {
   }
 
   const payload: APIResponse<any> = await response.json();
+  revalidatePath("/employees");
+
   return payload;
 }

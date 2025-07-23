@@ -16,9 +16,11 @@ import AddoREditEmployeeForm from "./add-employee-form";
 export default function AddOrEditEmployeeDialog({
   edit = false,
   trigger,
+  employee,
 }: {
   edit?: boolean;
   trigger?: React.ReactNode;
+  employee?: Employee;
 }) {
   const t = useTranslations("employees");
   const [open, setOpen] = useState(false);
@@ -41,7 +43,11 @@ export default function AddOrEditEmployeeDialog({
             {edit ? t("editEmployee") : t("addEmployee")}
           </DialogTitle>
         </DialogHeader>
-        <AddoREditEmployeeForm edit={edit} onSuccess={() => setOpen(false)} />
+        <AddoREditEmployeeForm
+          employee={employee}
+          edit={edit}
+          onSuccess={() => setOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );

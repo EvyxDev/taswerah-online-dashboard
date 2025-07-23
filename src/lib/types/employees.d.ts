@@ -92,7 +92,7 @@ declare type PaginationLinks = {
 };
 
 declare type PaginatedEmployees = {
-  data: PhGrapher[];
+  data: Employee[];
   links: PaginationLinks;
   meta: PaginationMeta;
   photographer_count: number;

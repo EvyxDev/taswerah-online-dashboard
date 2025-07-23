@@ -41,9 +41,11 @@ type PhotographerFields = z.infer<typeof photographerSchema>;
 export default function AddOrEditPhotographerForm({
   onSuccess,
   edit = false,
+  photoGrapher,
 }: {
   onSuccess?: () => void;
   edit?: boolean;
+  photoGrapher?: PhGrapher;
 }) {
   // Hooks
   const t = useTranslations("photographers");
@@ -60,8 +62,8 @@ export default function AddOrEditPhotographerForm({
   const form = useForm<PhotographerFields>({
     resolver: zodResolver(photographerSchema),
     defaultValues: {
-      name: "",
-      branch: "",
+      name: photoGrapher ? photoGrapher.name : "",
+      branch: photoGrapher ? photoGrapher.branch_id.toString() : "",
     },
   });
 
@@ -73,7 +75,7 @@ export default function AddOrEditPhotographerForm({
 
     if (edit) {
       EditPhotographer(
-        { data: sendData, id: "36" },
+        { data: sendData, id: photoGrapher?.id.toString() || "" },
         {
           onSuccess: (data) => {
             console.log("Photographer updated:", data);

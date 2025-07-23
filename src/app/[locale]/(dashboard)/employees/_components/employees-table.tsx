@@ -18,10 +18,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-// import { employeesData } from "@/lib/constants/data.constant";
 import { useTranslations } from "next-intl";
 import { Switch } from "@/components/ui/switch";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import AddOrEditEmployeeDialog from "./add-employee-dialog";
 import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteEmployeer from "../_hooks/use-delete-employeer";
@@ -33,13 +31,14 @@ interface Props {
   currentPage: number;
 }
 
-export default function EmployeesTable({ employees, onPageChange, currentPage }: Props) {
+export default function EmployeesTable({
+  employees,
+  onPageChange,
+  currentPage,
+}: Props) {
   // Translation
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
-
-  // States
-  // const [currentPage, setCurrentPage] = useState(1);
 
   // Hooks
   const { DeleteEmployeer } = useDeleteEmployeer();
@@ -137,9 +136,6 @@ export default function EmployeesTable({ employees, onPageChange, currentPage }:
                 <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("email")}
                 </TableHead>
-                {/* <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
-                  {t("password")}
-                </TableHead> */}
                 <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[200px]">
                   {t("phoneNumber")}
                 </TableHead>
@@ -184,10 +180,6 @@ export default function EmployeesTable({ employees, onPageChange, currentPage }:
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
                       {employee.email}
                     </TableCell>
-                    {/* <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12"> */}
-                      {/* Password cell with eye icon */}
-                      {/* <PasswordCell password={employee?.password || t("Unknown")} />
-                    </TableCell> */}
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
                       {employee.phone}
                     </TableCell>
@@ -197,7 +189,9 @@ export default function EmployeesTable({ employees, onPageChange, currentPage }:
                     <TableCell className="text-center">
                       <div className="flex justify-center gap-7">
                         <DeleteDialog
-                          action={() => DeleteEmployeer({ id: String(employee.id) })}
+                          action={() =>
+                            DeleteEmployeer({ id: String(employee.id) })
+                          }
                           description="Are you sure you want to delete this employee? This action cannot be undone."
                           title="Delete Employee"
                         >
@@ -207,6 +201,7 @@ export default function EmployeesTable({ employees, onPageChange, currentPage }:
                         </DeleteDialog>
                         <AddOrEditEmployeeDialog
                           edit={true}
+                          employee={employee}
                           trigger={
                             <button className=" text-black">
                               <FaPen />
@@ -282,31 +277,5 @@ export default function EmployeesTable({ employees, onPageChange, currentPage }:
         )}
       </div>
     </Card>
-  );
-}
-
-function PasswordCell({ password }: { password: string }) {
-  const [show, setShow] = useState(false);
-  return (
-    <span className="relative flex items-center justify-center select-text">
-      <span className="mx-auto min-w-[40px] text-center">
-        {show ? password : "*".repeat(password.length)}
-      </span>
-      <button
-        type="button"
-        className="absolute right-0 rtl:right-auto rtl:left-0 top-1/2 -translate-y-1/2 p-0 bg-transparent border-0 cursor-pointer"
-        tabIndex={-1}
-        onClick={() => setShow((s) => !s)}
-      >
-        {show ? (
-          <VscEye size={18} className="text-gray-500" />
-        ) : (
-          <VscEyeClosed size={18} className="text-gray-500" />
-        )}
-        <span className="sr-only">
-          {show ? "Hide password" : "Show password"}
-        </span>
-      </button>
-    </span>
   );
 }

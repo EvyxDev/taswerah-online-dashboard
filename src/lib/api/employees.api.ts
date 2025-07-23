@@ -12,6 +12,7 @@ export async function GetAllEmployees(page = 1, limit = 10) {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          cache: "no-store",
         },
       }
     );
@@ -45,6 +46,7 @@ export async function GetAllPhotographers(page = 1, limit = 10) {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          cache: "no-store",
         },
       }
     );
