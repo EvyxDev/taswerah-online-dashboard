@@ -15,6 +15,8 @@ declare type CreateBranchManagerBody = {
   phone: string;
   password: string;
   branch_id: string;
+  role?: string;
+  status?: string;
 };
 
 type Branch = {
@@ -90,7 +92,7 @@ declare type PaginationLinks = {
 };
 
 declare type PaginatedEmployees = {
-  data: PhGrapher[];
+  data: Employee[];
   links: PaginationLinks;
   meta: PaginationMeta;
   photographer_count: number;

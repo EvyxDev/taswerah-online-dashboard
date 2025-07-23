@@ -41,6 +41,7 @@ declare module "next-auth" {
       } & DatabaseProperies;
       token: string;
     };
+    token?: string;
   }
 }
 declare module "next-auth/jwt" {

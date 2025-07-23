@@ -24,11 +24,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { currentBranches } from "@/lib/constants/data.constant";
 
 // Local Components
 import useCreatePhotographer from "../_hooks/use-create-photographer";
 import useEditPhotographer from "../_hooks/use-edit-photographer";
+import { useSession } from "next-auth/react";
+import { useBranches } from "../../_hooks/use-branshes";
+import { toast } from "sonner";
 
 const photographerSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -40,14 +42,18 @@ type PhotographerFields = z.infer<typeof photographerSchema>;
 export default function AddOrEditPhotographerForm({
   onSuccess,
   edit = false,
+  photoGrapher,
 }: {
   onSuccess?: () => void;
   edit?: boolean;
+  photoGrapher?: PhGrapher;
 }) {
   // Hooks
   const t = useTranslations("photographers");
+  const { data } = useSession();
   const { AddPhotographer, AddPending, AddError } = useCreatePhotographer();
   const { EditPhotographer, EditPending, EditError } = useEditPhotographer();
+  const { data: branches, isLoading } = useBranches(data?.token || "");
 
   // Determine which mutation to use
   const isPending = edit ? EditPending : AddPending;
@@ -57,27 +63,30 @@ export default function AddOrEditPhotographerForm({
   const form = useForm<PhotographerFields>({
     resolver: zodResolver(photographerSchema),
     defaultValues: {
-      name: "",
-      branch: "",
+      name: photoGrapher ? photoGrapher.name : "",
+      branch: photoGrapher ? photoGrapher.branch_id.toString() : "",
     },
   });
 
   async function onSubmit(values: PhotographerFields) {
     const sendData: CreatePhotographerBody = {
       name: values.name,
-      branch_id: 1,
+      branch_id: Number(values.branch),
     };
 
     if (edit) {
       EditPhotographer(
-        { data: sendData, id: "2" },
+        { data: sendData, id: photoGrapher?.id.toString() || "" },
         {
           onSuccess: (data) => {
             console.log("Photographer updated:", data);
+            toast.success(t("photographer_updated_successfully"));
+            form.reset();
             if (onSuccess) onSuccess();
           },
           onError: (err) => {
             console.log("Error updating photographer:", err);
+            toast.error(t("error_updating_photographer"));
           },
         }
       );
@@ -85,10 +94,13 @@ export default function AddOrEditPhotographerForm({
       AddPhotographer(sendData, {
         onSuccess: (data) => {
           console.log("Photographer created:", data);
+          toast.success(t("photographer_created_successfully"));
+          form.reset();
           if (onSuccess) onSuccess();
         },
         onError: (err) => {
           console.log("Error creating photographer:", err);
+          toast.error(t("error_creating_photographer"));
         },
       });
     }
@@ -143,14 +155,14 @@ export default function AddOrEditPhotographerForm({
                     <Select
                       onValueChange={field.onChange}
                       value={field.value}
-                      disabled={isPending}
+                      disabled={isPending || isLoading}
                     >
                       <SelectTrigger id="branch">
                         <SelectValue placeholder={t("selectBranch")} />
                       </SelectTrigger>
                       <SelectContent>
-                        {currentBranches.map((branch) => (
-                          <SelectItem key={branch.name} value={branch.name}>
+                        {branches?.map((branch) => (
+                          <SelectItem key={branch.id} value={String(branch.id)}>
                             {branch.name}
                           </SelectItem>
                         ))}

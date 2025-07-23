@@ -2,16 +2,18 @@
 "use server";
 
 import { getAuthToken } from "@/lib/utils/auth.token";
+import { revalidatePath } from "next/cache";
 
 export default async function editPhotographer(
   data: CreatePhotographerBody,
   id: string
 ) {
   const token = await getAuthToken();
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/photographer/${id}`,
     {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
@@ -19,12 +21,12 @@ export default async function editPhotographer(
       },
     }
   );
-  console.log(data);
   if (!response.ok) {
     throw new Error("Failed to Update photographer");
   }
   const payload: APIResponse<CreateBranchManagerResponse> =
     await response.json();
+  revalidatePath("/employees");
 
   return payload;
 }

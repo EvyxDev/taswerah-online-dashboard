@@ -64,7 +64,11 @@
     "update": "Update",
     "updating": "Updating",
     "adding": "adding",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "employee_created_successfully": "Employee created successfully!",
+    "employee_updated_successfully": "Employee updated successfully",
+    "error_creating_employee": "Failed to create employee. Please try again",
+    "error_updating_employee": "Failed to update employee. Please try again"
   },
   "packages": {
     "status": "Status",
@@ -103,7 +107,17 @@
     "cancel": "Cancel",
     "selectBranch": "Select branch",
     "name": "Name",
-    "branch": "Branch"
+    "branch": "Branch",
+    "errorEditingPhotographer": "Name must be unique.",
+    "errorAddingPhotographer": "Name must be unique",
+    "updating": "Updating",
+    "adding": "Adding",
+    "update": "Update",
+    "editPhotographer": "Update Photographer",
+    "photographer_updated_successfully": "Photographer updated successfully!",
+    "error_updating_photographer": "Failed to update photographer. Please try again",
+    "error_creating_photographer": "Failed to create photographer. Please try again",
+    "photographer_created_successfully": "Photographer created successfully!"
   },
   "branch-manager-created-successfully": "Branch manager created successfully",
   "application-title": "Taswera Dashboard",

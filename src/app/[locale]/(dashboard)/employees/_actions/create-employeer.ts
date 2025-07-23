@@ -2,6 +2,7 @@
 "use server";
 
 import { getAuthToken } from "@/lib/utils/auth.token";
+import { revalidatePath } from "next/cache";
 
 export default async function createEmployeer(data: CreateBranchManagerBody) {
   const token = await getAuthToken();
@@ -23,6 +24,7 @@ export default async function createEmployeer(data: CreateBranchManagerBody) {
   }
   const payload: APIResponse<CreateBranchManagerResponse> =
     await response.json();
+  revalidatePath("/employees");
 
   return payload;
 }

@@ -36,13 +36,16 @@ import useCreateEmployeer from "../_hooks/use-create-employeer";
 import useEditEmployeer from "../_hooks/use-edit-employeer";
 import { useSession } from "next-auth/react";
 import { useBranches } from "../../_hooks/use-branshes";
+import { toast } from "sonner";
 
 export default function AddoREditEmployeeForm({
   onSuccess,
   edit = false,
+  employee,
 }: {
   onSuccess?: () => void;
   edit?: boolean;
+  employee?: Employee;
 }) {
   // Hooks
   const t = useTranslations("employees");
@@ -50,20 +53,21 @@ export default function AddoREditEmployeeForm({
   const { AddEmployeer, AddPending, AddError } = useCreateEmployeer();
   const { EditEmployeer, EditPending, EditError } = useEditEmployeer();
   const registerSchema = useAddEmployeeSchema();
-  const { data: branches, isLoading } = useBranches(data?.user?.token || "");
+  const { data: branches, isLoading } = useBranches(data?.token || "");
+
   // Determine which mutation to use
   const isPending = edit ? EditPending : AddPending;
   const error = edit ? EditError : AddError;
-  console.log(data);
+
   // Form
   const form = useForm<AddEmployeesFields>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
-      email: "",
+      name: employee?.name ? employee.name : "",
+      email: employee?.email ? employee.email : "",
       password: "",
-      branch: "1",
-      phone: "",
+      branch: employee?.branch_id ? employee.branch_id.toString() : "",
+      phone: employee?.phone ? employee.phone : "",
     },
   });
 
@@ -74,21 +78,26 @@ export default function AddoREditEmployeeForm({
       email: values.email,
       password: values.password,
       phone: values.phone,
-      branch_id: 1,
+      branch_id: values.branch,
       role: "staff",
       status: "active",
     };
 
+    console.log(employee);
+
     if (edit) {
       EditEmployeer(
-        { data: sendData, id: "24" },
+        { data: sendData, id: employee?.id.toString() || "" },
         {
           onSuccess: (data) => {
             console.log("Employee updated:", data);
+            toast.success(t("employee_updated_successfully"));
+            form.reset();
             if (onSuccess) onSuccess();
           },
           onError: (err) => {
             console.log("Error updating employee:", err);
+            toast.error(t("error_updating_employee"));
           },
         }
       );
@@ -96,15 +105,17 @@ export default function AddoREditEmployeeForm({
       AddEmployeer(sendData, {
         onSuccess: (data) => {
           console.log("Employee created:", data);
+          toast.success(t("employee_created_successfully"));
+          form.reset();
           if (onSuccess) onSuccess();
         },
         onError: (err) => {
           console.log("Error creating employee:", err);
+          toast.error(t("error_creating_employee"));
         },
       });
     }
   }
-
   return (
     <Form {...form}>
       <form

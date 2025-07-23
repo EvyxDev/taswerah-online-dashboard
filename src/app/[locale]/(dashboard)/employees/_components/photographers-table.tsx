@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Calendar, ArrowRight, ArrowLeft } from "lucide-react";
 import { FaPen } from "react-icons/fa";
 import { HiMiniTrash } from "react-icons/hi2";
@@ -30,7 +29,11 @@ interface Props {
   currentPage: number;
 }
 
-export default function PhotographersTable({ PhotoGraphers, onPageChange, currentPage }: Props) {
+export default function PhotographersTable({
+  PhotoGraphers,
+  onPageChange,
+  currentPage,
+}: Props) {
   // Translation
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
@@ -152,11 +155,14 @@ export default function PhotographersTable({ PhotoGraphers, onPageChange, curren
                       <div className="flex items-center gap-3 ">
                         <Avatar className="h-10 w-10">
                           <AvatarImage
-                            src={photoGrapher.name.charAt(2) || "/placeholder.svg"}
+                            src={
+                              photoGrapher.name.charAt(2) || "/placeholder.svg"
+                            }
                             alt={photoGrapher.name}
                           />
                           <AvatarFallback className="text-sm font-medium uppercase ">
-                            {photoGrapher.name.charAt(0) + photoGrapher.name.charAt(1)}
+                            {photoGrapher.name.charAt(0) +
+                              photoGrapher.name.charAt(1)}
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
@@ -173,7 +179,9 @@ export default function PhotographersTable({ PhotoGraphers, onPageChange, curren
                     <TableCell className="text-center">
                       <div className="flex justify-center gap-7">
                         <DeleteDialog
-                          action={() => DeleteEmployeer({ id: String(photoGrapher.id) })}
+                          action={() =>
+                            DeleteEmployeer({ id: String(photoGrapher.id) })
+                          }
                           description="Are you sure you want to delete this Photographers? This action cannot be undone."
                           title="Delete Photographers"
                         >
@@ -183,6 +191,7 @@ export default function PhotographersTable({ PhotoGraphers, onPageChange, curren
                         </DeleteDialog>
                         <AddOrEditPhotographerDialog
                           edit={true}
+                          photoGrapher={photoGrapher}
                           trigger={
                             <button className=" text-black">
                               <FaPen />

@@ -54,7 +54,9 @@
     "update": "تعديل",
     "updating": "جاري التعديل",
     "adding": "جاري الاضافة",
-    "unknown": "غير معروف"
+    "unknown": "غير معروف",
+    "error_creating_employee": "فشل في إنشاء الموظف. حاول مرة أخرى",
+    "error_updating_employee": "فشل في تحديث بيانات الموظف. حاول مرة أخرى"
   },
   "photographers": {
     "add": "إضافة",
@@ -63,7 +65,15 @@
     "cancel": "إلغاء",
     "selectBranch": "اختر الفرع",
     "name": "الاسم",
-    "branch": "الفرع"
+    "branch": "الفرع",
+    "errorEditingPhotographer": "يجب أن يكون الاسم فريدًا",
+    "updating": "جاري التحديث",
+    "adding": "جاري الاضافة",
+    "update": "تحديث",
+    "editPhotographer": " تحديث مصور",
+    "photographer_updated_successfully": "تم تحديث بيانات المصور بنجاح",
+    "photographer_created_successfully": "تم تحديث بيانات المصور بنجاح",
+    "error_updating_photographer": "فشل في تحديث بيانات المصور. حاول مرة أخرى"
   },
   "branches": {
     "status": "الحالة",
