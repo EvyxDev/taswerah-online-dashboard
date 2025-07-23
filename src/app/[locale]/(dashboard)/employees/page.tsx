@@ -3,29 +3,33 @@ import { GetAllEmployees, GetAllPhotographers } from "@/lib/api/employees.api";
 import EmployeesPage from "./_components/employees-page";
 import { EmployeeTableSkeleton } from "./_components/employee-skeleton";
 
-async function EmployeesData({ page = 1, limit = 10 }) {
-  const employeesData = await GetAllEmployees(page, limit);
-  const photographersData = await GetAllPhotographers(page, limit);
-
-  return (
-    <EmployeesPage
-      employees={employeesData.data}
-      PhotoGraphers={photographersData.data}
-    />
-  );
-}
-
 export default async function Page({
   searchParams,
 }: {
   searchParams: { page?: string; limit?: string };
 }) {
-  const page = Number(searchParams.page) || 1;
-  const limit = Number(searchParams.limit) || 10;
+  const page = Math.max(1, Number(searchParams.page) || 1);
+  const limit = Math.max(1, Math.min(50, Number(searchParams.limit) || 10));
+
+  const [employeesData, photographersData] = await Promise.all([
+    GetAllEmployees(page, limit),
+    GetAllPhotographers(page, limit),
+  ]);
 
   return (
     <Suspense fallback={<EmployeeTableSkeleton />}>
-      <EmployeesData page={page} limit={limit} />
+      <EmployeesPage
+        employees={employeesData.data}
+        PhotoGraphers={photographersData.data}
+        pagination={{
+          currentPage: page,
+          totalPages: [
+            Math.max(1, employeesData.data.meta.last_page),
+            Math.max(1, photographersData.data.meta.last_page),
+          ],
+          limit,
+        }}
+      />
     </Suspense>
   );
 }

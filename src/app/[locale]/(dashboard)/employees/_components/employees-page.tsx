@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,31 +12,46 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EmployeesTable from "./employees-table";
 import PhotographersTable from "./photographers-table";
 import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/routing";
+
+type Props = {
+  employees: PaginatedEmployees;
+  PhotoGraphers: PaginatedPhGraphers;
+  pagination: {
+    currentPage: number;
+    totalPages: number[];
+    limit: number;
+  };
+}
 
 export default function EmployeesPage({
   employees,
   PhotoGraphers,
-}: {
-  employees: PaginatedEmployees;
-  PhotoGraphers: PaginatedPhGraphers;
-}) {
+  pagination,
+}: Props) {
   // Translation
   const t = useTranslations("employees");
   const locale = useLocale();
 
   // Router
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   // States
   const [activeTab, setActiveTab] = useState("employees");
   
   // Handle page change
-  const handlePageChange = (page: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", page.toString());
-    router.push(`?${params.toString()}`);
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams();
+    params.set('page', newPage.toString());
+    params.set('limit', pagination.limit.toString());
+    
+    // Update URL with new parameters
+    router.push(`${pathname}?${params.toString()}`);
   };
+
+  console.log("Total Pages: ", pagination.totalPages);
+  
 
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
@@ -83,15 +98,17 @@ export default function EmployeesPage({
             <EmployeesTable 
               employees={employees} 
               onPageChange={handlePageChange}
-              currentPage={Number(searchParams.get("page")) || 1}
+              currentPage={pagination.currentPage}
+              totalPages={pagination.totalPages[0]}
             />
           </TabsContent>
 
           <TabsContent value="photographers" className="mt-10">
             <PhotographersTable 
-              PhotoGraphers={PhotoGraphers} 
+              PhotoGraphers={PhotoGraphers}
               onPageChange={handlePageChange}
-              currentPage={Number(searchParams.get("page")) || 1}
+              currentPage={pagination.currentPage}
+              totalPages={pagination.totalPages[1]}
             />
           </TabsContent>
         </Tabs>
