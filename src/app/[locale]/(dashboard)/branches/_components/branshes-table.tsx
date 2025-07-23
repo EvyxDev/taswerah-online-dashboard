@@ -17,7 +17,7 @@ import { currentBranches } from "@/lib/constants/data.constant";
 import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
-import AddBranchDialog from "./add-branch-dialog";
+import AddOrEditBranchDialog from "./add-branch-dialog";
 
 export default function BranshesTable() {
   const t = useTranslations();
@@ -38,7 +38,7 @@ export default function BranshesTable() {
               {currentBranches.length}
             </Badge>
           </div>
-          <AddBranchDialog />
+          <AddOrEditBranchDialog />
         </div>
 
         {/* Table */}
@@ -107,7 +107,7 @@ export default function BranshesTable() {
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
                       {" "}
-                      <TableCell className="text-center">
+                      <div className="text-center">
                         <div className="flex justify-center gap-7">
                           <button className="">
                             <HiMiniTrash className="text-black text-2xl" />
@@ -116,7 +116,7 @@ export default function BranshesTable() {
                             <FaPen />
                           </button>
                         </div>
-                      </TableCell>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))
