@@ -8,14 +8,15 @@ export default function PaymentSectoin({ branchId }: { branchId: string }) {
   if (!states) {
     return;
   }
+  console.log(states);
   return (
     <div className="space-y-8 py-8">
-      <CardSection summary={states?.summary} />
+      <CardSection summary={states} />
       <ChartsSectoin
         SalesChart={states?.sales_chart}
         photoStats={states?.photo_stats}
       />
-      <PaymentTable />
+      {states.employees && <PaymentTable employees={states.employees} />}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 export async function GetPaymentsByBransh(
   token: string,
   id: string
-): Promise<homeStates> {
+): Promise<paymentStates> {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/payments/${id}`,
@@ -20,7 +20,7 @@ export async function GetPaymentsByBransh(
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
 
-    const payload: APIResponse<homeStates> = await response.json();
+    const payload: APIResponse<paymentStates> = await response.json();
 
     if (!("data" in payload)) {
       throw new Error(payload.message);

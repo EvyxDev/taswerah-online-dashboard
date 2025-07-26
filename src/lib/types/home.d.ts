@@ -4,6 +4,7 @@ declare type Summary = {
   total_clients: number;
   printed_photos: number;
   active_booths: number;
+  clients?: number;
 };
 
 // Sales chart section
@@ -30,4 +31,15 @@ declare type homeStates = {
   sales_chart: SalesChart;
   staff_performance: StaffPerformanceEntry[];
   photo_stats: PhotoStats;
+};
+declare type paymentStates = {
+  total_sales: string;
+  total_clients: number;
+  printed_photos: number;
+  clients?: number;
+  active_booths: number;
+  sales_chart: SalesChart;
+  staff_performance: StaffPerformanceEntry[];
+  photo_stats: PhotoStats;
+  employees: Employee[];
 };

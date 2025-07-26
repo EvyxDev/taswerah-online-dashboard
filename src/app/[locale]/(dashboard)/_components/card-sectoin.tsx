@@ -46,7 +46,7 @@ export default function CardSection({ summary }: { summary: Summary }) {
     },
     {
       title: t("dashboard.clients"),
-      value: summary.total_clients,
+      value: summary.total_clients || summary.clients || 0,
       iconSrc: "/assets/dash-board-2.svg",
     },
     {
