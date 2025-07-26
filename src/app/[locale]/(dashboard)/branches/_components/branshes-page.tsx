@@ -1,3 +1,4 @@
+"use client";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,9 +7,33 @@ import {
 } from "@/components/ui/breadcrumb";
 import BranshesTable from "./branshes-table";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { usePathname } from "@/i18n/routing";
 
-export default function BranshesPage() {
+type Props = {
+  branshes: Branch[];
+  pagination: {
+    currentPage: number;
+    totalPages: number[];
+    limit: number;
+  };
+};
+export default function BranshesPage({ branshes, pagination }: Props) {
+  // Router
+  const router = useRouter();
+  const pathname = usePathname();
+
   const t = useTranslations();
+
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams();
+    params.set("page", newPage.toString());
+    params.set("limit", pagination.limit.toString());
+
+    // Update URL with new parameters
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
       <Breadcrumb>
@@ -22,7 +47,12 @@ export default function BranshesPage() {
       </Breadcrumb>
 
       <div className="py-10">
-        <BranshesTable />
+        <BranshesTable
+          branshes={branshes}
+          onPageChange={handlePageChange}
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages[0]}
+        />
       </div>
     </div>
   );

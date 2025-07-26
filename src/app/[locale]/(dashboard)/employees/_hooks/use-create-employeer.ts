@@ -6,10 +6,10 @@ export default function useCreateEmployeer() {
     mutationFn: async (data: CreateBranchManagerBody) => {
       const payload = await createEmployeer(data);
       if ("errors" in payload) {
-        throw payload;
+        throw new Error("error creating Employee");
       }
       return payload;
     },
   });
-  return { AddEmployeer: mutate, isPending, error };
+  return { AddEmployeer: mutate, AddPending: isPending, AddError: error };
 }

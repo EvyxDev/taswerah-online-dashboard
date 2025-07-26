@@ -10,7 +10,8 @@
     "payments": "Payments",
     "settings": "Settings",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "Unknown": "Unknown"
   },
   "dashboard": {
     "totalSales": "Total Sales",
@@ -40,7 +41,17 @@
     "location": "Location",
     "noBranchesFound": "No branches found",
     "addBranch": "Add Branch",
-    "save": "Add"
+    "editBranch": "Edit Branch",
+    "save": "Add",
+    "branch_updated_successfully": "Branch updated successfully",
+    "branch_created_successfully": "Branch created successfully",
+    "error_updating_branch": "Failed to update branch. Please try again",
+    "error_creating_branch": "Failed to create branch. Please try again",
+    "errorEditingBranch": "An error occurred while editing the branch",
+    "errorAddingBranch": "An error occurred while adding the branch",
+    "updating": "Updating",
+    "adding": "Adding",
+    "update": "Update"
   },
   "employees": {
     "employeesTab": "Employees",
@@ -56,7 +67,18 @@
     "addEmployee": "Add Employee",
     "save": "Add",
     "cancel": "Cancel",
-    "selectBranch": "Select branch"
+    "selectBranch": "Select branch",
+    "errorAddingEmployee": "Email or phone number already exists",
+    "editEmployee": "Edit Employee",
+    "errorEditingEmployee": "Error while editing employee",
+    "update": "Update",
+    "updating": "Updating",
+    "adding": "adding",
+    "unknown": "Unknown",
+    "employee_created_successfully": "Employee created successfully!",
+    "employee_updated_successfully": "Employee updated successfully",
+    "error_creating_employee": "Failed to create employee. Please try again",
+    "error_updating_employee": "Failed to update employee. Please try again"
   },
   "packages": {
     "status": "Status",
@@ -95,7 +117,19 @@
     "cancel": "Cancel",
     "selectBranch": "Select branch",
     "name": "Name",
-    "branch": "Branch"
+    "branch": "Branch",
+    "errorEditingPhotographer": "Name must be unique.",
+    "errorAddingPhotographer": "Name must be unique",
+    "updating": "Updating",
+    "adding": "Adding",
+    "update": "Update",
+    "editPhotographer": "Update Photographer",
+    "photographer_updated_successfully": "Photographer updated successfully!",
+    "error_updating_photographer": "Failed to update photographer. Please try again",
+    "error_creating_photographer": "Failed to create photographer. Please try again",
+    "photographer_created_successfully": "Photographer created successfully!"
   },
-  "branch-manager-created-successfully": "Branch manager created successfully"
+  "branch-manager-created-successfully": "Branch manager created successfully",
+  "application-title": "Taswera Dashboard",
+  "unknown": "Unknown"
 }

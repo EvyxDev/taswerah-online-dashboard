@@ -34,6 +34,9 @@ const Card = ({ title, value, unit, iconSrc }: CardProps) => {
 
 export default function CardSection({ summary }: { summary: Summary }) {
   const t = useTranslations();
+  if (!summary) {
+    return;
+  }
   const cardData = [
     {
       title: t("dashboard.totalSales"),

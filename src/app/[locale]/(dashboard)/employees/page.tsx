@@ -1,9 +1,35 @@
+import { Suspense } from "react";
+import { GetAllEmployees, GetAllPhotographers } from "@/lib/api/employees.api";
 import EmployeesPage from "./_components/employees-page";
+import { EmployeeTableSkeleton } from "./_components/employee-skeleton";
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { page?: string; limit?: string };
+}) {
+  const page = Math.max(1, Number(searchParams.page) || 1);
+  const limit = Math.max(1, Math.min(50, Number(searchParams.limit) || 10));
+
+  const [employeesData, photographersData] = await Promise.all([
+    GetAllEmployees(page, limit),
+    GetAllPhotographers(page, limit),
+  ]);
+
   return (
-    <>
-      <EmployeesPage />
-    </>
+    <Suspense fallback={<EmployeeTableSkeleton />}>
+      <EmployeesPage
+        employees={employeesData.data}
+        PhotoGraphers={photographersData.data}
+        pagination={{
+          currentPage: page,
+          totalPages: [
+            Math.max(1, employeesData.data.meta.last_page),
+            Math.max(1, photographersData.data.meta.last_page),
+          ],
+          limit,
+        }}
+      />
+    </Suspense>
   );
 }

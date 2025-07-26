@@ -7,29 +7,23 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import CardSection from "../../_components/card-sectoin";
-import ChartsSectoin from "../../_components/charts-sectoin";
-import PaymentTable from "./payment-table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useTranslations } from "next-intl";
+import PaymentSectoin from "./payment-sectoins";
 
-export default function PaymentPage() {
+export default function PaymentPage({ branches }: { branches: Branch[] }) {
   const t = useTranslations();
-  const [activeTab, setActiveTab] = useState("nasrcity");
 
-  const tabs = [
-    { value: "nasrcity", label: t("payments.nasrCity") },
-    { value: "zamalek", label: t("payments.zamalek") },
-    { value: "mohandseen", label: t("payments.mohandseen") },
-    { value: "dokki", label: t("payments.dokki") },
-    { value: "agouza", label: t("payments.agouza") },
-  ];
+  const activeBranches = branches.filter((branch) => branch.is_active);
 
-  const renderContent = () => (
-    <div className="space-y-8 py-8">
-      <CardSection />
-      <ChartsSectoin />
-      <PaymentTable />
-    </div>
+  const [selectedBranchId, setSelectedBranchId] = useState<string>(
+    activeBranches.length > 0 ? activeBranches[0].id.toString() : ""
   );
 
   return (
@@ -46,25 +40,35 @@ export default function PaymentPage() {
 
       <div className="py-10">
         <div className="w-full">
-          {/* Custom Tab Navigation */}
-          <div className="bg-transparent gap-5 flex">
-            {tabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => setActiveTab(tab.value)}
-                className={`text-3xl font-homenaje py-4 px-8 rounded-2xl transition-colors ${
-                  activeTab === tab.value
-                    ? "bg-black text-white"
-                    : "bg-[#FAFAFA] text-black hover:bg-gray-200"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+          {/* Branch Selection Dropdown */}
+          <div className="mb-8">
+            <Select
+              value={selectedBranchId}
+              onValueChange={setSelectedBranchId}
+            >
+              <SelectTrigger className="w-80 text-2xl font-homenaje py-6 px-6 rounded-2xl bg-[#FAFAFA] border-2 border-gray-200 hover:bg-gray-100 focus:bg-white">
+                <SelectValue placeholder={t("payments.selectBranch")} />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl max-h-[300px]">
+                {activeBranches.map((branch) => (
+                  <SelectItem
+                    key={branch.id}
+                    value={branch.id.toString()}
+                    className="text-lg font-homenaje py-3 pl-8 pr-4 cursor-pointer hover:bg-gray-100"
+                  >
+                    {branch.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Content */}
-          <div className="mt-5">{renderContent()}</div>
+          {selectedBranchId && (
+            <div className="mt-5">
+              <PaymentSectoin branchId={selectedBranchId} />
+            </div>
+          )}
         </div>
       </div>
     </div>

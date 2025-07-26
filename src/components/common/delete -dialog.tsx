@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,19 +12,39 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { ReactNode } from "react";
+import { toast } from "sonner";
 
-interface DeleteDialog {
+interface DeleteDialogProps {
   title: string;
   description: string;
-  action: () => void;
+  action: () => Promise<any> | void;
+  children: ReactNode;
+  successMessage?: string;
+  errorMessage?: string;
 }
-export function DeleteDialog({ description, title, action }: DeleteDialog) {
+
+export function DeleteDialog({
+  title,
+  description,
+  action,
+  children,
+  successMessage = "Deleted successfully!",
+  errorMessage = "Failed to delete. Please try again.",
+}: DeleteDialogProps) {
+  const handleAction = async () => {
+    try {
+      await action();
+      toast.success(successMessage);
+    } catch (err) {
+      console.error("Delete failed:", err);
+      toast.error(errorMessage);
+    }
+  };
+
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline"></Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -29,7 +52,7 @@ export function DeleteDialog({ description, title, action }: DeleteDialog) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={action}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={handleAction}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

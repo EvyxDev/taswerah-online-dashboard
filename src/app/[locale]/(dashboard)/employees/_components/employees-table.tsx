@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -17,74 +18,36 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import { employeesData } from "@/lib/constants/data.constant";
 import { useTranslations } from "next-intl";
-import AddEmployeeDialog from "./add-employee-dialog";
 import { Switch } from "@/components/ui/switch";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import AddOrEditEmployeeDialog from "./add-employee-dialog";
+import { DeleteDialog } from "@/components/common/delete -dialog";
+import useDeleteEmployeer from "../_hooks/use-delete-employeer";
+import { PaginationComponent } from "@/components/common/pagination-comp";
 const ITEMS_PER_PAGE = 7;
 
-export default function EmployeesTable() {
+interface Props {
+  employees: PaginatedEmployees;
+  onPageChange: (page: number) => void;
+  currentPage: number;
+  totalPages: number; 
+}
+
+export default function EmployeesTable({
+  employees,
+  onPageChange,
+  currentPage,
+  totalPages,
+}: Props) {
+  // Translation
   const t = useTranslations("employees");
   const tNav = useTranslations("navigation");
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(employeesData.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentEmployees = employeesData.slice(startIndex, endIndex);
+  // Hooks
+  const { DeleteEmployeer } = useDeleteEmployeer();
 
-  const goToPage = (page: number) => {
-    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
-  };
-
-  const goToPrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const goToNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  // Generate page numbers to show
-  const getPageNumbers = () => {
-    const pages = [];
-    const maxVisiblePages = 5;
-
-    if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 4; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      } else if (currentPage >= totalPages - 2) {
-        pages.push(1);
-        pages.push("...");
-        for (let i = totalPages - 3; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        pages.push(1);
-        pages.push("...");
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      }
-    }
-
-    return pages;
-  };
+  // Variables
+  const employeesData = employees.data;
 
   return (
     <Card className="bg-background max-w-screen-2xl mx-auto rounded-2xl py-6 h-full ">
@@ -99,10 +62,10 @@ export default function EmployeesTable() {
               variant="secondary"
               className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
             >
-              {employeesData.length}
+              {employeesData?.length || 0}
             </Badge>
           </div>
-          <AddEmployeeDialog />
+          <AddOrEditEmployeeDialog />
         </div>
 
         {/* Table */}
@@ -119,9 +82,6 @@ export default function EmployeesTable() {
                 <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("email")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
-                  {t("password")}
-                </TableHead>
                 <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[200px]">
                   {t("phoneNumber")}
                 </TableHead>
@@ -134,8 +94,8 @@ export default function EmployeesTable() {
               </TableRow>
             </TableHeader>
             <TableBody className="">
-              {currentEmployees.length > 0 ? (
-                currentEmployees.map((employee, index) => (
+              {employeesData.length > 0 ? (
+                employeesData.map((employee, index) => (
                   <TableRow
                     key={employee.name}
                     className={`px-7 h-[70px] ${
@@ -143,7 +103,7 @@ export default function EmployeesTable() {
                     }`}
                   >
                     <TableCell>
-                      <Switch checked={employee.status} />
+                      <Switch checked={employee.status === "active"} />
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3 ">
@@ -167,23 +127,33 @@ export default function EmployeesTable() {
                       {employee.email}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {/* Password cell with eye icon */}
-                      <PasswordCell password={employee.password} />
+                      {employee.phone}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {employee.phoneNumber}
-                    </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {employee.branch}
+                      {employee?.branch?.name || t("unknown")}
                     </TableCell>
                     <TableCell className="text-center">
                       <div className="flex justify-center gap-7">
-                        <button className="">
-                          <HiMiniTrash className="text-black text-2xl" />
-                        </button>
-                        <button className=" text-black">
-                          <FaPen />
-                        </button>
+                        <DeleteDialog
+                          action={() =>
+                            DeleteEmployeer({ id: String(employee.id) })
+                          }
+                          description="Are you sure you want to delete this employee? This action cannot be undone."
+                          title="Delete Employee"
+                        >
+                          <button className="">
+                            <HiMiniTrash className="text-black text-2xl" />
+                          </button>
+                        </DeleteDialog>
+                        <AddOrEditEmployeeDialog
+                          edit={true}
+                          employee={employee}
+                          trigger={
+                            <button className=" text-black">
+                              <FaPen />
+                            </button>
+                          }
+                        />
                       </div>
                     </TableCell>
                   </TableRow>
@@ -205,79 +175,12 @@ export default function EmployeesTable() {
         {/* Pagination - Only show if there are results */}
         {employeesData.length > 0 && (
           <>
-            <div className="flex items-center justify-between mt-6  px-7">
-              <Button
-                variant="ghost"
-                className="flex items-center gap-2 font-homenaje text-xl shadow-sm border disabled:bg-[#FAFAFA]"
-                onClick={goToPrevious}
-                disabled={currentPage === 1}
-              >
-                <ArrowLeft className="h-8 w-8" />
-                {tNav("previous")}
-              </Button>
-
-              <div className="flex items-center gap-2">
-                {getPageNumbers().map((page, index) => (
-                  <div key={index}>
-                    {page === "..." ? (
-                      <span className="px-2 text-muted-foreground">...</span>
-                    ) : (
-                      <Button
-                        variant={currentPage === page ? "default" : "ghost"}
-                        size="sm"
-                        className={`w-8 h-8 p-0 ${
-                          currentPage === page
-                            ? "bg-slate-200 text-black hover:bg-slate-200"
-                            : "text-muted-foreground"
-                        }`}
-                        onClick={() => goToPage(page as number)}
-                      >
-                        {page}
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <Button
-                variant="ghost"
-                className="flex items-center gap-2 font-homenaje text-xl shadow-sm border"
-                onClick={goToNext}
-                disabled={currentPage === totalPages}
-              >
-                {tNav("next")}
-                <ArrowRight className="h-8 w-8" />
-              </Button>
+            <div className="mt-6">
+              <PaginationComponent currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} maxVisiblePages={5} />
             </div>
           </>
         )}
       </div>
     </Card>
-  );
-}
-
-function PasswordCell({ password }: { password: string }) {
-  const [show, setShow] = useState(false);
-  return (
-    <span className="relative flex items-center justify-center select-text">
-      <span className="mx-auto min-w-[40px] text-center">
-        {show ? password : "*".repeat(password.length)}
-      </span>
-      <button
-        type="button"
-        className="absolute right-0 rtl:right-auto rtl:left-0 top-1/2 -translate-y-1/2 p-0 bg-transparent border-0 cursor-pointer"
-        tabIndex={-1}
-        onClick={() => setShow((s) => !s)}
-      >
-        {show ? (
-          <VscEye size={18} className="text-gray-500" />
-        ) : (
-          <VscEyeClosed size={18} className="text-gray-500" />
-        )}
-        <span className="sr-only">
-          {show ? "Hide password" : "Show password"}
-        </span>
-      </button>
-    </span>
   );
 }

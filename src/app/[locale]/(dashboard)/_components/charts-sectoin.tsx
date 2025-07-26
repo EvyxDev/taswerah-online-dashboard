@@ -8,6 +8,9 @@ export default function ChartsSectoin({
   SalesChart: SalesChart;
   photoStats: PhotoStats;
 }) {
+  if (!SalesChart || !photoStats) {
+    return;
+  }
   return (
     <div className="flex items-start min-[1100px]:flex-row flex-col justify-between gap-2 flex-wrap">
       <div className=" w-full min-[1100px]:w-[60%]">

@@ -10,7 +10,8 @@
     "payments": "المدفوعات",
     "settings": "الإعدادات",
     "next": "التالي",
-    "previous": "السابق"
+    "previous": "السابق",
+    "Unknown": "غير معروف"
   },
   "dashboard": {
     "totalSales": "إجمالي المبيعات",
@@ -46,7 +47,16 @@
     "addEmployee": "إضافة موظف",
     "save": "إضافة",
     "cancel": "إلغاء",
-    "selectBranch": "اختر الفرع"
+    "selectBranch": "اختر الفرع",
+    "errorAddingEmployee": "البريد الإلكتروني أو رقم الهاتف موجود بالفعل",
+    "editEmployee": "تعديل موظف",
+    "errorEditingEmployee": "خطأ أثناء تعديل الموظف",
+    "update": "تعديل",
+    "updating": "جاري التعديل",
+    "adding": "جاري الاضافة",
+    "unknown": "غير معروف",
+    "error_creating_employee": "فشل في إنشاء الموظف. حاول مرة أخرى",
+    "error_updating_employee": "فشل في تحديث بيانات الموظف. حاول مرة أخرى"
   },
   "photographers": {
     "add": "إضافة",
@@ -55,7 +65,15 @@
     "cancel": "إلغاء",
     "selectBranch": "اختر الفرع",
     "name": "الاسم",
-    "branch": "الفرع"
+    "branch": "الفرع",
+    "errorEditingPhotographer": "يجب أن يكون الاسم فريدًا",
+    "updating": "جاري التحديث",
+    "adding": "جاري الاضافة",
+    "update": "تحديث",
+    "editPhotographer": " تحديث مصور",
+    "photographer_updated_successfully": "تم تحديث بيانات المصور بنجاح",
+    "photographer_created_successfully": "تم تحديث بيانات المصور بنجاح",
+    "error_updating_photographer": "فشل في تحديث بيانات المصور. حاول مرة أخرى"
   },
   "branches": {
     "status": "الحالة",
@@ -65,7 +83,17 @@
     "location": "الموقع",
     "noBranchesFound": "لا توجد فروع",
     "addBranch": "إضافة فرع",
-    "save": "إضافة"
+    "editBranch": " تعديل فرع",
+    "save": "إضافة",
+    "branch_updated_successfully": "تم تحديث بيانات الفرع بنجاح",
+    "branch_created_successfully": "تم إنشاء الفرع بنجاح",
+    "error_updating_branch": "فشل في تحديث بيانات الفرع. حاول مرة أخرى",
+    "error_creating_branch": "فشل في إنشاء الفرع. حاول مرة أخرى",
+    "errorEditingBranch": "حدث خطأ أثناء تعديل الفرع",
+    "errorAddingBranch": "حدث خطأ أثناء إضافة الفرع",
+    "updating": "تحديث",
+    "adding": "اضافة",
+    "update": "تحديث"
   },
   "packages": {
     "status": "الحالة",
@@ -98,5 +126,7 @@
     "receipt": "الإيصال",
     "noClientsFound": "لا يوجد عملاء"
   },
-  "branch-manager-created-successfully": "تم إنشاء مدير الفرع بنجاح"
+  "branch-manager-created-successfully": "تم إنشاء مدير الفرع بنجاح",
+  "application-title": "لوحة تحكم تصويره",
+  "unknown": "غير معروف"
 }
