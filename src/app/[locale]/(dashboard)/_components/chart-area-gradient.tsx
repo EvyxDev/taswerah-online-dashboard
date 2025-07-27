@@ -35,7 +35,7 @@ const chartConfig = {
 export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
   const t = useTranslations();
 
-  const chartData = SalesChart.labels.map((label, index) => ({
+  const chartData = SalesChart?.labels?.map((label, index) => ({
     month: label,
     desktop: SalesChart.data[index] ?? 0,
   }));
@@ -66,7 +66,7 @@ export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              domain={[0, Math.max(...SalesChart.data, 800)]}
+              domain={[0, Math.max(800, ...(SalesChart?.data || []))]}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>

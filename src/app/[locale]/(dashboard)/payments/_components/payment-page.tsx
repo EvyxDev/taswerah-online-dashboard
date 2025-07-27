@@ -22,10 +22,12 @@ export default function PaymentPage({ branches }: { branches: Branch[] }) {
 
   const activeBranches = branches.filter((branch) => branch.is_active);
 
-  const [selectedBranchId, setSelectedBranchId] = useState<string>(
-    activeBranches.length > 0 ? activeBranches[0].id.toString() : ""
-  );
-
+  const [selectedBranchId, setSelectedBranchId] = useState<string>(() => {
+    const defaultBranch =
+      activeBranches.find((b) => b.id === 3) || activeBranches[0];
+    return defaultBranch ? defaultBranch.id.toString() : "";
+  });
+  console.log(activeBranches);
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
       <Breadcrumb>

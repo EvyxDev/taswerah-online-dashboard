@@ -13,8 +13,8 @@ export default function PaymentSectoin({ branchId }: { branchId: string }) {
     <div className="space-y-8 py-8">
       <CardSection summary={states} />
       <ChartsSectoin
-        SalesChart={states?.sales_chart}
-        photoStats={states?.photo_stats}
+        SalesChart={states?.sales_data}
+        photoStats={states?.photo_distribution}
       />
       {states.employees && <PaymentTable employees={states.employees} />}
     </div>

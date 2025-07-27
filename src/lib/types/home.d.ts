@@ -38,8 +38,8 @@ declare type paymentStates = {
   printed_photos: number;
   clients?: number;
   active_booths: number;
-  sales_chart: SalesChart;
+  sales_data: SalesChart;
   staff_performance: StaffPerformanceEntry[];
-  photo_stats: PhotoStats;
+  photo_distribution: PhotoStats;
   employees: Employee[];
 };

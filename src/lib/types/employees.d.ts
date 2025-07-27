@@ -47,6 +47,10 @@ declare type Employee = {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+  stats: {
+    total_photos: number;
+    total_customers: number;
+  };
 };
 
 type UserRole = "staff" | "photographer" | "admin" | string;

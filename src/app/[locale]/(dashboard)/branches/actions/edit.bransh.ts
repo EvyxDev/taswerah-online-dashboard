@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 export default async function editBransh(data: CreateBranchBody, id: string) {
   const token = await getAuthToken();
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/branches/${id}`,
+    `https://taswera.evyx.lol/api/onlinedashboard/admin/branches/${id}`,
     {
       method: "PUT",
       body: JSON.stringify(data),
