@@ -47,6 +47,10 @@ declare type Employee = {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+  stats: {
+    total_photos: number;
+    total_customers: number;
+  };
 };
 
 type UserRole = "staff" | "photographer" | "admin" | string;
@@ -107,4 +111,14 @@ declare type PaginatedPhGraphers = {
   links: PaginationLinks;
   meta: PaginationMeta;
   photographer_count: number;
+};
+
+declare type Client = {
+  id: number;
+  barcode: string;
+  phone_number: string;
+  branch_id: number;
+  last_visit: string;
+  created_at: string;
+  updated_at: string;
 };

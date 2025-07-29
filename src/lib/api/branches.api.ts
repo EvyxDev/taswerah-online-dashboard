@@ -7,7 +7,7 @@ export async function GetAllBranshes(token: string): Promise<Branch[]> {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_API
-      }/onlinedashboard/admin/branches?page=${1}&limit=${100}`,
+      }/onlinedashboard/admin/branches?page=${1}&limit=${200}`,
       {
         method: "GET",
         headers: {

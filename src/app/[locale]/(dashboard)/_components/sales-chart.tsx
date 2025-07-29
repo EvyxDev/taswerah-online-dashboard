@@ -32,6 +32,59 @@ const chartConfig = {
 export function PhotoSalesChart({ photoStats }: { photoStats: PhotoStats }) {
   const t = useTranslations();
 
+  // Check if there's no data at all
+  const hasNoData =
+    !photoStats ||
+    (photoStats.sold_count === 0 && photoStats.captured_count === 0) ||
+    (photoStats.sold_count === null && photoStats.captured_count === null) ||
+    (photoStats.sold_count === undefined &&
+      photoStats.captured_count === undefined);
+
+  // If no data, show empty state
+  if (hasNoData) {
+    return (
+      <Card className="w-full min-w-xs mx-auto p-0 rounded-3xl">
+        <CardHeader className="text-center">
+          <CardTitle className="text-lg font-medium"></CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center justify-center h-80 text-center">
+          <div className="text-gray-400 space-y-4">
+            {/* Empty state icon */}
+            <div className="mx-auto w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full">
+              <svg
+                className="w-8 h-8 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            {/* Empty state text */}
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-1">
+                {t("dashboard.noPhotosTitle", {
+                  default: "No Photos Available",
+                })}
+              </h3>
+              <p className="text-sm text-gray-500">
+                {t("dashboard.noPhotosDescription", {
+                  default: "No photos have been captured or sold yet.",
+                })}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className="sr-only" />
+      </Card>
+    );
+  }
+
   const chartData = [
     {
       name: "Sold",

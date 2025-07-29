@@ -1,16 +1,25 @@
+"use client";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   title: string;
   value: string | number;
   unit?: string;
   iconSrc: string;
+  branchId?: string;
+  onClick?: () => void;
 }
 
-const Card = ({ title, value, unit, iconSrc }: CardProps) => {
+const Card = ({ title, value, unit, iconSrc, onClick }: CardProps) => {
   return (
-    <div className="bg-white flex flex-col justify-between shadow-md border-black border-[12px] p-4  2xl:p-6 rounded-3xl h-40 sm:h-44 md:h-48 lg:h-40 2xl:h-48">
+    <div
+      className={`bg-white flex flex-col justify-between shadow-md border-black border-[12px] p-4 2xl:p-6 rounded-3xl h-40 sm:h-44 md:h-48 lg:h-40 2xl:h-48 ${
+        onClick ? "cursor-pointer hover:shadow-lg transition" : ""
+      }`}
+      onClick={onClick}
+    >
       <div className="2xl:mb-2">
         <Image
           src={iconSrc}
@@ -32,11 +41,20 @@ const Card = ({ title, value, unit, iconSrc }: CardProps) => {
   );
 };
 
-export default function CardSection({ summary }: { summary: Summary }) {
+export default function CardSection({
+  summary,
+  branchId,
+}: {
+  summary: Summary;
+  branchId?: string;
+}) {
   const t = useTranslations();
+  const router = useRouter();
+
   if (!summary) {
-    return;
+    return null;
   }
+
   const cardData = [
     {
       title: t("dashboard.totalSales"),
@@ -48,6 +66,9 @@ export default function CardSection({ summary }: { summary: Summary }) {
       title: t("dashboard.clients"),
       value: summary.total_clients || summary.clients || 0,
       iconSrc: "/assets/dash-board-2.svg",
+      onClick: branchId
+        ? () => router.push(`/payments/clients/${branchId}`)
+        : undefined,
     },
     {
       title: t("dashboard.printedPhotos"),
@@ -70,6 +91,7 @@ export default function CardSection({ summary }: { summary: Summary }) {
           value={card.value}
           unit={card.unit}
           iconSrc={card.iconSrc}
+          onClick={card.onClick}
         />
       ))}
     </div>

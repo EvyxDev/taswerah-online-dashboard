@@ -31,7 +31,11 @@
     "areaChartDescription": "عرض إجمالي الزوار لآخر 6 أشهر",
     "soldPhotos": "الصور المباعة",
     "sold": "مباع",
-    "captured": "تم التقاطها"
+    "captured": "تم التقاطها",
+    "noDataTitle": "لا توجد بيانات متاحة",
+    "noDataDescription": "لا توجد بيانات مبيعات لعرضها في الوقت الحالي",
+    "noPhotosTitle": "لا توجد صور متاحة",
+    "noPhotosDescription": "لم يتم التقاط أو بيع أي صور بعد"
   },
   "employees": {
     "employeesTab": "الموظفين",

@@ -22,7 +22,7 @@ type Props = {
     totalPages: number[];
     limit: number;
   };
-}
+};
 
 export default function EmployeesPage({
   employees,
@@ -39,19 +39,31 @@ export default function EmployeesPage({
 
   // States
   const [activeTab, setActiveTab] = useState("employees");
-  
+
+  // Handle tab change with page reset
+  const handleTabChange = (newTab: string) => {
+    setActiveTab(newTab);
+
+    // Reset to page 1 when switching tabs
+    const params = new URLSearchParams();
+    params.set("page", "1");
+    params.set("limit", pagination.limit.toString());
+
+    // Update URL with reset parameters
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   // Handle page change
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams();
-    params.set('page', newPage.toString());
-    params.set('limit', pagination.limit.toString());
-    
+    params.set("page", newPage.toString());
+    params.set("limit", pagination.limit.toString());
+
     // Update URL with new parameters
     router.push(`${pathname}?${params.toString()}`);
   };
 
   console.log("Total Pages: ", pagination.totalPages);
-  
 
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
@@ -71,7 +83,7 @@ export default function EmployeesPage({
         <Tabs
           dir={locale === "ar" ? "rtl" : "ltr"}
           value={activeTab}
-          onValueChange={setActiveTab}
+          onValueChange={handleTabChange} // Use custom handler instead of setActiveTab
           className="w-full"
         >
           <TabsList
@@ -95,8 +107,8 @@ export default function EmployeesPage({
           </TabsList>
 
           <TabsContent value="employees" className="mt-10">
-            <EmployeesTable 
-              employees={employees} 
+            <EmployeesTable
+              employees={employees}
               onPageChange={handlePageChange}
               currentPage={pagination.currentPage}
               totalPages={pagination.totalPages[0]}
@@ -104,7 +116,7 @@ export default function EmployeesPage({
           </TabsContent>
 
           <TabsContent value="photographers" className="mt-10">
-            <PhotographersTable 
+            <PhotographersTable
               PhotoGraphers={PhotoGraphers}
               onPageChange={handlePageChange}
               currentPage={pagination.currentPage}

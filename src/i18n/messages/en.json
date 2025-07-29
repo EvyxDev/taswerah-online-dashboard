@@ -31,7 +31,11 @@
     "areaChartDescription": "Showing total visitors for the last 6 months",
     "soldPhotos": "Sold photos",
     "sold": "Sold",
-    "captured": "Captured"
+    "captured": "Captured",
+    "noDataTitle": "No Data Available",
+    "noDataDescription": "There's no sales data to display at the moment",
+    "noPhotosTitle": "No Photos Available",
+    "noPhotosDescription": "No photos have been captured or sold yet"
   },
   "branches": {
     "status": "Status",

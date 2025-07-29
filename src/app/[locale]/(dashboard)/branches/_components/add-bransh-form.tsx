@@ -76,7 +76,7 @@ export default function AddorEditBranshForm({
     };
     if (edit) {
       EditBransh(
-        { data: sendData, id: "3" },
+        { data: sendData, id: bransh?.id.toString() || "" },
         {
           onSuccess: (data) => {
             console.log("Branch updated:", data);
