@@ -8,10 +8,9 @@ export default function PaymentSectoin({ branchId }: { branchId: string }) {
   if (!states) {
     return;
   }
-  console.log(states);
   return (
     <div className="space-y-8 py-8">
-      <CardSection summary={states} />
+      <CardSection branchId={branchId} summary={states} />
       <ChartsSectoin
         SalesChart={states?.sales_data}
         photoStats={states?.photo_distribution}

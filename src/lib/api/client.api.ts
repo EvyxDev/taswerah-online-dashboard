@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // Get all employees
-export async function GetAllEmployees(token: string) {
+export async function GetClentsByBranch(token: string, id: string) {
   try {
     const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API
-      }/onlinedashboard/admin/employees?page=${1}&limit=${100}`,
+      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/payments/clients/${id}}`,
       {
         method: "GET",
         headers: {
@@ -21,7 +19,7 @@ export async function GetAllEmployees(token: string) {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
 
-    const payload: APIResponse<PaginatedEmployees> = await response.json();
+    const payload: APIResponse<Client[]> = await response.json();
 
     if (!("data" in payload)) {
       throw new Error(payload.message);
@@ -30,40 +28,7 @@ export async function GetAllEmployees(token: string) {
     return payload;
   } catch (error: any) {
     throw new Error(
-      error?.message || "Unexpected error occurred while fetching Employees"
-    );
-  }
-}
-
-// Get all Photographers
-export async function GetAllPhotographers(token: string) {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/branches/photographers/unassigned-photographers`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          cache: "no-store",
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`);
-    }
-
-    const payload: APIResponse<PhGrapher[]> = await response.json();
-
-    if (!("data" in payload)) {
-      throw new Error(payload.message);
-    }
-
-    return payload;
-  } catch (error: any) {
-    throw new Error(
-      error?.message || "Unexpected error occurred while fetching Photographers"
+      error?.message || "Unexpected error occurred while fetching Clients"
     );
   }
 }

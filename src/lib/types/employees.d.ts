@@ -112,3 +112,13 @@ declare type PaginatedPhGraphers = {
   meta: PaginationMeta;
   photographer_count: number;
 };
+
+declare type Client = {
+  id: number;
+  barcode: string;
+  phone_number: string;
+  branch_id: number;
+  last_visit: string;
+  created_at: string;
+  updated_at: string;
+};

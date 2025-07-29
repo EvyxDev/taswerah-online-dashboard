@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { ChevronDown, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,36 +18,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Clients, dateOptions } from "@/lib/constants/data.constant";
+import { dateOptions } from "@/lib/constants/data.constant";
 import { Card } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 import { ReceiptDialog } from "./receipt-dialog";
 
-export default function ClientTable() {
+export default function ClientTable({ clients }: { clients: Client[] }) {
   const tClients = useTranslations("clients");
   const tDashboard = useTranslations("dashboard");
   const [selectedDate, setSelectedDate] = useState("all");
 
-  // Filter employees based on selected date
-  const filteredEmployees = useMemo(() => {
-    if (selectedDate === "all") {
-      return Clients;
-    }
-
-    if (selectedDate === "week") {
-      // Filter for last week (Feb 14-20, 2025)
-      const weekStart = "2025-02-14";
-      const weekEnd = "2025-02-20";
-      return Clients.filter(
-        (employee) =>
-          employee.lastActivity >= weekStart && employee.lastActivity <= weekEnd
-      );
-    }
-
-    return Clients.filter((employee) => employee.lastActivity === selectedDate);
-  }, [selectedDate]);
-
-  // Reset to page 1 when filter changes
   const handleDateChange = (date: string) => {
     setSelectedDate(date);
   };
@@ -63,14 +43,12 @@ export default function ClientTable() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8 px-7">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-homenaje  text-foreground">
-              {tClients("clients")}
-            </h2>
+            <h2 className="text-2xl font-homenaje  text-foreground">Clients</h2>
             <Badge
               variant="secondary"
               className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
             >
-              {filteredEmployees.length}
+              {clients.length}
             </Badge>
           </div>
 
@@ -121,19 +99,19 @@ export default function ClientTable() {
               </TableRow>
             </TableHeader>
             <TableBody className="">
-              {Clients.length > 0 ? (
-                Clients.map((employee, index) => (
+              {clients?.length > 0 ? (
+                clients?.map((employee, index) => (
                   <TableRow
-                    key={employee.code}
+                    key={employee.barcode}
                     className={`px-7 h-[70px] ${
                       index % 2 === 0 ? "bg-[#E9EAEB]" : "bg-white"
                     }`}
                   >
                     <TableCell className="font-homenaje text-lg font-medium text-muted-foreground ">
-                      {employee.code}
+                      {employee.barcode}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {employee.mobileNumber}
+                      {employee.phone_number}
                     </TableCell>
                     <ReceiptDialog />
                   </TableRow>

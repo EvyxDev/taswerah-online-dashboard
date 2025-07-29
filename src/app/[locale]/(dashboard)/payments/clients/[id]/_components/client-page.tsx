@@ -9,7 +9,7 @@ import {
 import ClientTable from "./client-table";
 import { useTranslations } from "next-intl";
 
-export default function ClientPage() {
+export default function ClientPage({ clients }: { clients: Client[] }) {
   const t = useTranslations();
   return (
     <>
@@ -30,7 +30,7 @@ export default function ClientPage() {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="py-10 space-y-8">
-          <ClientTable />
+          <ClientTable clients={clients} />
         </div>
       </div>
     </>
