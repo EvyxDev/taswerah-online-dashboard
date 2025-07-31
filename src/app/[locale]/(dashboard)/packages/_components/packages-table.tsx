@@ -44,22 +44,22 @@ export default function PackagesTable() {
           <Table className="px-5">
             <TableHeader>
               <TableRow className="px-7">
-                <TableHead className="w-[100px] text-start text-gray-400 font-homenaje text-lg">
+                <TableHead className="w-[100px] text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("packages.status")}
                 </TableHead>
-                <TableHead className="text-start text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("packages.name")}
                 </TableHead>
-                <TableHead className="text-center w-[130px] text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-center w-[130px] text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("packages.noPhotos")}
                 </TableHead>
-                <TableHead className="text-center w-[130px] text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-center w-[130px] text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("packages.price")}
                 </TableHead>
-                <TableHead className="text-center w-[130px] text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-center w-[130px] text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("packages.branch")}
                 </TableHead>
-                <TableHead className="text-start w-[100px] text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-start w-[100px] text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("packages.description")}
                 </TableHead>
               </TableRow>
@@ -86,21 +86,21 @@ export default function PackagesTable() {
                           height={36}
                           className="rounded-full object-cover"
                         />
-                        <span className="font-medium font-homenaje text-lg">
+                        <span className="font-medium font-homenaje text-lg ">
                           {pkg.name}
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground">
                       {pkg.photos}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
                       {pkg.price}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground">
                       {pkg.branch}
                     </TableCell>
-                    <TableCell className="font-homenaje text-lg font-medium text-muted-foreground truncate max-w-[200px]">
+                    <TableCell className="font-homenaje text-lg  font-medium text-muted-foreground truncate max-w-[200px]">
                       {pkg.description}
                     </TableCell>
                   </TableRow>

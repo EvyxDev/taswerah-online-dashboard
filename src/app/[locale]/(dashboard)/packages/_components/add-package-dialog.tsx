@@ -37,7 +37,7 @@ export default function AddPackageDialog() {
       <DialogTrigger asChild>
         <Button
           variant="default"
-          className="font-homenaje text-lg main-button !w-[50px] !px-0 !py-0"
+          className="font-homenaje text-lg  main-button !w-[50px] !px-0 !py-0"
         >
           <FaPlus className="text-5xl" />
         </Button>

@@ -114,13 +114,13 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
           <Table className="px-5">
             <TableHeader>
               <TableRow className=" px-7">
-                <TableHead className="font-medium text-start font-homenaje text-lg text-gray-400 text-muted-foreground lg:w-[60%] xl:w-[77%]">
+                <TableHead className="font-medium text-start font-homenaje text-lg  text-gray-400 text-muted-foreground lg:w-[60%] xl:w-[77%]">
                   {t("dashboard.name")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center ">
+                <TableHead className="font-medium font-homenaje text-lg  text-gray-400 text-muted-foreground text-center ">
                   {t("dashboard.noCustomers")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center">
+                <TableHead className="font-medium font-homenaje text-lg  text-gray-400 text-muted-foreground text-center">
                   {t("dashboard.noPhotos")}
                 </TableHead>
               </TableRow>
@@ -149,17 +149,17 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg">
+                          <span className="font-medium font-homenaje text-lg rtl:text-3xl">
                             {employee.name}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
-                      {employee.stats.total_customers}
+                    <TableCell className="text-center font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground ml-12">
+                      {employee?.stats?.total_customers || 0}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
-                      {employee.stats.total_photos}
+                    <TableCell className="text-center font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground">
+                      {employee?.stats?.total_photos || 0}
                     </TableCell>
                   </TableRow>
                 ))

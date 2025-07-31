@@ -33,7 +33,7 @@ export default function BranchSelector({
           <SelectItem
             key={branch.id}
             value={branch.id.toString()}
-            className="text-lg font-homenaje py-3 px-4 cursor-pointer hover:bg-gray-100"
+            className="text-lg  font-homenaje py-3 px-4 cursor-pointer hover:bg-gray-100"
           >
             {branch.name}
           </SelectItem>

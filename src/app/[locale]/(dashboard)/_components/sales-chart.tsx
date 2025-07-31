@@ -45,7 +45,7 @@ export function PhotoSalesChart({ photoStats }: { photoStats: PhotoStats }) {
     return (
       <Card className="w-full min-w-xs mx-auto p-0 rounded-3xl">
         <CardHeader className="text-center">
-          <CardTitle className="text-lg font-medium"></CardTitle>
+          <CardTitle className="text-lg rtl:text-3xl font-medium"></CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center h-80 text-center">
           <div className="text-gray-400 space-y-4">
@@ -67,7 +67,7 @@ export function PhotoSalesChart({ photoStats }: { photoStats: PhotoStats }) {
             </div>
             {/* Empty state text */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-1">
+              <h3 className="text-lg rtl:text-3xl font-medium text-gray-900 mb-1">
                 {t("dashboard.noPhotosTitle", {
                   default: "No Photos Available",
                 })}
@@ -103,7 +103,7 @@ export function PhotoSalesChart({ photoStats }: { photoStats: PhotoStats }) {
   return (
     <Card className="w-full min-w-xs mx-auto p-0 rounded-3xl">
       <CardHeader className="text-center">
-        <CardTitle className="text-lg font-medium">
+        <CardTitle className="text-lg rtl:text-3xl font-medium">
           {t("dashboard.date")}
         </CardTitle>
       </CardHeader>
@@ -134,7 +134,7 @@ export function PhotoSalesChart({ photoStats }: { photoStats: PhotoStats }) {
             <div className="text-4xl font-bold text-gray-900">
               {photoStats.sold_percentage}%
             </div>
-            <div className="text-lg text-gray-600 mt-1">
+            <div className="text-lg rtl:text-3xl text-gray-600 mt-1">
               {t("dashboard.soldPhotos")}
             </div>
           </div>

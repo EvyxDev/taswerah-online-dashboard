@@ -5,6 +5,7 @@ import PaymentTable from "./payment-table";
 
 export default function PaymentSectoin({ branchId }: { branchId: string }) {
   const { data: states } = usePaymentsByBransh(branchId);
+  console.log(states);
   if (!states) {
     return;
   }

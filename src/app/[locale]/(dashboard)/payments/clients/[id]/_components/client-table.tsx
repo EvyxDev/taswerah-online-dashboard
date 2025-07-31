@@ -87,13 +87,13 @@ export default function ClientTable({ clients }: { clients: Client[] }) {
           <Table className="px-5">
             <TableHeader>
               <TableRow className=" px-7">
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-start ">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-start ">
                   {tClients("code")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[200px]">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[200px]">
                   {tClients("mobileNumber")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[200px]">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[200px]">
                   {tClients("receipt")}
                 </TableHead>
               </TableRow>
@@ -107,10 +107,10 @@ export default function ClientTable({ clients }: { clients: Client[] }) {
                       index % 2 === 0 ? "bg-[#E9EAEB]" : "bg-white"
                     }`}
                   >
-                    <TableCell className="font-homenaje text-lg font-medium text-muted-foreground ">
+                    <TableCell className="font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground ">
                       {employee.barcode}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground ml-12">
                       {employee.phone_number}
                     </TableCell>
                     <ReceiptDialog />

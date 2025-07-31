@@ -1,6 +1,5 @@
 "use client";
 
-import { Calendar } from "lucide-react";
 import { FaPen } from "react-icons/fa";
 import { HiMiniTrash } from "react-icons/hi2";
 import { Badge } from "@/components/ui/badge";
@@ -20,12 +19,14 @@ import { Switch } from "@/components/ui/switch";
 import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteEmployeer from "../_hooks/use-delete-employeer";
 import { PaginationComponent } from "@/components/common/pagination-comp";
+import useToggleEmployeeStatus from "../_hooks/use-toggle-employee-status";
+import { toast } from "sonner";
 
 interface Props {
   PhotoGraphers: PaginatedPhGraphers;
   onPageChange: (page: number) => void;
   currentPage: number;
-  totalPages: number; 
+  totalPages: number;
 }
 
 export default function PhotographersTable({
@@ -39,11 +40,34 @@ export default function PhotographersTable({
 
   // Hooks
   const { DeleteEmployeer } = useDeleteEmployeer();
+  const { toggleStatus, togglePending } = useToggleEmployeeStatus();
 
   // Variables
   const photoGraphersData = PhotoGraphers?.data;
-
-
+  const handleToggleStatus = (employee: PhGrapher) => {
+    toggleStatus(
+      {
+        employeeId: employee.id,
+        data: {
+          name: employee.name,
+          branch_id: employee.branch?.id || employee.branch_id,
+        },
+      },
+      {
+        onSuccess: () => {
+          toast.success(
+            employee.status === "active"
+              ? "Employee deactivated successfully"
+              : "Employee activated successfully"
+          );
+        },
+        onError: (error) => {
+          toast.error("Failed to toggle employee status");
+          console.error("Toggle error:", error);
+        },
+      }
+    );
+  };
 
   return (
     <Card className="bg-background max-w-screen-2xl mx-auto rounded-2xl py-6 h-full ">
@@ -69,16 +93,16 @@ export default function PhotographersTable({
           <Table className="px-5">
             <TableHeader>
               <TableRow className=" px-7">
-                <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-start  w-[150px]">
+                <TableHead className="font-medium font-homenaje text-black text-lg rtl:text-3xl  text-muted-foreground text-start  w-[150px]">
                   {t("status")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-start  ">
+                <TableHead className="font-medium font-homenaje text-black text-lg rtl:text-3xl  text-muted-foreground text-start  ">
                   {t("name")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-black text-lg  text-muted-foreground text-center w-[250px] ">
+                <TableHead className="font-medium font-homenaje text-black text-lg rtl:text-3xl  text-muted-foreground text-center w-[250px] ">
                   {t("branch")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-black text-lg text-muted-foreground text-center w-[100px] "></TableHead>
+                <TableHead className="font-medium font-homenaje text-black text-lg rtl:text-3xl text-muted-foreground text-center w-[100px] "></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className="">
@@ -91,7 +115,11 @@ export default function PhotographersTable({
                     }`}
                   >
                     <TableCell>
-                      <Switch checked={photoGrapher.status === "active"} />
+                      <Switch
+                        onCheckedChange={() => handleToggleStatus(photoGrapher)}
+                        disabled={togglePending}
+                        checked={photoGrapher.status === "active"}
+                      />
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3 ">
@@ -108,14 +136,14 @@ export default function PhotographersTable({
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg">
+                          <span className="font-medium font-homenaje text-lg ">
                             {photoGrapher.name}
                           </span>
                         </div>
                       </div>
                     </TableCell>
 
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
                       {photoGrapher?.branch?.name || t("unknown")}
                     </TableCell>
                     <TableCell className="text-center">
@@ -148,7 +176,6 @@ export default function PhotographersTable({
                 <TableRow>
                   <TableCell colSpan={4} className="text-center py-8">
                     <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                      <Calendar className="h-8 w-8" />
                       <p>{t("noEmployeesFound")}</p>
                     </div>
                   </TableCell>
@@ -162,7 +189,12 @@ export default function PhotographersTable({
         {photoGraphersData?.length > 0 && (
           <>
             <div className="mt-6">
-              <PaginationComponent currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} maxVisiblePages={5} />
+              <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={onPageChange}
+                maxVisiblePages={5}
+              />
             </div>
           </>
         )}

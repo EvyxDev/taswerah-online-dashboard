@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export async function GetPaymentsByBransh(
   token: string,
-  id: string
+  _id: string
 ): Promise<paymentStates> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/payments/${id}`,
+      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/payments/${1}`,
       {
         method: "GET",
         headers: {

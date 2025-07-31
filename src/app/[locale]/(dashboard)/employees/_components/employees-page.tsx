@@ -63,7 +63,7 @@ export default function EmployeesPage({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  console.log("Total Pages: ", pagination.totalPages);
+  console.log("Total Pages: ", employees);
 
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">

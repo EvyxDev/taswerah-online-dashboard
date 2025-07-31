@@ -109,7 +109,7 @@ export default function ReusableDataTable<T>({
   // Default cell renderer
   const defaultRenderCell = (key: string, value: any) => {
     return (
-      <span className="font-homenaje text-lg font-medium text-muted-foreground">
+      <span className="font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground">
         {value}
       </span>
     );
@@ -140,7 +140,7 @@ export default function ReusableDataTable<T>({
               {Object.entries(headers).map(([key, displayName]) => (
                 <TableHead
                   key={key}
-                  className={`text-start text-gray-400 font-homenaje text-lg ${
+                  className={`text-start text-gray-400 font-homenaje text-lg rtl:text-3xl ${
                     columnWidths[key] || ""
                   }`}
                 >
