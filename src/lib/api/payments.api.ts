@@ -35,3 +35,39 @@ export async function GetPaymentsByBransh(
     );
   }
 }
+
+export async function GetPaymentsDashboardByBranch(
+  token: string,
+  id: string
+): Promise<PaymentsDashboardData> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/payments/dashboard/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+    }
+
+    const payload: APIResponse<PaymentsDashboardData> = await response.json();
+
+    if (!("data" in payload)) {
+      throw new Error(payload.message);
+    }
+
+    return payload.data;
+  } catch (error: any) {
+    console.error("GetPaymentsDashboardByBranch error:", error);
+    throw new Error(
+      error?.message ||
+        "Unexpected error occurred while fetching Payments Dashboard"
+    );
+  }
+}

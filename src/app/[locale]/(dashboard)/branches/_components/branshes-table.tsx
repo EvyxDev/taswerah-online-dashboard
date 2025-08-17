@@ -21,6 +21,7 @@ import AddOrEditBranchDialog from "./add-branch-dialog";
 import { PaginationComponent } from "@/components/common/pagination-comp";
 import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteBransh from "../_hooks/use-delete-bransh";
+import { Link } from "@/i18n/routing";
 interface Props {
   branshes: Branch[];
   onPageChange: (page: number) => void;
@@ -112,14 +113,13 @@ export default function BranshesTable({
                       {branch["No.of_photographers"]}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground truncate max-w-[150px]">
-                      <a
+                      <Link
                         href={branch.location}
-                        target="_blank"
                         rel="noopener noreferrer"
                         className=" underline text-black font-homenaje"
                       >
                         {branch.location}
-                      </a>
+                      </Link>
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
                       <div className="flex justify-center gap-7">
