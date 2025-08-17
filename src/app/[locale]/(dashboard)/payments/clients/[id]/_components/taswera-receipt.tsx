@@ -28,10 +28,10 @@ export default function Receipt() {
             }}
           ></div>
           <div className="relative z-10 flex flex-col items-center">
-            <p className="text-lg -mt-[30px] font-semibold bg-white w-fit text-center px-8">
+            <p className="text-lg rtl:text-3xl -mt-[30px] font-semibold bg-white w-fit text-center px-8">
               Token
             </p>
-            <p className="text-lg font-bold tracking-wider">
+            <p className="text-lg rtl:text-3xl font-bold tracking-wider">
               0237-7746-8981-9028-5626
             </p>
           </div>

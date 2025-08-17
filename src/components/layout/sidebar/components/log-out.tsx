@@ -56,7 +56,7 @@ export default function LogOut() {
             <DialogTitle className="text-2xl sm:text-4xl font-medium font-homenaje">
               {t("logOut")}
             </DialogTitle>
-            <DialogDescription className="text-lg sm:text-4xl font-homenaje text-gray-500 mt-2 sm:mt-3">
+            <DialogDescription className="text-lg rtl:text-3xl sm:text-4xl font-homenaje text-gray-500 mt-2 sm:mt-3">
               {t("confirmMessage")}
             </DialogDescription>
           </DialogHeader>
@@ -77,7 +77,7 @@ export default function LogOut() {
             }`}
           >
             <button
-              className="main-button w-full sm:w-1/2 font-homenaje text-lg sm:text-xl"
+              className="main-button w-full sm:w-1/2 font-homenaje text-lg rtl:text-3xl sm:text-xl"
               onClick={() => {
                 route.push("/auth/login");
               }}
@@ -85,7 +85,7 @@ export default function LogOut() {
               {t("logOut")}
             </button>
             <button
-              className="main-button-border w-full sm:w-1/2 font-homenaje text-lg sm:!text-2xl"
+              className="main-button-border w-full sm:w-1/2 font-homenaje text-lg rtl:text-3xl sm:!text-2xl"
               onClick={handleLogout}
             >
               {t("cancel")}

@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState } from "react";
-import { Calendar, ArrowRight, ArrowLeft } from "lucide-react";
 import { FaPen } from "react-icons/fa";
 import { HiMiniTrash } from "react-icons/hi2";
+import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -23,14 +21,16 @@ import { Switch } from "@/components/ui/switch";
 import AddOrEditEmployeeDialog from "./add-employee-dialog";
 import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteEmployeer from "../_hooks/use-delete-employeer";
+import useToggleEmployeeStatus from "../_hooks/use-toggle-employee-status";
 import { PaginationComponent } from "@/components/common/pagination-comp";
+
 const ITEMS_PER_PAGE = 7;
 
 interface Props {
   employees: PaginatedEmployees;
   onPageChange: (page: number) => void;
   currentPage: number;
-  totalPages: number; 
+  totalPages: number;
 }
 
 export default function EmployeesTable({
@@ -45,9 +45,37 @@ export default function EmployeesTable({
 
   // Hooks
   const { DeleteEmployeer } = useDeleteEmployeer();
+  const { toggleStatus, togglePending, toggleError } =
+    useToggleEmployeeStatus();
 
   // Variables
   const employeesData = employees.data;
+
+  // Handle toggle status
+  const handleToggleStatus = (employee: Employee) => {
+    toggleStatus(
+      {
+        employeeId: employee.id,
+        data: {
+          name: employee.name,
+          branch_id: employee.branch?.id || employee.branch_id,
+        },
+      },
+      {
+        onSuccess: () => {
+          toast.success(
+            employee.status === "active"
+              ? "Employee deactivated successfully"
+              : "Employee activated successfully"
+          );
+        },
+        onError: (error) => {
+          toast.error("Failed to toggle employee status");
+          console.error("Toggle error:", error);
+        },
+      }
+    );
+  };
 
   return (
     <Card className="bg-background max-w-screen-2xl mx-auto rounded-2xl py-6 h-full ">
@@ -73,22 +101,22 @@ export default function EmployeesTable({
           <Table className="px-5">
             <TableHeader>
               <TableRow className=" px-7">
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-start w-[100px] ">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-start w-[100px] ">
                   {t("status")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-start w-[130px] ">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-start w-[130px] ">
                   {t("name")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("email")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[200px]">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[200px]">
                   {t("phoneNumber")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[130px]">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("branch")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg text-gray-400 text-muted-foreground text-center w-[100px]">
+                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[100px]">
                   {t("actions")}
                 </TableHead>
               </TableRow>
@@ -103,7 +131,11 @@ export default function EmployeesTable({
                     }`}
                   >
                     <TableCell>
-                      <Switch checked={employee.status === "active"} />
+                      <Switch
+                        onCheckedChange={() => handleToggleStatus(employee)}
+                        disabled={togglePending}
+                        checked={employee.status === "active"}
+                      />
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3 ">
@@ -117,19 +149,19 @@ export default function EmployeesTable({
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg">
+                          <span className="font-medium font-homenaje text-lg ">
                             {employee.name}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground">
                       {employee.email}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
                       {employee.phone}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
                       {employee?.branch?.name || t("unknown")}
                     </TableCell>
                     <TableCell className="text-center">
@@ -162,7 +194,6 @@ export default function EmployeesTable({
                 <TableRow>
                   <TableCell colSpan={7} className="text-center py-8">
                     <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                      <Calendar className="h-8 w-8" />
                       <p>{t("noEmployeesFound")}</p>
                     </div>
                   </TableCell>
@@ -176,7 +207,12 @@ export default function EmployeesTable({
         {employeesData.length > 0 && (
           <>
             <div className="mt-6">
-              <PaginationComponent currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} maxVisiblePages={5} />
+              <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={onPageChange}
+                maxVisiblePages={5}
+              />
             </div>
           </>
         )}

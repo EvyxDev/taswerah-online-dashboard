@@ -43,13 +43,13 @@ export default function DashTable({
           <Table className="px-5">
             <TableHeader>
               <TableRow className="px-7">
-                <TableHead className="text-lg font-homenaje text-gray-400 text-start lg:w-[60%] xl:w-[77%]">
+                <TableHead className="text-start font-homenaje  text-lg rtl:text-3xl  text-gray-400  lg:w-[60%] xl:w-[77%]">
                   {t("dashboard.name")}
                 </TableHead>
-                <TableHead className="text-center font-homenaje text-lg text-gray-400">
+                <TableHead className="text-center font-homenaje text-lg  rtl:text-3xl text-gray-400">
                   {t("dashboard.noCustomers")}
                 </TableHead>
-                <TableHead className="text-center font-homenaje text-lg text-gray-400">
+                <TableHead className="text-center font-homenaje text-lg rtl:text-3xl text-gray-400">
                   {t("dashboard.noPhotos")}
                 </TableHead>
               </TableRow>
@@ -75,16 +75,16 @@ export default function DashTable({
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg">
+                          <span className="font-medium font-homenaje text-lg  ">
                             {employee.name}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
                       {employee.customers}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground">
                       {employee.photos}
                     </TableCell>
                   </TableRow>

@@ -44,20 +44,23 @@ interface BranshesPaginatedResponse {
 export async function GetAllPaginatedBranshes(
   token = "",
   page = 1,
-  limit = 10
+  limit = 10,
+  search?: string
 ): Promise<BranshesPaginatedResponse> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/branches?page=${page}&limit=${limit}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          cache: "no-store",
-        },
-      }
-    );
+    let url = `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/branches?page=${page}&limit=${limit}`;
+    if (search) {
+      url += `&search=${encodeURIComponent(search)}`;
+    }
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        cache: "no-store",
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);

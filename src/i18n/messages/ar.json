@@ -11,7 +11,8 @@
     "settings": "الإعدادات",
     "next": "التالي",
     "previous": "السابق",
-    "Unknown": "غير معروف"
+    "Unknown": "غير معروف",
+    "noEmployeesFound": "لا يوجد موظف"
   },
   "dashboard": {
     "totalSales": "إجمالي المبيعات",
@@ -46,7 +47,7 @@
     "password": "كلمة المرور",
     "phoneNumber": "رقم الهاتف",
     "branch": "الفرع",
-    "noEmployeesFound": "لا يوجد موظفون في التاريخ المحدد",
+    "noEmployeesFound": "لا يوجد موظفون ",
     "add": "إضافة",
     "addEmployee": "إضافة موظف",
     "save": "إضافة",

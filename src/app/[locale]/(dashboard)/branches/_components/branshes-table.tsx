@@ -21,6 +21,7 @@ import AddOrEditBranchDialog from "./add-branch-dialog";
 import { PaginationComponent } from "@/components/common/pagination-comp";
 import { DeleteDialog } from "@/components/common/delete -dialog";
 import useDeleteBransh from "../_hooks/use-delete-bransh";
+import { Link } from "@/i18n/routing";
 interface Props {
   branshes: Branch[];
   onPageChange: (page: number) => void;
@@ -62,22 +63,22 @@ export default function BranshesTable({
           <Table className="px-5">
             <TableHeader>
               <TableRow className="px-7">
-                <TableHead className="w-[100px] text-start text-gray-400 font-homenaje text-lg">
+                <TableHead className="w-[100px] text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("branches.status")}
                 </TableHead>
-                <TableHead className="text-start text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("branches.name")}
                 </TableHead>
-                <TableHead className="text-center w-[120px] text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-center w-[120px] text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("branches.noEmployees")}
                 </TableHead>
-                <TableHead className="text-center w-[160px] text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-center w-[160px] text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("branches.noPhotographers")}
                 </TableHead>
-                <TableHead className="text-center w-[200px] text-gray-400 font-homenaje text-lg">
+                <TableHead className="text-center w-[200px] text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("branches.location")}
                 </TableHead>
-                <TableHead className="text-center w-[150px] text-gray-400 font-homenaje text-lg"></TableHead>
+                <TableHead className="text-center w-[150px] text-gray-400 font-homenaje text-lg rtl:text-3xl"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -100,28 +101,27 @@ export default function BranshesTable({
                           width={40}
                           height={40}
                         />
-                        <span className="font-medium font-homenaje text-lg">
+                        <span className="font-medium font-homenaje text-lg ">
                           {branch.name}
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground">
                       {branch["No.of_Employees"]}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
-                      10
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground">
+                      {branch["No.of_photographers"]}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground truncate max-w-[150px]">
-                      <a
+                      <Link
                         href={branch.location}
-                        target="_blank"
                         rel="noopener noreferrer"
                         className=" underline text-black font-homenaje"
                       >
                         {branch.location}
-                      </a>
+                      </Link>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
                       <div className="flex justify-center gap-7">
                         <DeleteDialog
                           action={() =>

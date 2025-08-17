@@ -1,21 +1,32 @@
-import CardSection from "../../_components/card-sectoin";
-import ChartsSectoin from "../../_components/charts-sectoin";
-import { usePaymentsByBransh } from "../_hooks/use-payment";
-import PaymentTable from "./payment-table";
+import PaymentCardSection from "./payment-card-section";
+import PaymentChartsSectoin from "./payment-charts-sectoin";
+import { usePaymentsDashboard } from "../_hooks/use-payments-dashboard";
+import PaymentStaffTable from "./payment-staff-table";
+import {
+  PaymentCardsSkeleton,
+  PaymentChartsSkeleton,
+  PaymentStaffTableSkeleton,
+} from "./payment-skeletons";
 
 export default function PaymentSectoin({ branchId }: { branchId: string }) {
-  const { data: states } = usePaymentsByBransh(branchId);
-  if (!states) {
-    return;
+  const { data, isLoading } = usePaymentsDashboard(branchId);
+  if (!data && isLoading) {
+    return (
+      <div className="space-y-8 py-8">
+        <PaymentCardsSkeleton />
+        <PaymentChartsSkeleton />
+        <PaymentStaffTableSkeleton />
+      </div>
+    );
+  }
+  if (!data) {
+    return null;
   }
   return (
     <div className="space-y-8 py-8">
-      <CardSection branchId={branchId} summary={states} />
-      <ChartsSectoin
-        SalesChart={states?.sales_data}
-        photoStats={states?.photo_distribution}
-      />
-      {states.employees && <PaymentTable employees={states.employees} />}
+      <PaymentCardSection data={data} />
+      <PaymentChartsSectoin data={data} />
+      <PaymentStaffTable staff={data.staff || []} />
     </div>
   );
 }

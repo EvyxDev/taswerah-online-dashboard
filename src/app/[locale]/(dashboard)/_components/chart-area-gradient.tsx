@@ -35,7 +35,6 @@ const chartConfig = {
 export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
   const t = useTranslations();
 
-  // Check if there's no data at all
   const hasNoData =
     !SalesChart ||
     !SalesChart.labels ||
@@ -46,7 +45,6 @@ export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
       (value) => value === 0 || value === null || value === undefined
     );
 
-  // If no data, show empty state
   if (hasNoData) {
     return (
       <Card className="pt-10 pl-0 rounded-3xl  pb-3">
@@ -70,13 +68,11 @@ export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
             </div>
             {/* Empty state text */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-1">
-                {t("dashboard.noDataTitle", { default: "No Data Available" })}
+              <h3 className="text-lg rtl:text-3xl font-medium text-gray-900 mb-1">
+                {t("dashboard.noDataTitle")}
               </h3>
               <p className="text-sm text-gray-500">
-                {t("dashboard.noDataDescription", {
-                  default: "There's no sales data to display at the moment.",
-                })}
+                {t("dashboard.noDataDescription")}
               </p>
             </div>
           </div>

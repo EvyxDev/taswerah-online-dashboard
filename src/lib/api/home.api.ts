@@ -14,7 +14,7 @@ export async function GethomeStates(): Promise<homeStates> {
         },
       }
     );
-
+    console.log(token);
     if (!response.ok) {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
@@ -24,7 +24,7 @@ export async function GethomeStates(): Promise<homeStates> {
     if (!("data" in payload)) {
       throw new Error(payload.message);
     }
-
+    console.log(payload);
     return payload.data;
   } catch (error: any) {
     console.error("GethomeStates error:", error);

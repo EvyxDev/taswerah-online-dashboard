@@ -28,6 +28,7 @@ export default function PaymentPage({ branches }: { branches: Branch[] }) {
     return defaultBranch ? defaultBranch.id.toString() : "";
   });
   console.log(activeBranches);
+  console.log(branches);
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
       <Breadcrumb>

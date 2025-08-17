@@ -9,4 +9,5 @@ declare type Branch = {
   created_at: string;
   updated_at: string;
   "No.of_Employees": number;
+  "No.of_photographers": number;
 };

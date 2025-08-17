@@ -34,6 +34,7 @@ export function DeleteDialog({
 }: DeleteDialogProps) {
   const handleAction = async () => {
     try {
+      await import("sonner").default;
       await action();
       toast.success(successMessage);
     } catch (err) {

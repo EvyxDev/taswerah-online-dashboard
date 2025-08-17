@@ -1,12 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getAuthToken } from "../utils/auth.token";
 
-// Get all employees
-export async function GetAllEmployees(page = 1, limit = 10) {
+// Get all employees with optional search
+export async function GetAllEmployees(page = 1, limit = 10, search?: string) {
   const token = await getAuthToken();
   try {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    if (search) {
+      params.append("search", search);
+    }
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/?page=${page}&limit=${limit}`,
+      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/?${params}`,
       {
         method: "GET",
         headers: {
@@ -35,12 +44,25 @@ export async function GetAllEmployees(page = 1, limit = 10) {
   }
 }
 
-// Get all Photographers
-export async function GetAllPhotographers(page = 1, limit = 10) {
+// Get all Photographers with optional search
+export async function GetAllPhotographers(
+  page = 1,
+  limit = 10,
+  search?: string
+) {
   const token = await getAuthToken();
   try {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    if (search) {
+      params.append("search", search);
+    }
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/photographers?page=${page}&limit=${limit}`,
+      `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/employees/photographers?${params}`,
       {
         method: "GET",
         headers: {

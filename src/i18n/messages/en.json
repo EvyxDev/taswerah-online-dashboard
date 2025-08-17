@@ -11,7 +11,8 @@
     "settings": "Settings",
     "next": "Next",
     "previous": "Previous",
-    "Unknown": "Unknown"
+    "Unknown": "Unknown",
+    "noEmployeesFound": "No employees found"
   },
   "dashboard": {
     "totalSales": "Total Sales",
@@ -66,7 +67,7 @@
     "password": "Password",
     "phoneNumber": "Phone Number",
     "branch": "Branch",
-    "noEmployeesFound": "No employees found for the selected date",
+    "noEmployeesFound": "No employees found ",
     "add": "Add",
     "addEmployee": "Add Employee",
     "save": "Add",

@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState, useMemo } from "react";
-import { ChevronDown, Calendar, ArrowRight, ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,
   TableBody,
@@ -20,41 +18,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { allEmployees, dateOptions } from "@/lib/constants/data.constant";
+import { dateOptions } from "@/lib/constants/data.constant";
 import { Card } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-const ITEMS_PER_PAGE = 7;
 
-export default function PaymentTable({ employees }: { employees: Employee[] }) {
+export default function PaymentStaffTable({
+  staff,
+}: {
+  staff: PaymentsDashboardStaff[];
+}) {
   const t = useTranslations();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedDate, setSelectedDate] = useState("2025-02-20");
-  const router = useRouter();
-
-  // Filter employees based on selected date
-  const filteredEmployees = useMemo(() => {
-    if (selectedDate === "all") {
-      return allEmployees;
-    }
-
-    if (selectedDate === "week") {
-      const weekStart = "2025-02-14";
-      const weekEnd = "2025-02-20";
-      return allEmployees.filter(
-        (employee) =>
-          employee.lastActivity >= weekStart && employee.lastActivity <= weekEnd
-      );
-    }
-
-    return allEmployees.filter(
-      (employee) => employee.lastActivity === selectedDate
-    );
-  }, [selectedDate]);
+  const [selectedDate, setSelectedDate] = useState("all");
 
   const handleDateChange = (date: string) => {
     setSelectedDate(date);
-    setCurrentPage(1);
   };
 
   const getSelectedDateLabel = () => {
@@ -65,7 +42,6 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
   return (
     <Card className="max-w-screen-2xl mx-auto bg-background rounded-2xl py-6 pb-12 ">
       <div className="w-full">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8 px-7">
           <div className="flex items-center gap-3">
             <h2 className="text-2xl font-homenaje  text-foreground">
@@ -75,7 +51,7 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
               variant="secondary"
               className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
             >
-              {filteredEmployees.length}
+              {staff?.length || 0}
             </Badge>
           </div>
 
@@ -109,7 +85,6 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
           </DropdownMenu>
         </div>
 
-        {/* Table */}
         <div className="border">
           <Table className="px-5">
             <TableHeader>
@@ -118,48 +93,32 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
                   {t("dashboard.name")}
                 </TableHead>
                 <TableHead className="font-medium font-homenaje text-lg  text-gray-400 text-muted-foreground text-center ">
-                  {t("dashboard.noCustomers")}
+                  Role
                 </TableHead>
                 <TableHead className="font-medium font-homenaje text-lg  text-gray-400 text-muted-foreground text-center">
-                  {t("dashboard.noPhotos")}
+                  Status
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className="">
-              {employees.length > 0 ? (
-                employees.map((employee, index) => (
+              {(staff || []).length > 0 ? (
+                staff.map((member, index) => (
                   <TableRow
-                    key={employee.id}
+                    key={member.id}
                     className={`px-7 h-[70px] ${
                       index % 2 === 0 ? "bg-[#E9EAEB]" : "bg-white"
-                    } cursor-pointer hover:bg-gray-200`}
-                    onClick={() =>
-                      router.push(`/payments/clients/${employee.id}`)
-                    }
+                    }`}
                   >
                     <TableCell>
-                      <div className="flex items-center gap-3 ">
-                        <Avatar className="h-10 w-10">
-                          <AvatarImage
-                            src={employee.name || "/placeholder.svg"}
-                            alt={employee.name}
-                          />
-                          <AvatarFallback className="text-sm font-medium">
-                            {employee.name.slice(0, 2)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg rtl:text-3xl">
-                            {employee.name}
-                          </span>
-                        </div>
-                      </div>
+                      <span className="font-medium font-homenaje text-lg rtl:text-3xl">
+                        {member.name}
+                      </span>
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground ml-12">
-                      {employee?.stats?.total_customers || 0}
+                      {member.role}
                     </TableCell>
                     <TableCell className="text-center font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground">
-                      {employee?.stats?.total_photos || 0}
+                      {member.status}
                     </TableCell>
                   </TableRow>
                 ))
@@ -168,15 +127,7 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
                   <TableCell colSpan={4} className="text-center py-8">
                     <div className="flex flex-col items-center gap-2 text-muted-foreground">
                       <Calendar className="h-8 w-8" />
-                      <p>{t("dashboard.noEmployeesFound")}</p>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDateChange("all")}
-                        className="text-xs"
-                      >
-                        {t("dashboard.viewAllEmployees")}
-                      </Button>
+                      <p>{t("navigation.noEmployeesFound")}</p>
                     </div>
                   </TableCell>
                 </TableRow>

@@ -14,6 +14,8 @@ export const authOptions: NextAuthOptions = {
         email: {},
         password: {},
       },
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       authorize: async (credentials) => {
         const response = await fetch(
           `${process.env.API}/onlinedashboard/admin/login`,
@@ -59,6 +61,8 @@ export const authOptions: NextAuthOptions = {
     },
     session: ({ session, token }) => {
       // Decode the user data from the token cookie and store it in the session object
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       session.user = token.admin;
       session.token = token.token;
       return session;
