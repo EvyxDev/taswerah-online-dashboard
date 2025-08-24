@@ -2,20 +2,16 @@
 interface BranshesResponse {
   data: Branch[];
 }
+
 export async function GetAllBranshes(token: string): Promise<Branch[]> {
   try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API
-      }/onlinedashboard/admin/branches?page=${1}&limit=${200}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API}/branches`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
@@ -27,55 +23,36 @@ export async function GetAllBranshes(token: string): Promise<Branch[]> {
       throw new Error(payload.message);
     }
 
-    return payload.data.data;
+    return payload.data;
   } catch (error: any) {
-    console.error("GethomeStates error:", error);
+    console.error("GetAllBranshes error:", error);
     throw new Error(
       error?.message || "Unexpected error occurred while fetching Branshes"
     );
   }
 }
-interface BranshesPaginatedResponse {
-  data: Branch[];
-  links: PaginationLinks;
-  meta: PaginationMeta;
-  photographer_count: number;
-}
+
+// Since the new API doesn't support pagination, we'll use the simple GetAllBranshes function
 export async function GetAllPaginatedBranshes(
   token = "",
   page = 1,
   limit = 10,
   search?: string
-): Promise<BranshesPaginatedResponse> {
+): Promise<{ data: Branch[] }> {
   try {
-    let url = `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/branches?page=${page}&limit=${limit}`;
+    const branches = await GetAllBranshes(token);
+
+    // Simple client-side search if needed
+    let filteredBranches = branches;
     if (search) {
-      url += `&search=${encodeURIComponent(search)}`;
+      filteredBranches = branches.filter((branch) =>
+        branch.name.toLowerCase().includes(search.toLowerCase())
+      );
     }
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        cache: "no-store",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`);
-    }
-
-    const payload: APIResponse<BranshesPaginatedResponse> =
-      await response.json();
-
-    if (!("data" in payload)) {
-      throw new Error(payload.message);
-    }
-
-    return payload.data;
+    return { data: filteredBranches };
   } catch (error: any) {
-    console.error("GethomeStates error:", error);
+    console.error("GetAllPaginatedBranshes error:", error);
     throw new Error(
       error?.message || "Unexpected error occurred while fetching Branshes"
     );

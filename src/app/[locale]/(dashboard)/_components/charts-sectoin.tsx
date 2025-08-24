@@ -1,23 +1,36 @@
-import { ChartAreaGradient } from "./chart-area-gradient";
-import { PhotoSalesChart } from "./sales-chart";
+import { StatusBreakdownChart } from "./status-breakdown-chart";
+import { StatusOverview } from "./status-overview";
 
 export default function ChartsSectoin({
-  SalesChart,
-  photoStats,
+  syncJobsStats,
 }: {
-  SalesChart: SalesChart;
-  photoStats: PhotoStats;
+  syncJobsStats: homeStates;
 }) {
-  if (!SalesChart || !photoStats) {
-    return;
+  if (!syncJobsStats) {
+    return null;
   }
+
+  // Create status breakdown data for the chart
+  const statusData = {
+    labels: ["Completed", "Failed", "Pending", "Synced"],
+    data: [
+      syncJobsStats.status_breakdown.completed,
+      syncJobsStats.status_breakdown.failed,
+      syncJobsStats.status_breakdown.pending,
+      syncJobsStats.status_breakdown.synced,
+    ],
+  };
+
   return (
-    <div className="flex items-start min-[1100px]:flex-row flex-col justify-between gap-2 flex-wrap">
-      <div className=" w-full min-[1100px]:w-[60%]">
-        <ChartAreaGradient SalesChart={SalesChart} />
+    <div className="flex items-start min-[1100px]:flex-row flex-col justify-between gap-4 flex-wrap">
+      <div className="w-full min-[1100px]:w-[60%]">
+        <StatusBreakdownChart statusData={statusData} />
       </div>
       <div className="w-full min-[1100px]:w-[38%]">
-        <PhotoSalesChart photoStats={photoStats} />
+        <StatusOverview
+          statusBreakdown={syncJobsStats.status_breakdown}
+          totalJobs={syncJobsStats.total_jobs}
+        />
       </div>
     </div>
   );

@@ -1,18 +1,33 @@
+"use client";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
+import { IoMdHome } from "react-icons/io";
+import { useTranslations } from "next-intl";
 import CardSection from "./card-sectoin";
 import ChartsSectoin from "./charts-sectoin";
-import { IoMdHome } from "react-icons/io";
 import DashTable from "./dash-table";
-import { useTranslations } from "next-intl";
 
 export default function DashBoard({ homeStates }: { homeStates: homeStates }) {
-  const { photo_stats, sales_chart, staff_performance, summary } = homeStates;
   const t = useTranslations();
+
+  // // Just call the function every 10 minutes
+  // useEffect(() => {
+  //   const interval = setInterval(async () => {
+  //     try {
+  //       await RefreshDashboardData();
+  //     } catch {
+  //       console.log("Failed to refresh dashboard data");
+  //     }
+  //   }, 1000); // 10 minutes
+
+  //   return () => clearInterval(interval);
+  // }, []);
+
   return (
     <div className=" space-y-8 px-6 xl:px-10 py-5">
       <Breadcrumb>
@@ -26,9 +41,9 @@ export default function DashBoard({ homeStates }: { homeStates: homeStates }) {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="py-10 space-y-8">
-        <CardSection summary={summary} />
-        <ChartsSectoin photoStats={photo_stats} SalesChart={sales_chart} />
-        <DashTable StaffPerformanceEntry={staff_performance} />
+        <CardSection syncJobsStats={homeStates} />
+        <ChartsSectoin syncJobsStats={homeStates} />
+        <DashTable syncJobs={homeStates.jobs} />
       </div>
     </div>
   );

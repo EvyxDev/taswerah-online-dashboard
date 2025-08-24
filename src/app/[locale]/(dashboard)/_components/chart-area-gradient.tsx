@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -16,7 +15,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useTranslations } from "next-intl";
 
 export const description = "An area chart with gradient fill";
 
@@ -33,8 +31,6 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
-  const t = useTranslations();
-
   const hasNoData =
     !SalesChart ||
     !SalesChart.labels ||
@@ -69,10 +65,10 @@ export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
             {/* Empty state text */}
             <div>
               <h3 className="text-lg rtl:text-3xl font-medium text-gray-900 mb-1">
-                {t("dashboard.noDataTitle")}
+                No Data Available
               </h3>
               <p className="text-sm text-gray-500">
-                {t("dashboard.noDataDescription")}
+                No data to display for this chart.
               </p>
             </div>
           </div>
@@ -88,9 +84,13 @@ export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
 
   return (
     <Card className="pt-10 pb-5 pl-0 rounded-3xl">
-      <CardHeader className="sr-only">
-        <CardTitle>{t("dashboard.areaChartTitle")}</CardTitle>
-        <CardDescription>{t("dashboard.areaChartDescription")}</CardDescription>
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold text-gray-800 mb-2">
+          Jobs Trend (Weekly)
+        </CardTitle>
+        <CardDescription className="text-gray-600">
+          Weekly jobs activity overview
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer className="h-64 w-full" config={chartConfig}>
@@ -141,7 +141,6 @@ export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
           </AreaChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="sr-only" />
     </Card>
   );
 }

@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 export default async function deleteBransh(id: string) {
   const token = await getAuthToken();
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/onlinedashboard/admin/branches/${id}`,
+    `${process.env.NEXT_PUBLIC_API}/branches/${id}`,
     {
       method: "DELETE",
       headers: {
@@ -17,11 +17,11 @@ export default async function deleteBransh(id: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to delete Bransh");
+    throw new Error("Failed to delete Branch");
   }
 
   const payload: APIResponse<any> = await response.json();
-  revalidatePath("/employees");
+  revalidatePath("/branches");
 
   return payload;
 }

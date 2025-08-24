@@ -1,97 +1,116 @@
 "use client";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 
-interface CardProps {
+import {
+  FolderOpen,
+  CreditCard,
+  Image as ImageIcon,
+  BarChart3,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
+
+interface StatCardProps {
   title: string;
   value: string | number;
-  unit?: string;
-  iconSrc: string;
-  branchId?: string;
-  onClick?: () => void;
+  description?: string;
+  icon: React.ComponentType<{ className?: string }>;
+  iconColor: string;
 }
 
-const Card = ({ title, value, unit, iconSrc, onClick }: CardProps) => {
+const StatCard = ({
+  title,
+  value,
+  description,
+  icon: Icon,
+  iconColor,
+}: StatCardProps) => {
   return (
-    <div
-      className={`bg-white flex flex-col justify-between shadow-md border-black border-[12px] p-4 2xl:p-6 rounded-3xl h-40 sm:h-44 md:h-48 lg:h-40 2xl:h-48 ${
-        onClick ? "cursor-pointer hover:shadow-lg transition" : ""
-      }`}
-      onClick={onClick}
-    >
+    <div className="bg-white flex flex-col justify-between shadow-lg border border-gray-200 p-4 2xl:p-6 rounded-2xl h-40 sm:h-44 md:h-48 lg:h-40 2xl:h-48 hover:shadow-xl transition-shadow duration-300">
       <div className="2xl:mb-2">
-        <Image
-          src={iconSrc}
-          alt="icon"
-          width={50}
-          height={50}
-          className="w-10 sm:w-12 lg:w-10 2xl:w-14 h-auto"
-        />
+        <Icon className={`w-10 sm:w-12 lg:w-10 2xl:w-14 h-auto ${iconColor}`} />
       </div>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex flex-col justify-between h-full">
         <h6 className="text-main-black font-homenaje text-xl lg:text-xl 2xl:text-2xl">
           {title}
         </h6>
-        <p className="text-main-black font-homenaje text-2xl sm:text-3xl md:text-base 2xl:text-4xl">
-          {value} {unit && unit}
-        </p>
+        <div>
+          <p className="text-main-black font-homenaje text-2xl sm:text-3xl md:text-base 2xl:text-4xl mb-1">
+            {value}
+          </p>
+          {description && (
+            <p className="text-xs text-gray-500 font-homenaje">{description}</p>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default function CardSection({
-  summary,
-  branchId,
+  syncJobsStats,
 }: {
-  summary: Summary;
-  branchId?: string;
+  syncJobsStats: homeStates;
 }) {
-  const t = useTranslations();
-  const router = useRouter();
+  const t = useTranslations("dashboard");
 
-  if (!summary) {
-    return null;
-  }
+  // Helper function to safely calculate success rate
+  const getSafeSuccessRate = () => {
+    const completed = syncJobsStats.status_breakdown.completed;
+    const total = syncJobsStats.total_jobs;
+
+    const safeCompleted =
+      typeof completed === "number" && !isNaN(completed) ? completed : 0;
+    const safeTotal =
+      typeof total === "number" && !isNaN(total) && total > 0 ? total : 1;
+
+    const percentage = (safeCompleted / safeTotal) * 100;
+    return Math.min(percentage, 100).toFixed(1);
+  };
+
+  const successRate = getSafeSuccessRate();
 
   const cardData = [
     {
-      title: t("dashboard.totalSales"),
-      value: parseFloat(summary.total_sales).toFixed(0),
-      unit: t("dashboard.egp"),
-      iconSrc: "/assets/dash-board-1.svg",
+      title: t("totalJobs"),
+      value: syncJobsStats.total_jobs || 0,
+      description: t("allSyncJobs"),
+      icon: FolderOpen,
+      iconColor: "text-blue-600",
     },
     {
-      title: t("dashboard.clients"),
-      value: summary.total_clients || summary.clients || 0,
-      iconSrc: "/assets/dash-board-2.svg",
-      onClick: branchId
-        ? () => router.push(`/payments/clients/${branchId}`)
-        : undefined,
+      title: t("totalPayAmount"),
+      value: `${(parseFloat(syncJobsStats.total_pay_amount) || 0).toFixed(
+        2
+      )} L.E`,
+      description: t("totalEarnings"),
+      icon: CreditCard,
+      iconColor: "text-green-600",
     },
     {
-      title: t("dashboard.printedPhotos"),
-      value: summary.printed_photos,
-      iconSrc: "/assets/dash-board-3.svg",
+      title: t("totalPhotos"),
+      value: syncJobsStats.total_photos || 0,
+      description: t("allPhotosProcessed"),
+      icon: ImageIcon,
+      iconColor: "text-purple-600",
     },
     {
-      title: t("dashboard.activeBooths"),
-      value: summary.active_booths,
-      iconSrc: "/assets/dash-board-4.svg",
+      title: t("successRate"),
+      value: `${successRate}%`,
+      description: t("completedJobs"),
+      icon: BarChart3,
+      iconColor: "text-orange-600",
     },
   ];
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 min-[1100px]:grid-cols-4 gap-4">
       {cardData.map((card, index) => (
-        <Card
+        <StatCard
           key={index}
           title={card.title}
           value={card.value}
-          unit={card.unit}
-          iconSrc={card.iconSrc}
-          onClick={card.onClick}
+          icon={card.icon}
+          iconColor={card.iconColor}
+          description={card.description}
         />
       ))}
     </div>
