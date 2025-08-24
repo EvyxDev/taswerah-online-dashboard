@@ -9,12 +9,11 @@ export async function GethomeStates(): Promise<homeStates> {
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       }
     );
-
+    console.log(response);
     if (!response.ok) {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
