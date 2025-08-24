@@ -7,10 +7,13 @@ import { revalidatePath } from "next/cache";
 export default async function editBransh(data: CreateBranchBody, id: string) {
   const token = await getAuthToken();
   const response = await fetch(
-    `https://taswera.evyx.lol/api/onlinedashboard/admin/branches/${id}`,
+    `${process.env.NEXT_PUBLIC_API}/branches/${id}`,
     {
       method: "PUT",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        name: data.name,
+        is_active: true,
+      }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -19,7 +22,7 @@ export default async function editBransh(data: CreateBranchBody, id: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to create employee");
+    throw new Error("Failed to update branch");
   }
   const payload: APIResponse<CreateBranchManagerResponse> =
     await response.json();

@@ -17,20 +17,17 @@ export const authOptions: NextAuthOptions = {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       authorize: async (credentials) => {
-        const response = await fetch(
-          `${process.env.API}/onlinedashboard/admin/login`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-              role: "admin",
-            }),
-            headers: {
-              ...JSON_HEADER,
-            },
-          }
-        );
+        const response = await fetch(`${process.env.API}/login`, {
+          method: "POST",
+          body: JSON.stringify({
+            email: credentials?.email,
+            password: credentials?.password,
+            role: "admin",
+          }),
+          headers: {
+            ...JSON_HEADER,
+          },
+        });
         console.log(response);
         const payload: APIResponse<customAdmin> = await response.json();
         // Throw an auth error if the login has failed
@@ -39,7 +36,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         const successPayload = payload as SuccessfulResponse<customAdmin>;
-
+        console.log(successPayload);
         // Return the user object that matches the User interface
         return {
           id: successPayload.data.admin._id,
