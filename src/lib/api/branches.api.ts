@@ -18,13 +18,13 @@ export async function GetAllBranshes(token: string): Promise<Branch[]> {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
 
-    const payload: APIResponse<BranshesResponse> = await response.json();
+    const payload: APIResponse<Branch[]> = await response.json();
 
     if (!("data" in payload)) {
       throw new Error(payload.message);
     }
 
-    return payload.data.data;
+    return payload.data;
   } catch (error: any) {
     console.error("GetAllBranshes error:", error);
     throw new Error(
