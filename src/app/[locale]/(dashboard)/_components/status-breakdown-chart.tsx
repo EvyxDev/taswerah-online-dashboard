@@ -15,7 +15,9 @@ interface StatusBreakdownChartProps {
   };
 }
 
-export function StatusBreakdownChart({ statusData }: StatusBreakdownChartProps) {
+export function StatusBreakdownChart({
+  statusData,
+}: StatusBreakdownChartProps) {
   const t = useTranslations("dashboard");
 
   const chartData = {

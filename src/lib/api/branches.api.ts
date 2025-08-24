@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface BranshesResponse {
   data: Branch[];
@@ -23,7 +24,7 @@ export async function GetAllBranshes(token: string): Promise<Branch[]> {
       throw new Error(payload.message);
     }
 
-    return payload.data;
+    return payload.data.data;
   } catch (error: any) {
     console.error("GetAllBranshes error:", error);
     throw new Error(
@@ -35,8 +36,6 @@ export async function GetAllBranshes(token: string): Promise<Branch[]> {
 // Since the new API doesn't support pagination, we'll use the simple GetAllBranshes function
 export async function GetAllPaginatedBranshes(
   token = "",
-  page = 1,
-  limit = 10,
   search?: string
 ): Promise<{ data: Branch[] }> {
   try {

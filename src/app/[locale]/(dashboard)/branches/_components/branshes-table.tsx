@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar } from "lucide-react";
+import { Calendar, Copy, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -14,6 +14,7 @@ import { Card } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 import AddOrEditBranchDialog from "./add-branch-dialog";
 import Image from "next/image";
+import { useState } from "react";
 
 interface Props {
   branshes: Branch[];
@@ -21,6 +22,25 @@ interface Props {
 
 export default function BranshesTable({ branshes }: Props) {
   const t = useTranslations();
+  const [copiedTokens, setCopiedTokens] = useState<Set<string>>(new Set());
+
+  const copyToClipboard = async (token: string, branchId: string) => {
+    try {
+      await navigator.clipboard.writeText(token);
+      setCopiedTokens((prev) => new Set(prev).add(branchId));
+
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setCopiedTokens((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(branchId);
+          return newSet;
+        });
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy token:", err);
+    }
+  };
 
   return (
     <Card className="bg-background max-w-screen-2xl mx-auto rounded-2xl pt-6 pb-20 h-full ">
@@ -47,7 +67,13 @@ export default function BranshesTable({ branshes }: Props) {
             <TableHeader>
               <TableRow className="px-7">
                 <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
+                  {t("branches.ID")}
+                </TableHead>
+                <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
                   {t("branches.name")}
+                </TableHead>
+                <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
+                  {t("branches.token")}
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -61,6 +87,11 @@ export default function BranshesTable({ branshes }: Props) {
                     }`}
                   >
                     <TableCell>
+                      <p className="font-medium font-homenaje text-lg ">
+                        {branch.id}
+                      </p>
+                    </TableCell>
+                    <TableCell>
                       <div className="flex items-center gap-3">
                         <Image
                           src="/assets/bransh.png"
@@ -73,11 +104,38 @@ export default function BranshesTable({ branshes }: Props) {
                         </span>
                       </div>
                     </TableCell>
+                    <TableCell>
+                      {branch.token ? (
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium font-homenaje text-lg ">
+                            {branch.token}
+                          </p>
+                          <button
+                            onClick={() =>
+                              copyToClipboard(
+                                branch.token,
+                                branch.id.toString()
+                              )
+                            }
+                            className="p-1 hover:bg-gray-200 rounded transition-colors"
+                            title="Copy token"
+                          >
+                            {copiedTokens.has(branch.id.toString()) ? (
+                              <Check className="h-4 w-4 text-green-600" />
+                            ) : (
+                              <Copy className="h-4 w-4 text-gray-500" />
+                            )}
+                          </button>
+                        </div>
+                      ) : (
+                        <p className="font-medium font-homenaje text-lg "> </p>
+                      )}
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={1} className="text-center py-8">
+                  <TableCell colSpan={3} className="text-center py-8">
                     <div className="flex flex-col items-center gap-2 text-muted-foreground">
                       <Calendar className="h-8 w-8" />
                       <p>{t("branches.noBranchesFound")}</p>

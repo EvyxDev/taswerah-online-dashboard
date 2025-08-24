@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -5,7 +6,7 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Sync,
+  FolderSync,
   TrendingUp,
   DollarSign,
   Camera,
@@ -20,7 +21,7 @@ export function StatusSummaryCards({ syncJobsStats }: StatusSummaryCardsProps) {
     completed: CheckCircle,
     failed: XCircle,
     pending: Clock,
-    synced: Sync,
+    synced: FolderSync,
   };
 
   const statusColors = {

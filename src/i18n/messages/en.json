@@ -82,7 +82,9 @@
     "errorAddingBranch": "An error occurred while adding the branch",
     "updating": "Updating",
     "adding": "Adding",
-    "update": "Update"
+    "update": "Update",
+    "ID": "Branch-Id",
+    "token": "Token"
   },
   "employees": {
     "employeesTab": "Employees",

@@ -24,7 +24,7 @@ const StatCard = ({
   iconColor,
 }: StatCardProps) => {
   return (
-    <div className="bg-white flex flex-col justify-between shadow-lg border border-gray-200 p-4 2xl:p-6 rounded-2xl h-40 sm:h-44 md:h-48 lg:h-40 2xl:h-48 hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white flex flex-col justify-between shadow-sm shadow-black/10 border border-gray-200 p-4 2xl:p-6 rounded-2xl h-40 sm:h-44 md:h-48 lg:h-40 2xl:h-48 hover:shadow-xl transition-shadow duration-300">
       <div className="2xl:mb-2">
         <Icon className={`w-10 sm:w-12 lg:w-10 2xl:w-14 h-auto ${iconColor}`} />
       </div>

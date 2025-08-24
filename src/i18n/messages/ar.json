@@ -124,7 +124,9 @@
     "errorAddingBranch": "حدث خطأ أثناء إضافة الفرع",
     "updating": "تحديث",
     "adding": "اضافة",
-    "update": "تحديث"
+    "update": "تحديث",
+    "ID": "معرّف الفرع",
+    "token": "توكن"
   },
   "packages": {
     "status": "الحالة",
