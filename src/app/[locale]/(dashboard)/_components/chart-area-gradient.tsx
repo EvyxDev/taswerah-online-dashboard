@@ -64,7 +64,7 @@ export function ChartAreaGradient({ SalesChart }: { SalesChart: SalesChart }) {
             </div>
             {/* Empty state text */}
             <div>
-              <h3 className="text-lg rtl:text-3xl font-medium text-gray-900 mb-1">
+              <h3 className="text-lg   font-medium text-gray-900 mb-1">
                 No Data Available
               </h3>
               <p className="text-sm text-gray-500">

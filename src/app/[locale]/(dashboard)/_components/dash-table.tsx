@@ -41,12 +41,12 @@ export default function DashTable({
         {/* Header */}
         <div className="flex items-center justify-between mb-8 px-7">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-homenaje text-foreground">
+            <h2 className="text-2xl font-homenaje rtl:font-almarai text-foreground">
               {t("recentSyncJobs")}
             </h2>
             <Badge
               variant="secondary"
-              className="bg-[#535862] font-homenaje text-white hover:bg-[#535862]"
+              className="bg-[#535862] font-homenaje rtl:font-almarai text-white hover:bg-[#535862]"
             >
               {syncJobs.length}
             </Badge>
@@ -58,22 +58,22 @@ export default function DashTable({
           <Table className="px-5">
             <TableHeader>
               <TableRow className="px-7">
-                <TableHead className="text-start font-homenaje text-lg rtl:text-3xl text-gray-400 lg:w-[25%]">
+                <TableHead className="text-start font-homenaje rtl:font-almarai text-lg   text-gray-400 lg:w-[25%]">
                   {t("employee")}
                 </TableHead>
-                <TableHead className="text-center font-homenaje text-lg rtl:text-3xl text-gray-400 lg:w-[15%]">
+                <TableHead className="text-center font-homenaje rtl:font-almarai text-lg   text-gray-400 lg:w-[15%]">
                   {t("orderCode")}
                 </TableHead>
-                <TableHead className="text-center font-homenaje text-lg rtl:text-3xl text-gray-400 lg:w-[15%]">
+                <TableHead className="text-center font-homenaje rtl:font-almarai text-lg   text-gray-400 lg:w-[15%]">
                   {t("status")}
                 </TableHead>
-                <TableHead className="text-center font-homenaje text-lg rtl:text-3xl text-gray-400 lg:w-[15%]">
+                <TableHead className="text-center font-homenaje rtl:font-almarai text-lg   text-gray-400 lg:w-[15%]">
                   {t("photos")}
                 </TableHead>
-                <TableHead className="text-center font-homenaje text-lg rtl:text-3xl text-gray-400 lg:w-[15%]">
+                <TableHead className="text-center font-homenaje rtl:font-almarai text-lg   text-gray-400 lg:w-[15%]">
                   {t("amount")}
                 </TableHead>
-                <TableHead className="text-center font-homenaje text-lg rtl:text-3xl text-gray-400 lg:w-[15%]">
+                <TableHead className="text-center font-homenaje rtl:font-almarai text-lg   text-gray-400 lg:w-[15%]">
                   {t("shift")}
                 </TableHead>
               </TableRow>
@@ -99,7 +99,7 @@ export default function DashTable({
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg">
+                          <span className="font-medium font-homenaje rtl:font-almarai text-lg">
                             {job.employeeName}
                           </span>
                           <span className="text-sm text-gray-500">
@@ -108,12 +108,12 @@ export default function DashTable({
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg font-medium text-muted-foreground">
                       {job.orderprefixcode}
                     </TableCell>
                     <TableCell className="text-center">
                       <Badge
-                        className={`font-homenaje text-sm ${getStatusColor(
+                        className={`font-homenaje rtl:font-almarai font-normal text-sm ${getStatusColor(
                           job.status
                         )}`}
                       >
@@ -121,13 +121,13 @@ export default function DashTable({
                           job.status.slice(1)}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg font-medium text-muted-foreground">
                       {job.number_of_photos}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg font-medium text-muted-foreground">
                       {job.pay_amount.toFixed(2)} L.E
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg font-medium text-muted-foreground">
                       {job.shift_name}
                     </TableCell>
                   </TableRow>

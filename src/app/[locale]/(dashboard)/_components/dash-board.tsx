@@ -15,25 +15,12 @@ import DashTable from "./dash-table";
 export default function DashBoard({ homeStates }: { homeStates: homeStates }) {
   const t = useTranslations();
 
-  // // Just call the function every 10 minutes
-  // useEffect(() => {
-  //   const interval = setInterval(async () => {
-  //     try {
-  //       await RefreshDashboardData();
-  //     } catch {
-  //       console.log("Failed to refresh dashboard data");
-  //     }
-  //   }, 1000); // 10 minutes
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
   return (
     <div className=" space-y-8 px-6 xl:px-10 py-5">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage className="flex items-center gap-2 font-homenaje text-sm text-gray-400">
+            <BreadcrumbPage className="flex items-center gap-2 font-homenaje rtl:font-almarai text-sm text-gray-400">
               <IoMdHome size={28} color="black" className="-mt-2" />
               {t("navigation.dashboard")}
             </BreadcrumbPage>

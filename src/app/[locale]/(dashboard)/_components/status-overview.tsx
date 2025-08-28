@@ -59,9 +59,9 @@ export function StatusOverview({
   };
 
   return (
-    <Card className="h-full">
+    <Card className="h-full rounded-2xl">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-gray-800">
+        <CardTitle className="text-2xl font-normal text-gray-800 font-homenaje rtl:font-almarai">
           {t("jobStatusOverview")}
         </CardTitle>
       </CardHeader>
@@ -79,17 +79,17 @@ export function StatusOverview({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <IconComponent className={`h-5 w-5 ${status.textColor}`} />
-                    <span className="font-medium text-gray-700 text-sm">
+                    <span className="font-medium text-gray-700 text-lg font-homenaje rtl:font-almarai">
                       {status.label}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span
-                      className={`font-semibold text-sm ${status.textColor}`}
+                      className={`font-semibold text-sm font-homenaje rtl:font-almarai ${status.textColor}`}
                     >
                       {count}
                     </span>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-500 font-homenaje rtl:font-almarai">
                       ({percentage.toFixed(1)}%)
                     </span>
                   </div>

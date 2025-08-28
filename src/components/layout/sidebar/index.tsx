@@ -64,10 +64,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               height={0}
               className="rounded-2xl"
             />
-            <h6 className="font-homenaje text-2xl text-gray-100 mt-2">
+            <h6 className="font-homenaje rtl:font-almarai text-2xl text-gray-100 mt-2">
               {name || "Name"}
             </h6>
-            <p className="font-homenaje text-md text-gray-400 -mt-0.5">
+            <p className="font-homenaje rtl:font-almarai text-md text-gray-400 -mt-0.5">
               {email || "Email"}
             </p>
           </div>
@@ -80,7 +80,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 key={href}
                 href={href}
                 className={cn(
-                  "font-homenaje text-2xl text-white px-7 py-3 rounded-2xl transition-colors backdrop-blur-3xl",
+                  "font-homenaje rtl:font-almarai text-xl ltr:text-2xl text-white px-7 py-3 rounded-2xl transition-colors backdrop-blur-3xl",
                   isActive(pathname, href) ? "bg-white/10" : "bg-transparent"
                 )}
               >

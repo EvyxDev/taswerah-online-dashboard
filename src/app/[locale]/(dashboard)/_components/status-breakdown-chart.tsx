@@ -22,14 +22,15 @@ export function StatusBreakdownChart({
 
   const chartData = {
     labels: statusData.labels,
+
     datasets: [
       {
         data: statusData.data,
         backgroundColor: [
-          "rgba(34, 197, 94, 0.8)", // Green for completed
-          "rgba(239, 68, 68, 0.8)", // Red for failed
-          "rgba(234, 179, 8, 0.8)", // Yellow for pending
-          "rgba(59, 130, 246, 0.8)", // Blue for synced
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(239, 68, 68, 0.8)",
+          "rgba(234, 179, 8, 0.8)",
+          "rgba(59, 130, 246, 0.8)",
         ],
         borderColor: [
           "rgba(34, 197, 94, 1)",
@@ -60,9 +61,9 @@ export function StatusBreakdownChart({
   };
 
   return (
-    <Card className="h-full">
+    <Card className="h-full rounded-2xl">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-gray-800">
+        <CardTitle className="text-2xl font-normal font-homenaje rtl:font-almarai text-gray-800">
           {t("jobStatusBreakdown")}
         </CardTitle>
       </CardHeader>

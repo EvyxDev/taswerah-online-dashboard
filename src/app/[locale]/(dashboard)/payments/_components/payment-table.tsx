@@ -68,12 +68,12 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
         {/* Header */}
         <div className="flex items-center justify-between mb-8 px-7">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-homenaje  text-foreground">
+            <h2 className="text-2xl font-homenaje rtl:font-almarai  text-foreground">
               {t("navigation.employees")}
             </h2>
             <Badge
               variant="secondary"
-              className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
+              className="bg-[#535862] font-homenaje rtl:font-almarai t text-white hover:bg-[#535862]"
             >
               {filteredEmployees.length}
             </Badge>
@@ -114,13 +114,13 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
           <Table className="px-5">
             <TableHeader>
               <TableRow className=" px-7">
-                <TableHead className="font-medium text-start font-homenaje text-lg  text-gray-400 text-muted-foreground lg:w-[60%] xl:w-[77%]">
+                <TableHead className="font-medium text-start font-homenaje rtl:font-almarai text-lg  text-gray-400 text-muted-foreground lg:w-[60%] xl:w-[77%]">
                   {t("dashboard.name")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg  text-gray-400 text-muted-foreground text-center ">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg  text-gray-400 text-muted-foreground text-center ">
                   {t("dashboard.noCustomers")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg  text-gray-400 text-muted-foreground text-center">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg  text-gray-400 text-muted-foreground text-center">
                   {t("dashboard.noPhotos")}
                 </TableHead>
               </TableRow>
@@ -149,16 +149,16 @@ export default function PaymentTable({ employees }: { employees: Employee[] }) {
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg rtl:text-3xl">
+                          <span className="font-medium font-homenaje rtl:font-almarai text-lg  ">
                             {employee.name}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg   font-medium text-muted-foreground ml-12">
                       {employee?.stats?.total_customers || 0}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg rtl:text-3xl font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg   font-medium text-muted-foreground">
                       {employee?.stats?.total_photos || 0}
                     </TableCell>
                   </TableRow>

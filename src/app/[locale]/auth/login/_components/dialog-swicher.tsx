@@ -36,7 +36,7 @@ export function DialogSwicher({ className }: { className?: string }) {
       size="sm"
       onClick={switchLocale}
       className={cn(
-        "gap-1 px-2 bg-transparent hover:bg-transparent font-bold text-lg rtl:text-3xl transition-all duration-200 text-white",
+        "gap-1 px-2 bg-transparent hover:bg-transparent font-semibold text-xl transition-all duration-200 text-white",
         className
       )}
     >

@@ -15,7 +15,7 @@ export default function PackagesPage() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage className="flex items-center gap-2 font-homenaje text-sm text-gray-400">
+            <BreadcrumbPage className="flex items-center gap-2 font-homenaje rtl:font-almarai text-sm text-gray-400">
               {t("navigation.packages")}
             </BreadcrumbPage>
           </BreadcrumbItem>

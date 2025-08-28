@@ -20,7 +20,7 @@ export default function BranshesPage({ branshes }: Props) {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage className="flex items-center gap-2 font-homenaje text-sm text-gray-400">
+            <BreadcrumbPage className="flex items-center gap-2 font-homenaje rtl:font-almarai text-sm text-gray-400">
               {t("navigation.branches")}
             </BreadcrumbPage>
           </BreadcrumbItem>

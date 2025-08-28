@@ -48,12 +48,12 @@ export default function BranshesTable({ branshes }: Props) {
         {/* Header */}
         <div className="flex items-center justify-between mb-8 px-7">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-homenaje  text-foreground">
+            <h2 className="text-2xl font-homenaje rtl:font-almarai  text-foreground">
               {t("navigation.branches")}
             </h2>
             <Badge
               variant="secondary"
-              className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
+              className="bg-[#535862] font-homenaje rtl:font-almarai t text-white hover:bg-[#535862]"
             >
               {branshes.length}
             </Badge>
@@ -66,13 +66,13 @@ export default function BranshesTable({ branshes }: Props) {
           <Table className="px-5">
             <TableHeader>
               <TableRow className="px-7">
-                <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
+                <TableHead className="text-start text-gray-400 font-homenaje rtl:font-almarai text-lg  ">
                   {t("branches.ID")}
                 </TableHead>
-                <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
+                <TableHead className="text-start text-gray-400 font-homenaje rtl:font-almarai text-lg  ">
                   {t("branches.name")}
                 </TableHead>
-                <TableHead className="text-start text-gray-400 font-homenaje text-lg rtl:text-3xl">
+                <TableHead className="text-start text-gray-400 font-homenaje rtl:font-almarai text-lg  ">
                   {t("branches.token")}
                 </TableHead>
               </TableRow>
@@ -87,7 +87,7 @@ export default function BranshesTable({ branshes }: Props) {
                     }`}
                   >
                     <TableCell>
-                      <p className="font-medium font-homenaje text-lg ">
+                      <p className="font-medium font-homenaje rtl:font-almarai text-lg ">
                         {branch.id}
                       </p>
                     </TableCell>
@@ -99,7 +99,7 @@ export default function BranshesTable({ branshes }: Props) {
                           width={40}
                           height={40}
                         />
-                        <span className="font-medium font-homenaje text-lg ">
+                        <span className="font-medium font-homenaje rtl:font-almarai text-lg ">
                           {branch.name}
                         </span>
                       </div>
@@ -107,7 +107,7 @@ export default function BranshesTable({ branshes }: Props) {
                     <TableCell>
                       {branch.token ? (
                         <div className="flex items-center gap-2">
-                          <p className="font-medium font-homenaje text-lg ">
+                          <p className="font-medium font-homenaje rtl:font-almarai text-lg ">
                             {branch.token}
                           </p>
                           <button
@@ -128,7 +128,9 @@ export default function BranshesTable({ branshes }: Props) {
                           </button>
                         </div>
                       ) : (
-                        <p className="font-medium font-homenaje text-lg "> </p>
+                        <p className="font-medium font-homenaje rtl:font-almarai text-lg ">
+                          {" "}
+                        </p>
                       )}
                     </TableCell>
                   </TableRow>

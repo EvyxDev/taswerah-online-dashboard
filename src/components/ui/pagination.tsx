@@ -1,9 +1,9 @@
-import * as React from "react"
-import { ArrowLeft, ArrowRight, MoreHorizontal } from "lucide-react"
+import * as React from "react";
+import { ArrowLeft, ArrowRight, MoreHorizontal } from "lucide-react";
 
-import { cn } from "@/lib/utils/tailwind-merge"
-import { Button, ButtonProps, buttonVariants } from "@/components/ui/button"
-import { Link } from "@/i18n/routing"
+import { cn } from "@/lib/utils/tailwind-merge";
+import { Button, ButtonProps, buttonVariants } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -12,8 +12,8 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
     className={cn("mx-auto flex w-full justify-center", className)}
     {...props}
   />
-)
-Pagination.displayName = "Pagination"
+);
+Pagination.displayName = "Pagination";
 
 const PaginationContent = React.forwardRef<
   HTMLUListElement,
@@ -24,21 +24,21 @@ const PaginationContent = React.forwardRef<
     className={cn("flex flex-row items-center gap-1", className)}
     {...props}
   />
-))
-PaginationContent.displayName = "PaginationContent"
+));
+PaginationContent.displayName = "PaginationContent";
 
 const PaginationItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<"li">
 >(({ className, ...props }, ref) => (
   <li ref={ref} className={cn("", className)} {...props} />
-))
-PaginationItem.displayName = "PaginationItem"
+));
+PaginationItem.displayName = "PaginationItem";
 
 type PaginationLinkProps = {
-  isActive?: boolean
+  isActive?: boolean;
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<"a">;
 
 const PaginationLink = ({
   className,
@@ -58,8 +58,8 @@ const PaginationLink = ({
     )}
     {...props}
   />
-)
-PaginationLink.displayName = "PaginationLink"
+);
+PaginationLink.displayName = "PaginationLink";
 
 const PaginationPrevious = ({
   className,
@@ -69,14 +69,17 @@ const PaginationPrevious = ({
     type="button"
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-2 font-homenaje text-xl shadow-sm border disabled:bg-[#FAFAFA] bg-background hover:bg-slate-200", className)}
+    className={cn(
+      "gap-2 font-homenaje rtl:font-almarai text-xl shadow-sm border disabled:bg-[#FAFAFA] bg-background hover:bg-slate-200",
+      className
+    )}
     {...props}
   >
     <ArrowLeft className="h-8 w-8" />
     <span>Previous</span>
   </Button>
-)
-PaginationPrevious.displayName = "PaginationPrevious"
+);
+PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = ({
   className,
@@ -85,15 +88,18 @@ const PaginationNext = ({
   <Button
     type="button"
     aria-label="Go to next page"
-    size="default"  
-    className={cn("gap-2 font-homenaje text-xl shadow-sm border bg-background hover:bg-slate-200 disabled:bg-[#FAFAFA]", className)}
+    size="default"
+    className={cn(
+      "gap-2 font-homenaje rtl:font-almarai text-xl shadow-sm border bg-background hover:bg-slate-200 disabled:bg-[#FAFAFA]",
+      className
+    )}
     {...props}
   >
     <span>Next</span>
     <ArrowRight className="h-8 w-8" />
   </Button>
-)
-PaginationNext.displayName = "PaginationNext"
+);
+PaginationNext.displayName = "PaginationNext";
 
 const PaginationEllipsis = ({
   className,
@@ -107,8 +113,8 @@ const PaginationEllipsis = ({
     <MoreHorizontal className="h-4 w-4" />
     <span className="sr-only">More pages</span>
   </span>
-)
-PaginationEllipsis.displayName = "PaginationEllipsis"
+);
+PaginationEllipsis.displayName = "PaginationEllipsis";
 
 export {
   Pagination,
@@ -118,4 +124,4 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-}
+};

@@ -231,7 +231,7 @@ const MultiSelectorTrigger = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex flex-wrap gap-1  min-h-[46px] bg-[#E5E5E594] border-[#E5E5E57A] font-homenaje placeholder:text-[#BCBCBC] w-full rounded-md border px-5 py-2  ring-1 ring-muted ",
+        "flex flex-wrap gap-1  min-h-[46px] bg-[#E5E5E594] border-[#E5E5E57A] font-homenaje rtl:font-almarai placeholder:text-[#BCBCBC] w-full rounded-md border px-5 py-2  ring-1 ring-muted ",
         {
           "ring-1 focus-within:ring-ring": activeIndex === -1,
         },

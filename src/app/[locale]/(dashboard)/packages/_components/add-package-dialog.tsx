@@ -37,14 +37,14 @@ export default function AddPackageDialog() {
       <DialogTrigger asChild>
         <Button
           variant="default"
-          className="font-homenaje text-lg  main-button !w-[50px] !px-0 !py-0"
+          className="font-homenaje rtl:font-almarai text-lg  main-button !w-[50px] !px-0 !py-0"
         >
           <FaPlus className="text-5xl" />
         </Button>
       </DialogTrigger>
       <DialogContent className=" !max-w-2xl">
         <DialogHeader className="text-center">
-          <DialogTitle className="text-center text-4xl font-homenaje font-normal mb-2">
+          <DialogTitle className="text-center text-4xl font-homenaje rtl:font-almarai font-normal mb-2">
             {t("addPackage")}
           </DialogTitle>
         </DialogHeader>
@@ -106,7 +106,7 @@ export default function AddPackageDialog() {
                 required
               />
             </div>
-            <div className="flex-1 relative rounded-md h-12 bg-[#E5E5E594] border-[#E5E5E57A] font-homenaje placeholder:text-[#BCBCBC]">
+            <div className="flex-1 relative rounded-md h-12 bg-[#E5E5E594] border-[#E5E5E57A] font-homenaje rtl:font-almarai placeholder:text-[#BCBCBC]">
               <input
                 id="image"
                 name="image"

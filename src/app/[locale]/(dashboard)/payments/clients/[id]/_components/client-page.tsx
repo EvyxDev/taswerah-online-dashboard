@@ -17,13 +17,13 @@ export default function ClientPage({ clients }: { clients: Client[] }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbLink href="/payments">
-              <BreadcrumbPage className="flex items-center gap-2 font-homenaje text-sm text-gray-400">
+              <BreadcrumbPage className="flex items-center gap-2 font-homenaje rtl:font-almarai text-sm text-gray-400">
                 {t("navigation.payments")}
               </BreadcrumbPage>
             </BreadcrumbLink>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="flex items-center gap-2 font-homenaje text-sm text-gray-400">
+              <BreadcrumbPage className="flex items-center gap-2 font-homenaje rtl:font-almarai text-sm text-gray-400">
                 {t("dashboard.clients")}
               </BreadcrumbPage>
             </BreadcrumbItem>

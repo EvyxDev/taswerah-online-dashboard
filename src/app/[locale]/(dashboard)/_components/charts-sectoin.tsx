@@ -13,6 +13,7 @@ export default function ChartsSectoin({
   // Create status breakdown data for the chart
   const statusData = {
     labels: ["Completed", "Failed", "Pending", "Synced"],
+
     data: [
       syncJobsStats.status_breakdown.completed,
       syncJobsStats.status_breakdown.failed,

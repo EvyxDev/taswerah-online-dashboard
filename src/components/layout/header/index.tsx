@@ -70,7 +70,7 @@ export function Header() {
               placeholder={t("searchPlaceholder")}
               value={searchValue}
               onChange={handleSearchChange}
-              className={`bg-[#F5F6FA] border-[#D5D5D5] rounded-full font-homenaje ${
+              className={`bg-[#F5F6FA] border-[#D5D5D5] rounded-full font-homenaje rtl:font-almarai ${
                 isRTL ? "pr-10 text-right" : "pl-10 text-left"
               }`}
               dir={isRTL ? "rtl" : "ltr"}

@@ -70,7 +70,7 @@ export default function EmployeesPage({
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage className="flex items-center gap-2 font-homenaje text-sm text-gray-400">
+            <BreadcrumbPage className="flex items-center gap-2 font-homenaje rtl:font-almarai text-sm text-gray-400">
               {activeTab === "employees"
                 ? t("employeesTab")
                 : t("photographersTab")}
@@ -94,13 +94,13 @@ export default function EmployeesPage({
           >
             <TabsTrigger
               value="employees"
-              className="text-3xl font-homenaje py-4 px-8 rounded-2xl transition-colors data-[state=active]:bg-black data-[state=active]:text-white bg-[#FAFAFA] text-black hover:bg-gray-200 data-[state=active]:shadow-none"
+              className="text-3xl font-homenaje rtl:font-almarai py-4 px-8 rounded-2xl transition-colors data-[state=active]:bg-black data-[state=active]:text-white bg-[#FAFAFA] text-black hover:bg-gray-200 data-[state=active]:shadow-none"
             >
               {t("employeesTab")}
             </TabsTrigger>
             <TabsTrigger
               value="photographers"
-              className="text-3xl font-homenaje py-4 px-8 rounded-2xl transition-colors data-[state=active]:bg-black data-[state=active]:text-white bg-[#FAFAFA] text-black hover:bg-gray-200 data-[state=active]:shadow-none"
+              className="text-3xl font-homenaje rtl:font-almarai py-4 px-8 rounded-2xl transition-colors data-[state=active]:bg-black data-[state=active]:text-white bg-[#FAFAFA] text-black hover:bg-gray-200 data-[state=active]:shadow-none"
             >
               {t("photographersTab")}
             </TabsTrigger>

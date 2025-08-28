@@ -26,10 +26,10 @@ const Card = ({ title, value, unit, iconSrc }: CardProps) => {
         />
       </div>
       <div className="flex items-center justify-between w-full">
-        <h6 className="text-main-black font-homenaje text-xl lg:text-xl 2xl:text-2xl">
+        <h6 className="text-main-black font-homenaje rtl:font-almarai text-xl lg:text-xl 2xl:text-2xl">
           {title}
         </h6>
-        <p className="text-main-black font-homenaje text-2xl sm:text-3xl md:text-base 2xl:text-4xl">
+        <p className="text-main-black font-homenaje rtl:font-almarai text-2xl sm:text-3xl md:text-base 2xl:text-4xl">
           {value} {unit && unit}
         </p>
       </div>

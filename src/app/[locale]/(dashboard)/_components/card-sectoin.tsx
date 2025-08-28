@@ -16,30 +16,19 @@ interface StatCardProps {
   iconColor: string;
 }
 
-const StatCard = ({
-  title,
-  value,
-  description,
-  icon: Icon,
-  iconColor,
-}: StatCardProps) => {
+const StatCard = ({ title, value, icon: Icon, iconColor }: StatCardProps) => {
   return (
-    <div className="bg-white flex flex-col justify-between shadow-sm shadow-black/10 border border-gray-200 p-4 2xl:p-6 rounded-2xl h-40 sm:h-44 md:h-48 lg:h-40 2xl:h-48 hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white flex flex-col justify-between shadow-sm rounded-2xl border-[#202020] shadow-black/10 border-[15px]  p-4 hover:shadow-xl transition-shadow duration-300">
       <div className="2xl:mb-2">
         <Icon className={`w-10 sm:w-12 lg:w-10 2xl:w-14 h-auto ${iconColor}`} />
       </div>
-      <div className="flex flex-col justify-between h-full">
-        <h6 className="text-main-black font-homenaje text-xl lg:text-xl 2xl:text-2xl">
+      <div className="flex justify-between h-full mt-5">
+        <h6 className="text-main-black ltr:font-homenaje rtl:font-almarai text-lg ">
           {title}
         </h6>
-        <div>
-          <p className="text-main-black font-homenaje text-2xl sm:text-3xl md:text-base 2xl:text-4xl mb-1">
-            {value}
-          </p>
-          {description && (
-            <p className="text-xs text-gray-500 font-homenaje">{description}</p>
-          )}
-        </div>
+        <p className="text-main-black text-2xl font-homenaje rtl:font-almarai mb-1">
+          {value}
+        </p>
       </div>
     </div>
   );

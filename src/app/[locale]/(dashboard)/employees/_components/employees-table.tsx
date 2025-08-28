@@ -83,12 +83,12 @@ export default function EmployeesTable({
         {/* Header */}
         <div className="flex items-center justify-between mb-8 px-7">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-homenaje  text-foreground">
+            <h2 className="text-2xl font-homenaje rtl:font-almarai  text-foreground">
               {tNav("employees")}
             </h2>
             <Badge
               variant="secondary"
-              className="bg-[#535862] font-homenaje t text-white hover:bg-[#535862]"
+              className="bg-[#535862] font-homenaje rtl:font-almarai t text-white hover:bg-[#535862]"
             >
               {employeesData?.length || 0}
             </Badge>
@@ -101,22 +101,22 @@ export default function EmployeesTable({
           <Table className="px-5">
             <TableHeader>
               <TableRow className=" px-7">
-                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-start w-[100px] ">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg   text-gray-400 text-muted-foreground text-start w-[100px] ">
                   {t("status")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-start w-[130px] ">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg   text-gray-400 text-muted-foreground text-start w-[130px] ">
                   {t("name")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[130px]">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg   text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("email")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[200px]">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg   text-gray-400 text-muted-foreground text-center w-[200px]">
                   {t("phoneNumber")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[130px]">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg   text-gray-400 text-muted-foreground text-center w-[130px]">
                   {t("branch")}
                 </TableHead>
-                <TableHead className="font-medium font-homenaje text-lg rtl:text-3xl text-gray-400 text-muted-foreground text-center w-[100px]">
+                <TableHead className="font-medium font-homenaje rtl:font-almarai text-lg   text-gray-400 text-muted-foreground text-center w-[100px]">
                   {t("actions")}
                 </TableHead>
               </TableRow>
@@ -149,19 +149,19 @@ export default function EmployeesTable({
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col">
-                          <span className="font-medium font-homenaje text-lg ">
+                          <span className="font-medium font-homenaje rtl:font-almarai text-lg ">
                             {employee.name}
                           </span>
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg  font-medium text-muted-foreground">
                       {employee.email}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg  font-medium text-muted-foreground ml-12">
                       {employee.phone}
                     </TableCell>
-                    <TableCell className="text-center font-homenaje text-lg  font-medium text-muted-foreground ml-12">
+                    <TableCell className="text-center font-homenaje rtl:font-almarai text-lg  font-medium text-muted-foreground ml-12">
                       {employee?.branch?.name || t("unknown")}
                     </TableCell>
                     <TableCell className="text-center">

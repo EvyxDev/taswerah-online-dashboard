@@ -4,40 +4,41 @@ import { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import localFont from "next/font/local";
+import { Homenaje, Almarai } from "next/font/google";
 
-const Homenaje = localFont({
-  src: "./fonts/Homenaje-Regular.ttf",
-  variable: "--font-Homenaje",
+const homenaje = Homenaje({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-homenaje",
+  display: "swap",
 });
-export async function generateMetadata(): Promise<Metadata> {
-  // Translation
-  const t = await getTranslations();
 
-  // Variables
+const almarai = Almarai({
+  subsets: ["arabic"],
+  weight: ["400"],
+  variable: "--font-almarai",
+  display: "swap",
+});
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
   const title = t("application-title");
 
-  return {
-    title,
-  };
+  return { title };
 }
 
 export default function LocaleLayout({
   children,
   params: { locale },
 }: LayoutProps) {
-  // Ensure that the incoming `locale` is valid
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-      <body className={` ${Homenaje.variable}`}>
-        <Providers>
-          {/* Main */}
-          {children}
-        </Providers>
+      <body className={`${homenaje.variable} ${almarai.variable}`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
