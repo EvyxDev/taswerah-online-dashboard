@@ -123,7 +123,7 @@ export default function LoginDialog() {
             <Button
               type="submit"
               disabled={isPending}
-              className="main-button self-center font-homenaje rtl:font-almarai mt-3 sm:mt-4 h-[50px] sm:h-[55px] 2xl:h-[60px] w-48 sm:w-52 2xl:w-56 bg-[#202020] text-lg sm:text-xl"
+              className="main-button self-center font-homenaje rtl:font-almarai mt-3 sm:mt-4 h-[50px] sm:h-[55px] 2xl:h-[60px] w-48 sm:w-52 2xl:w-56 bg-[#202020] text-lg sm:text-xl hover:!bg-[#202020]"
             >
               {isPending ? "Confirming..." : "Confirm"}
             </Button>
