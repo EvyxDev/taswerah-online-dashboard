@@ -165,5 +165,7 @@
   "branch-manager-created-successfully": "Branch manager created successfully",
   "application-title": "Taswera Dashboard",
   "unknown": "Unknown",
-  "select-label": "Branch"
+  "select-label": "Branch",
+  "password": "Password",
+  "phone-number": "Email"
 }

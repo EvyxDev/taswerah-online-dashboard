@@ -162,5 +162,7 @@
   "branch-manager-created-successfully": "تم إنشاء مدير الفرع بنجاح",
   "application-title": "لوحة تحكم تصويره",
   "unknown": "غير معروف",
-  "select-label": "الفرع"
+  "select-label": "الفرع",
+  "password": "كلمة السر",
+  "phone-number": "البريد الالكتروني"
 }

@@ -24,10 +24,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFields, useLoginSchema } from "@/lib/schemes/auth.schema";
 import useLogin from "../_hooks/use-login";
+import { useTranslations } from "next-intl";
 
 export default function LoginDialog() {
   const { isPending, error, login } = useLogin();
   const loginSchema = useLoginSchema();
+  const t = useTranslations();
 
   const form = useForm<LoginFields>({
     resolver: zodResolver(loginSchema),
@@ -83,7 +85,7 @@ export default function LoginDialog() {
                     <Input
                       {...field}
                       type="email"
-                      placeholder="Email Address"
+                      placeholder={t("phone-number")}
                       className="h-12 sm:h-13 2xl:h-14 w-full placeholder:font-homenaje rtl:font-almarai rounded-lg border border-gray-400 bg-white/80 p-2 px-3 pe-8 sm:pe-10 text-xs sm:text-sm focus:outline-none focus:ring-0"
                       disabled={isPending}
                     />
@@ -103,7 +105,7 @@ export default function LoginDialog() {
                   <FormControl>
                     <PasswordInput
                       {...field}
-                      placeholder="Password"
+                      placeholder={t("password")}
                       className="h-12 sm:h-13 2xl:h-14 w-full placeholder:font-homenaje rtl:font-almarai rounded-lg border border-gray-400 bg-white/80 p-2 px-3 pe-8 sm:pe-10 text-xs sm:text-sm focus:outline-none focus:ring-0"
                       disabled={isPending}
                     />

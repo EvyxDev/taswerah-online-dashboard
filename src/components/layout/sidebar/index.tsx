@@ -55,6 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             alt="Logo"
             width={180}
             height={0}
+            className="-ml-1"
           />
           <div className="flex flex-col mt-5 2xl:mt-14">
             <Image
