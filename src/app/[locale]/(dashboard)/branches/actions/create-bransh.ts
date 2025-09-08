@@ -6,20 +6,21 @@ import { revalidatePath } from "next/cache";
 
 export default async function createBransh(data: CreateBranchBody) {
   const token = await getAuthToken();
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/branches`,
-    {
-      method: "POST",
-      body: JSON.stringify({
-        name: data.name,
-        is_active: true
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/branches`, {
+    method: "POST",
+    body: JSON.stringify({
+      name: data.name,
+      is_active: true,
+      admin_email: data.adminEmail,
+      admin_password: data.adminPassword,
+      manager_email: data.branchManagerEmail,
+      manager_password: data.branchManagerPassword,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!response.ok) {
     throw new Error("Failed to create branch");
   }

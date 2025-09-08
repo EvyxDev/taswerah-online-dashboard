@@ -109,6 +109,10 @@
   "branches": {
     "status": "الحالة",
     "name": "الاسم",
+    "adminEmail": "البريد الإلكتروني للمدير",
+    "adminPassword": "كلمة مرور المدير",
+    "branchManagerEmail": "البريد الإلكتروني لمدير الفرع",
+    "branchManagerPassword": "كلمة مرور مدير الفرع",
     "noEmployees": "عدد الموظفين",
     "noPhotographers": "عدد المصورين",
     "location": "الموقع",

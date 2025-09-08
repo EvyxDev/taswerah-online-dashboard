@@ -1,7 +1,16 @@
-export default function Page() {
-  return (
-    <div className="flex h-full w-full items-center justify-center">
-      <h1 className="text-2xl font-bold"> Page</h1>
-    </div>
-  );
+import SettingsPage from "./_components/settings-page";
+import { GetAllFrames } from "@/lib/api/frames.api";
+import { GetAllStickers } from "@/lib/api/stickers.api";
+import { getAuthToken } from "@/lib/utils/auth.token";
+
+export default async function Page() {
+  const token = await getAuthToken();
+  const [frames, stickers] = await Promise.all([
+    GetAllFrames(token || ""),
+    GetAllStickers(token || ""),
+  ]);
+
+  // Normalize to shape expected by client
+
+  return <SettingsPage frames={frames} stickers={stickers} />;
 }

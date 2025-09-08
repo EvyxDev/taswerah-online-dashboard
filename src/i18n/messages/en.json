@@ -67,6 +67,10 @@
   "branches": {
     "status": "Status",
     "name": "Name",
+    "adminEmail": "Admin Email",
+    "adminPassword": "Admin Password",
+    "branchManagerEmail": "Branch Manager Email",
+    "branchManagerPassword": "Branch Manager Password",
     "noEmployees": "NO. Employees",
     "noPhotographers": "NO. Photographers",
     "location": "Location",

@@ -28,7 +28,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import useCreateBransh from "../_hooks/use-create-bransh";
 import { toast } from "sonner";
 
-export default function AddorEditBranshForm({
+export default function AddorEditBranchForm({
   onSuccess,
 }: {
   onSuccess?: () => void;
@@ -43,6 +43,10 @@ export default function AddorEditBranshForm({
     resolver: zodResolver(branchSchema),
     defaultValues: {
       name: "",
+      adminEmail: "",
+      adminPassword: "",
+      branchManagerEmail: "",
+      branchManagerPassword: "",
     },
   });
 
@@ -50,6 +54,10 @@ export default function AddorEditBranshForm({
   async function onSubmit(values: AddBranchFields) {
     const sendData: CreateBranchBody = {
       name: values.name,
+      adminEmail: values.adminEmail,
+      adminPassword: values.adminPassword,
+      branchManagerEmail: values.branchManagerEmail,
+      branchManagerPassword: values.branchManagerPassword,
     };
 
     AddBransh(sendData, {
@@ -79,7 +87,8 @@ export default function AddorEditBranshForm({
           </Alert>
         )}
 
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-4">
+          {/* Branch Name */}
           <div className="flex-1">
             <FormField
               control={form.control}
@@ -91,6 +100,98 @@ export default function AddorEditBranshForm({
                       {...field}
                       id="name"
                       placeholder={t("name")}
+                      type="text"
+                      required
+                      disabled={AddPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* Admin Email */}
+          <div className="flex-1">
+            <FormField
+              control={form.control}
+              name="adminEmail"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="adminEmail"
+                      placeholder={t("adminEmail")}
+                      type="email"
+                      required
+                      disabled={AddPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* Admin Password */}
+          <div className="flex-1">
+            <FormField
+              control={form.control}
+              name="adminPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="adminPassword"
+                      placeholder={t("adminPassword")}
+                      type="text"
+                      required
+                      disabled={AddPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* Branch Manager Email */}
+          <div className="flex-1">
+            <FormField
+              control={form.control}
+              name="branchManagerEmail"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="branchManagerEmail"
+                      placeholder={t("branchManagerEmail")}
+                      type="email"
+                      required
+                      disabled={AddPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* Branch Manager Password */}
+          <div className="flex-1">
+            <FormField
+              control={form.control}
+              name="branchManagerPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="branchManagerPassword"
+                      placeholder={t("branchManagerPassword")}
                       type="text"
                       required
                       disabled={AddPending}
