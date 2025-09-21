@@ -57,3 +57,38 @@ export async function GetAllPaginatedBranshes(
     );
   }
 }
+
+export type BranchLastSync = {
+  branch_id: number;
+  branch_name: string;
+  last_sync_job_id: number | null;
+  last_sync_time: string | null;
+};
+
+export async function GetBranchesLastSync(): Promise<BranchLastSync[]> {
+  try {
+    const response = await fetch(`/api/branches/last-sync`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch branches last sync. Status: ${response.status}`
+      );
+    }
+
+    const raw = await response.json();
+    const data = (raw?.data ?? []) as BranchLastSync[];
+    return data;
+  } catch (error: any) {
+    console.error("GetBranchesLastSync error:", error);
+    return [];
+  }
+}
+
+// Server-side variant for use in Server Components/Pages only
+// Server variant moved to src/lib/api/branches.server.ts

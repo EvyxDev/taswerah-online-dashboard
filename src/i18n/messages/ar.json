@@ -15,6 +15,8 @@
     "noEmployeesFound": "لا يوجد موظف"
   },
   "dashboard": {
+    "lastSync": "آخر مزامنة",
+    "noData": "لا توجد بيانات",
     "totalSales": "إجمالي المبيعات",
     "clients": "العملاء",
     "printedPhotos": "الصور المطبوعة",

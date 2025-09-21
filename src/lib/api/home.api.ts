@@ -34,6 +34,8 @@ export async function GethomeStates(): Promise<homeStates> {
   }
 }
 
+// Last Sync client moved to client-safe file `lib/api/last-sync.api.ts`
+
 export async function GetBranchSyncJobsStats(
   branchId: string
 ): Promise<homeStates> {

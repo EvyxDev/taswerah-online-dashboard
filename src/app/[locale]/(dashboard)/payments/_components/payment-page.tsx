@@ -21,6 +21,7 @@ import CardSection from "../../_components/card-sectoin";
 import ChartsSectoin from "../../_components/charts-sectoin";
 import DashTable from "../../_components/dash-table";
 import { SelectGroup } from "@radix-ui/react-select";
+import PaymentFilterDialog from "./payment-filter-dialog";
 
 export default function PaymentPage({
   branches,
@@ -62,7 +63,7 @@ export default function PaymentPage({
 
       <div className="py-10 space-y-8">
         {/* Branch Selection Dropdown */}
-        <div className="w-full">
+        <div className="w-full flex items-center justify-between">
           <Select value={currentBranchId} onValueChange={handleBranchChange}>
             <SelectGroup className="p-0">
               <SelectLabel className="text-2xl font-homenaje rtl:font-almarai font-medium p-0">
@@ -84,6 +85,13 @@ export default function PaymentPage({
               ))}
             </SelectContent>
           </Select>
+          <PaymentFilterDialog
+            staff={
+              (displayData as unknown as { employees?: Employee[] })
+                .employees || []
+            }
+            branches={branches}
+          />
         </div>
 
         {/* Dashboard Content */}
