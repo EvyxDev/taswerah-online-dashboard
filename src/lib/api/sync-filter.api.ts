@@ -3,6 +3,7 @@
 export type SyncFilterResponse = {
   sync_jobs: Array<{
     id: number | string;
+    branch_id?: number | string | null;
     employeeName: string;
     employee_id?: number | string | null;
     orderprefixcode: string;
@@ -18,6 +19,12 @@ export type SyncFilterResponse = {
     total_photos: number;
     total_money: number;
   };
+  employee_photos_summary?: Array<{
+    employee_id?: number | string | null;
+    branch_id?: number | string | null;
+    employeeName: string;
+    total_photos: number;
+  }>;
 };
 
 export async function GetSyncFilter(params: {
@@ -53,23 +60,25 @@ export async function GetSyncFilter(params: {
     }
 
     const raw = await response.json();
+    console.log("Raw API response:", raw); // Debug log
 
-    // If already in desired shape
-    if (raw && "sync_jobs" in raw && "statistics" in raw) {
-      return raw as SyncFilterResponse;
+    // Handle the actual API structure: { message: "...", data: { jobs: [...], total_photos: ..., total_money: ..., employee_photos_summary: [...] } }
+    if (raw && raw.data && Array.isArray(raw.data.jobs)) {
+      const normalized: SyncFilterResponse = {
+        sync_jobs: raw.data.jobs,
+        statistics: {
+          total_photos: Number(raw.data.total_photos ?? 0),
+          total_money: Number(raw.data.total_money ?? 0),
+        },
+        employee_photos_summary: raw.data.employee_photos_summary || [],
+      };
+      console.log("Normalized response:", normalized); // Debug log
+      return normalized;
     }
 
-    // Some backends return { data: { jobs: [...], total_money, total_photos }, message }
-    const maybeData = raw?.data ?? raw;
-    if (maybeData && Array.isArray(maybeData.jobs)) {
-      const normalized: SyncFilterResponse = {
-        sync_jobs: maybeData.jobs,
-        statistics: {
-          total_photos: Number(maybeData.total_photos ?? 0),
-          total_money: Number(maybeData.total_money ?? 0),
-        },
-      };
-      return normalized;
+    // Fallback: If already in desired shape (this probably won't happen based on your API)
+    if (raw && "sync_jobs" in raw && "statistics" in raw) {
+      return raw as SyncFilterResponse;
     }
 
     throw new Error("Unexpected sync filter response shape");

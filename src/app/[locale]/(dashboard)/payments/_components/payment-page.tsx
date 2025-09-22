@@ -27,10 +27,12 @@ export default function PaymentPage({
   branches,
   selectedBranchId,
   initialData,
+  employees = [],
 }: {
   branches: Branch[];
   selectedBranchId: string;
   initialData: homeStates | null;
+  employees?: BranchEmployee[];
 }) {
   const t = useTranslations();
   const router = useRouter();
@@ -86,11 +88,9 @@ export default function PaymentPage({
             </SelectContent>
           </Select>
           <PaymentFilterDialog
-            staff={
-              (displayData as unknown as { employees?: Employee[] })
-                .employees || []
-            }
             branches={branches}
+            employees={employees}
+            selectedBranchId={currentBranchId}
           />
         </div>
 

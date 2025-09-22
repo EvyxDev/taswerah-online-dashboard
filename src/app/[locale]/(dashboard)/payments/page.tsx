@@ -2,6 +2,7 @@ import { getAuthToken } from "@/lib/utils/auth.token";
 import PaymentPage from "./_components/payment-page";
 import { GetAllBranshes } from "@/lib/api/branches.api";
 import { GetBranchSyncJobsStats } from "@/lib/api/home.api";
+import { GetEmployeesByBranch } from "@/lib/api/client.api";
 
 export default async function Page({
   searchParams,
@@ -17,8 +18,16 @@ export default async function Page({
 
   // Fetch data for selected branch
   let branchData = null;
+  let employees: BranchEmployee[] = [];
   if (selectedBranchId) {
     branchData = await GetBranchSyncJobsStats(selectedBranchId);
+    const employeesResp = await GetEmployeesByBranch(
+      token || "",
+      selectedBranchId
+    );
+    if ("data" in employeesResp) {
+      employees = employeesResp.data || [];
+    }
   }
 
   return (
@@ -27,6 +36,7 @@ export default async function Page({
         branches={branches}
         selectedBranchId={selectedBranchId}
         initialData={branchData}
+        employees={employees}
       />
     </>
   );

@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { GetAllEmployees } from "@/lib/api/client.api";
+import { GetEmployeesByBranch } from "@/lib/api/client.api";
 
-export function useEmployees() {
+export function useEmployees(branchId?: string) {
   const { data } = useSession();
   const token = data?.token;
-  return useQuery({
-    queryKey: ["employees", token],
-    queryFn: () => GetAllEmployees(token || ""),
-    enabled: !!token,
+  return useQuery<APIResponse<BranchEmployee[]>>({
+    queryKey: ["employees", token, branchId],
+    queryFn: () => GetEmployeesByBranch(token || "", branchId as string),
+    enabled: !!token && !!branchId,
   });
 }

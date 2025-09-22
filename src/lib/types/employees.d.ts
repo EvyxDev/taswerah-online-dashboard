@@ -129,3 +129,10 @@ declare type Photo = {
   created_at: string;
   updated_at: string;
 };
+
+// Lightweight employee shape returned by /employees?branch_id=
+declare type BranchEmployee = {
+  employee_id: number | null;
+  branch_id: number;
+  employeeName: string;
+};

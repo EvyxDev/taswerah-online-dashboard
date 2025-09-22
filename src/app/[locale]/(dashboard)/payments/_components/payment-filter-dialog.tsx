@@ -19,22 +19,35 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import usePaymentsSyncFilter from "../_hooks/use-sync-filter";
-import { exportSyncJobsToExcel } from "@/lib/utils/excel-export";
 import { Download } from "lucide-react";
-import { useEmployees } from "../../_hooks/use-employees";
+// import { useEmployees } from "../../_hooks/use-employees";
 import { useQueryClient } from "@tanstack/react-query";
+import { exportSyncJobsToExcel } from "@/lib/utils/export-excel";
+import { useRouter, useSearchParams } from "next/navigation";
 
-type Props = { staff?: Employee[]; branches?: Branch[] };
+type Props = {
+  branches?: Branch[];
+  employees?: BranchEmployee[];
+  selectedBranchId?: string;
+};
 
-export default function PaymentFilterDialog({ staff, branches = [] }: Props) {
+export default function PaymentFilterDialog({
+  branches = [],
+  employees = [],
+  selectedBranchId: selectedBranchFromProps,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [fromDate, setFromDate] = useState<string>("");
   const [toDate, setToDate] = useState<string>("");
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>("all");
   const [employeeName, setEmployeeName] = useState<string>("");
   const [submitted, setSubmitted] = useState(false);
-  const [selectedBranchId, setSelectedBranchId] = useState<string>("all");
+  const [selectedBranchId, setSelectedBranchId] = useState<string>(
+    selectedBranchFromProps || "all"
+  );
   const queryClient = useQueryClient();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const { syncFilterData, isLoading, error, refetch } = usePaymentsSyncFilter({
     employee_id:
@@ -65,17 +78,21 @@ export default function PaymentFilterDialog({ staff, branches = [] }: Props) {
     queryClient.removeQueries({ queryKey: ["payments-sync-filter"] });
   };
 
-  const handleExport = () => {
-    if (syncFilterData) {
-      exportSyncJobsToExcel(syncFilterData, "sync-jobs-filtered");
+  const staffList: BranchEmployee[] = (employees || []).filter(
+    (e) => e.employee_id !== null
+  );
+
+  const handleBranchChange = (branchId: string) => {
+    setSelectedBranchId(branchId);
+    setSelectedEmployeeId("all");
+    const params = new URLSearchParams(searchParams.toString());
+    if (branchId === "all") {
+      params.delete("branch_id");
+    } else {
+      params.set("branch_id", branchId);
     }
+    router.push(`?${params.toString()}`);
   };
-
-  // Fallback: fetch employees if not provided
-  const { data: employeesPayload } = useEmployees();
-  const staffList: Employee[] = staff || employeesPayload?.data?.data || [];
-
-  // Branches are provided from the server page via props
 
   return (
     <Dialog
@@ -123,27 +140,29 @@ export default function PaymentFilterDialog({ staff, branches = [] }: Props) {
               type="date"
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <Label className="font-homenaje rtl:font-almarai text-sm">
-              Branch
-            </Label>
-            <Select
-              value={selectedBranchId}
-              onValueChange={setSelectedBranchId}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select branch" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All branches</SelectItem>
-                {branches.map((b) => (
-                  <SelectItem key={b.id} value={String(b.id)}>
-                    {b.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {branches?.length ? (
+            <div className="flex flex-col gap-2">
+              <Label className="font-homenaje rtl:font-almarai text-sm">
+                Branch
+              </Label>
+              <Select
+                value={selectedBranchId}
+                onValueChange={handleBranchChange}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select branch" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All branches</SelectItem>
+                  {branches.map((b) => (
+                    <SelectItem key={b.id} value={String(b.id)}>
+                      {b.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          ) : null}
           <div className="flex flex-col gap-2">
             <Label className="font-homenaje rtl:font-almarai text-sm">
               Employee
@@ -151,7 +170,7 @@ export default function PaymentFilterDialog({ staff, branches = [] }: Props) {
             <Select
               value={selectedEmployeeId}
               onValueChange={setSelectedEmployeeId}
-              disabled={selectedBranchId === "all"}
+              disabled={selectedBranchId === "all" || staffList.length === 0}
             >
               <SelectTrigger className="w-full">
                 <SelectValue
@@ -165,8 +184,11 @@ export default function PaymentFilterDialog({ staff, branches = [] }: Props) {
               <SelectContent>
                 <SelectItem value="all">All employees</SelectItem>
                 {staffList.map((emp) => (
-                  <SelectItem key={emp.id} value={String(emp.id)}>
-                    {emp.name}
+                  <SelectItem
+                    key={String(emp.employee_id)}
+                    value={String(emp.employee_id)}
+                  >
+                    {emp.employeeName}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -207,9 +229,9 @@ export default function PaymentFilterDialog({ staff, branches = [] }: Props) {
                   Sync Jobs Results
                 </h3>
                 <Button
-                  onClick={handleExport}
                   className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white"
                   size="sm"
+                  onClick={() => exportSyncJobsToExcel(syncFilterData)}
                 >
                   <Download className="h-4 w-4" />
                   Export as Excel
