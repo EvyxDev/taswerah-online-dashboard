@@ -80,7 +80,7 @@ export default function DashTable({
             </TableHeader>
             <TableBody>
               {syncJobs.length > 0 ? (
-                syncJobs.slice(0, 10).map((job, index) => (
+                syncJobs.map((job, index) => (
                   <TableRow
                     key={job.id}
                     className={`px-7 h-[70px] ${

@@ -53,7 +53,7 @@ export default function DashBoard({
           </div>
         </div>
         <CardSection syncJobsStats={homeStates} />
-        <ChartsSectoin syncJobsStats={homeStates} />
+        {/* <ChartsSectoin syncJobsStats={homeStates} /> */}
         <BranchesLastSyncTable rows={branchesLastSync} />
         <DashTable syncJobs={homeStates.jobs} />
       </div>

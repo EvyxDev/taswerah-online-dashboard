@@ -50,7 +50,7 @@ export default function PaymentPage({
 
   // Use initial data
   const displayData = initialData;
-
+  console.log(displayData);
   return (
     <div className="space-y-8 px-6 xl:px-10 py-5">
       <Breadcrumb>
