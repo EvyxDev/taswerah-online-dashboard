@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/select";
 import { useTranslations } from "next-intl";
 import CardSection from "../../_components/card-sectoin";
-import ChartsSectoin from "../../_components/charts-sectoin";
 import DashTable from "../../_components/dash-table";
 import { SelectGroup } from "@radix-ui/react-select";
 import PaymentFilterDialog from "./payment-filter-dialog";
@@ -98,7 +97,7 @@ export default function PaymentPage({
         {displayData && (
           <>
             <CardSection syncJobsStats={displayData} />
-            <ChartsSectoin syncJobsStats={displayData} />
+            {/* <ChartsSectoin syncJobsStats={displayData} /> */}
             <DashTable syncJobs={displayData.jobs} />
           </>
         )}

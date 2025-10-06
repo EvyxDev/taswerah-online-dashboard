@@ -9,7 +9,6 @@ import {
 import { IoMdHome } from "react-icons/io";
 import { useTranslations } from "next-intl";
 import CardSection from "./card-sectoin";
-import ChartsSectoin from "./charts-sectoin";
 import DashTable from "./dash-table";
 import { useLastSync } from "../_hooks/use-branshes";
 import { Clock } from "lucide-react";
